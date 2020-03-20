@@ -21,9 +21,14 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 
 	Route::namespace('Auth')->group(function () {
 
+		//Login
 		Route::get('login', 'LoginController@form')->name('admin.login'); // http://localhost/catalogo/public/admin/login
 		Route::post('login', 'LoginController@login');
 		//Route::get('logout', 'LoginController@destroy')->name('admin.logout');
+
+		//Products
+		Route::get('product', 'ProductController@showView')->name('admin.product.form');
+
 	});
 
 
