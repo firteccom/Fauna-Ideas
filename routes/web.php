@@ -27,7 +27,16 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		//Route::get('logout', 'LoginController@destroy')->name('admin.logout');
 
 		//Products
-		Route::get('product', 'ProductController@showView')->name('admin.product.form');
+		Route::get('products', 'ProductController@showView')->name('admin.product.form');
+		Route::post('getProducts', 'ProductController@getProducts')->name('admin.product.getall');
+		Route::get('product-image/{dimension}/{nproductid}/{type}', 'ProductController@showThumbnailImage')->name('admin.product.thumbnail');
+
+		//Categories
+		Route::get('categories', 'CategoryController@showView')->name('admin.category.form');
+		Route::post('getCategory', 'CategoryController@getCategory')->name('admin.category.get');
+		Route::post('getListCategories', 'CategoryController@getListCategories')->name('admin.category.getlist');		
+		Route::post('getCategories', 'CategoryController@getCategories')->name('admin.category.getall');
+		Route::post('saveCategory', 'CategoryController@saveCategory')->name('admin.category.save');
 
 	});
 
