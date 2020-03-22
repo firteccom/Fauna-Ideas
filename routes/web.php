@@ -26,7 +26,6 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		Route::get('logout', 'LoginController@destroy')->name('admin.logout');
 	});
 
-
 	//Dashboard
 	Route::namespace('Dashboard')->prefix('dashboard')->group(function () {
 		Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
@@ -35,6 +34,16 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 	//Products
 	Route::namespace('Product')->prefix('product')->group(function () {
 		Route::get('/', 'ProductController@showView')->name('admin.product.form');
+		Route::post('getProducts', 'ProductController@getProducts')->name('admin.product.getall');
+		Route::get('product-image/{dimension}/{nproductid}/{type}', 'ProductController@showThumbnailImage')->name('admin.product.thumbnail');
 	});
 
+	//Categories
+	Route::namespace('Categories')->prefix('categories')->group(function () {
+		Route::get('/', 'CategoryController@showView')->name('admin.category.form');
+		Route::post('getCategory', 'CategoryController@getCategory')->name('admin.category.get');
+		Route::post('getListCategories', 'CategoryController@getListCategories')->name('admin.category.getlist');		
+		Route::post('getCategories', 'CategoryController@getCategories')->name('admin.category.getall');
+		Route::post('saveCategory', 'CategoryController@saveCategory')->name('admin.category.save');
+	});
 });
