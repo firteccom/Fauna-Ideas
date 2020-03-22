@@ -144,4 +144,38 @@
 
         }
 
+        public function desactivateCategory(Request $request){
+            try {
+                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'N']);
+
+                $resp['status'] = 'success';
+                $resp['msg'] = 'La categoría de desactivó correctamente.';
+
+            } catch (\Exception $ex) {
+
+                $resp['status'] = 'error';
+                $resp['msg'] = 'No se pudo desactivar la categoría '.$ex->getMessage();
+
+            }
+                
+            return response()->json($resp);
+        }
+
+        public function activateCategory(Request $request){
+            try {
+                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'A']);
+
+                $resp['status'] = 'success';
+                $resp['msg'] = 'La categoría de activó correctamente.';
+
+            } catch (\Exception $ex) {
+
+                $resp['status'] = 'error';
+                $resp['msg'] = 'No se pudo activar la categoría '.$ex->getMessage();
+
+            }
+                
+            return response()->json($resp);
+        }
+
     }

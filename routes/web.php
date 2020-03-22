@@ -37,6 +37,8 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		Route::post('getListCategories', 'CategoryController@getListCategories')->name('admin.category.getlist');		
 		Route::post('getCategories', 'CategoryController@getCategories')->name('admin.category.getall');
 		Route::post('saveCategory', 'CategoryController@saveCategory')->name('admin.category.save');
+		Route::post('desactivateCategory', 'CategoryController@desactivateCategory')->name('admin.category.desactivate');
+		Route::post('activateCategory', 'CategoryController@activateCategory')->name('admin.category.activate');
 
 	});
 
