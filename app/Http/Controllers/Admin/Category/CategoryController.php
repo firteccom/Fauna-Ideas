@@ -1,14 +1,11 @@
 <?php
 
-	namespace App\Http\Controllers\Admin\Auth;
+	namespace App\Http\Controllers\Admin\Category;
 
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Admin\Login\CategoryRequest;
-	use App\Model\User;
 	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\Auth;
-	use Illuminate\Support\Facades\Hash;
-	use App\Model\Category;
+	use App\Http\Controllers\Controller;
+	use App\Model\User;
+	use App\Model\Category;	
 
 
 	class CategoryController extends Controller {
