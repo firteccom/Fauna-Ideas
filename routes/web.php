@@ -39,11 +39,17 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 	});
 
 	//Categories
-	Route::namespace('Categories')->prefix('categories')->group(function () {
+	Route::namespace('Category')->prefix('category')->group(function () {
 		Route::get('/', 'CategoryController@showView')->name('admin.category.form');
 		Route::post('getCategory', 'CategoryController@getCategory')->name('admin.category.get');
 		Route::post('getListCategories', 'CategoryController@getListCategories')->name('admin.category.getlist');		
 		Route::post('getCategories', 'CategoryController@getCategories')->name('admin.category.getall');
 		Route::post('saveCategory', 'CategoryController@saveCategory')->name('admin.category.save');
 	});
+
+	//Parameters
+	Route::namespace('Parameter')->prefix('parameter')->group(function () {
+		Route::get('/', 'ParameterController@index')->name('admin.parameter.form');
+	});
+
 });

@@ -2,12 +2,12 @@
 
 	namespace App\Http\Controllers\Admin\Auth;
 
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Admin\Login\LoginRequest;
-	use App\Model\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Hash;
+	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Admin\Login\LoginRequest;
+	use App\Model\User;
 
 
 	class LoginController extends Controller {
@@ -22,15 +22,14 @@
 
 			if ($user):
 
-				//$passexists = Hash::check($request->password, $user->password);
-
+				//$passexists = Hash::check($request->password, $user->spassword);
 				$passexists = $request->password == $user->password;
 
-				if($passexists):
+				if($request->password == $user->password):
 
 					Auth::guard('admin')->loginUsingId($user->id);
 					$message = 'Login exitoso';
-					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.dashboard.index'), 'errors' => null], 'status' => 200, 'route' => route('admin.dashboard.index'), 'message' => null, 'type' => 'success'];
+					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.product.form'), 'errors' => null], 'status' => 200, 'route' => route('admin.product.form'), 'message' => null, 'type' => 'success'];
 					$data = $this->optimize($array);
 
 				else:
