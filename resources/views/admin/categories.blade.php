@@ -135,7 +135,31 @@
             </div>
           <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal -->       
+        <!-- /.modal -->
+
+        <div class="modal modal-danger fade" id="modalDesactivate">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Desactivar categoría</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Desea desactivar la categoría seleccionada?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnDesactivate" class="btn btn-outline">Confirmar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
 
     <!-- /.content -->
     </div>
@@ -146,6 +170,7 @@
 <script>
 
     var table;
+    var categoryid;
 
     $(function () {
     //Initialize Select2 Elements
@@ -180,9 +205,9 @@
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
                         return 	'<a data-id="'+row.ncategoryid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalCategory" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
-                            ' <i data-id="'+row.ncategoryid+'" class="btn btn-danger fa fa-thumbs-down delete tooltips" data-toggle="modal" data-target=".bs-eliminar" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
+                            ' <i data-id="'+row.ncategoryid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.ncategoryid+'" class="btn btn-success fa fa-thumbs-up btn-activar tooltips" data-toggle="modal" data-target=".bs-activar"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	'<i data-id="'+row.ncategoryid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
@@ -310,7 +335,8 @@
 
                 if (data.status == 'success') {
 
-                    $('#categoryparent').val(data.category.ncategoryparent).prop("selected", "selected");
+                    $('#categoryparent').val(data.category.ncategoryparent);
+                    $('#categoryparent').select2().trigger('change');
                     $('#categoryname').val(data.category.sname);
                     $('#categoryshortdescription').val(data.category.sshortdescription);
                     $('#categorydescription').val(data.category.sdescription);
@@ -345,6 +371,75 @@
                 });
             });
         }
+
+        $(document).on('click', '.desactivate', function(event) {
+            categoryid = $(this).data('id');
+            alert('ID: ' + categoryid);
+        });
+
+        $(document).on('click', '.activate', function(event) {
+            categoryid = $(this).data('id');
+            alert('ID: ' + categoryid);
+        });
+
+        $(document).on('click', '#btnDesactivate', function(event) {
+            event.preventDefault();
+            $("#btnDesactivate").html('Desactivando...');
+            $("#btnDesactivate").attr('disabled', 'disabled');
+
+            $.ajax({
+                url: '{{ route('admin.category.desactivate') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: categoryid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+
+                $("#btnDesactivate").html('Confirmar');
+
+                if (data.status == 'success') {
+
+                    $('#modalDesactivate').modal('hide');
+                    reloadTable();
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+
+                }else{
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                }
+            });
+        });
+
+        $(document).on('click', '#btnActivate', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{{ route('admin.category.activate') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: categoryid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+                if (data.status == 'ok') {
+                    buscarPersonal();
+                    $('.bs-activar').modal('hide');
+                }
+            });
+        });
         
     });
 </script>
