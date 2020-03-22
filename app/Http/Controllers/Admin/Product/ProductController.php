@@ -1,16 +1,11 @@
 <?php
 
-	namespace App\Http\Controllers\Admin\Auth;
+	namespace App\Http\Controllers\Admin\Product;
 
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Admin\Login\ProductRequest;
-	use App\Model\User;
 	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\Auth;
-	use Illuminate\Support\Facades\Hash;
+	use App\Http\Controllers\Controller;
 	use App\Model\Product;
 	use App\Model\Category;
-
 
 	class ProductController extends Controller {
 

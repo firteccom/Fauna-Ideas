@@ -10,15 +10,15 @@
 		use Notifiable;
 
 		protected $table = "user";
-		protected $primaryKey  = 'id';
+		protected $primaryKey  = 'nuserid';
 		public $timestamps = false;
 		public $incrementing = false;
 
 		/*protected $fillable = ['ncodusuario', 'snombre', 'sapellido', 'susuario', 'sclave', 'ncodrol', 'stipologin','sactivo','dfechaultimologin' ,'dfechacreacion', 'ncodusucreacion', 'dfechaedicion', 'ncodusuedicion'];*/
 
 		public function getFullName(){
-			$name = $this->name;
-			$name = trim($name). ' ' . $this->lastname1. ' ' . $this->lastname2;
+			$name = $this->sname;
+			$name = trim($name). ' ' . $this->sfatherlastname. ' ' . $this->smotherlastname;
 			return trim($name);
 		}
 

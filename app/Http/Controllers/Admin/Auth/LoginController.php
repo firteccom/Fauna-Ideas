@@ -2,12 +2,12 @@
 
 	namespace App\Http\Controllers\Admin\Auth;
 
-	use App\Http\Controllers\Controller;
-	use App\Http\Requests\Admin\Login\LoginRequest;
-	use App\Model\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\Hash;
+	use App\Http\Controllers\Controller;
+	use App\Http\Requests\Admin\Login\LoginRequest;
+	use App\Model\User;
 
 
 	class LoginController extends Controller {
@@ -17,20 +17,19 @@
 		}
 
 		public function login(LoginRequest $request) {
-			$user = User::where(['email' => mb_strtoupper($request->email)])->where('enabled','Y')->first();
+			$user = User::where(['semail' => mb_strtoupper($request->semail)])->where('sstatus','A')->first();
 			$data = [];
 
 			if ($user):
 
-				//$passexists = Hash::check($request->password, $user->password);
-
+				//$passexists = Hash::check($request->password, $user->spassword);
 				$passexists = $request->password == $user->password;
 
-				if($passexists):
+				if($request->password == $user->password):
 
 					Auth::guard('admin')->loginUsingId($user->id);
 					$message = 'Login exitoso';
-					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.panel.index'), 'errors' => null], 'status' => 200, 'route' => route('admin.panel.index'), 'message' => null, 'type' => 'success'];
+					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.product.form'), 'errors' => null], 'status' => 200, 'route' => route('admin.product.form'), 'message' => null, 'type' => 'success'];
 					$data = $this->optimize($array);
 
 				else:
@@ -47,6 +46,15 @@
 			endif;
 			return $data;
 
+		}
+
+
+		public function destroy(Request $request) {
+			Auth::guard('admin')->logout();
+			$message = 'Sesión cerrada exitosamente';
+			$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'errors' => null], 'status' => 200, 'route' => route('admin.login'), 'message' => $message, 'type' => 'success'];
+			$data = $this->optimize($array);
+			return $data;
 		}
 
 

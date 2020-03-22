@@ -12,20 +12,20 @@
 
 		public function rules() {
 			return [
-				'email' => 'required|min:5|max:21',
-				'password' => 'required|min:3|max:255'
+				'semail' => 'required|min:5|max:21',
+				'spassword' => 'required|min:3|max:255'
 			];
 		}
 
 		public function messages(){
 			return [
-				'email.required'=>'requerido',
-				'email.exists'=>'El usuario no existe',
-				'email.min'=>'min. :min caracteres',
-				'email.max'=>'max. :max caracteres',
-				'password.required'=>'requerido',
-				'password.min'=>'min. :min caracteres',
-				'password.max'=>'max. :max caracteres'
+				'semail.required'=>'requerido',
+				'semail.exists'=>'El usuario no existe',
+				'semail.min'=>'min. :min caracteres',
+				'semail.max'=>'max. :max caracteres',
+				'spassword.required'=>'requerido',
+				'spassword.min'=>'min. :min caracteres',
+				'spassword.max'=>'max. :max caracteres'
 			];
 		}
 
