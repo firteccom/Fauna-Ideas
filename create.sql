@@ -19,6 +19,28 @@ USE `faunaideas`;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `nuserid` int(11) NOT NULL COMMENT 'PK of User Table.',
+  `sname` varchar(100) NOT NULL COMMENT 'User name.',
+  `sfatherlastname` varchar(50) NOT NULL COMMENT 'Fathers lastname.',
+  `smotherlastname` varchar(50) DEFAULT NULL COMMENT 'Mothers lastname.',
+  `semail` varchar(50) DEFAULT NULL COMMENT 'User email.',
+  `spassword` varchar(100) DEFAULT NULL COMMENT 'User password.',
+  `dbirthdate` date NULL COMMENT 'User birth date.',
+  `remember_token` varchar(100) NULL COMMENT 'Token remember session',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'User status. A=Active, N=Inactive, M=Modified, E=Exported',
+  `dcreatedon` datetime NOT NULL COMMENT 'User create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'User modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the user',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Table.';
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `categories`
 --
 
@@ -65,6 +87,12 @@ CREATE TABLE `products` (
 --
 
 --
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`nuserid`);
+
+--
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
@@ -83,6 +111,12 @@ ALTER TABLE `products`
 --
 -- AUTO_INCREMENT de la tabla `categories`
 --
+ALTER TABLE `user`
+  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of User Table.';
+
+--
+-- AUTO_INCREMENT de la tabla `categories`
+--
 ALTER TABLE `categories`
   MODIFY `ncategoryid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Categories” Table.';
 
@@ -91,3 +125,9 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `products`
   MODIFY `nproductid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Products” Table.';
+
+
+
+-- INSERTS INICIALES
+
+insert into user values (null,'Bryan','Amado','Miranda','eamadom2@gmail.com','123456',null,null,'A',now(),null,1,null);
