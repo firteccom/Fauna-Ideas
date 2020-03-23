@@ -40,22 +40,22 @@
                         <!-- form start -->
                         <form role="form" id="frmListCategories">
                         <div class="box-body">
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
                                 <label for="filtercategoryname">Nombre</label>
                                 <input type="text" class="form-control" id="filtercategoryname" name="filtercategoryname" placeholder="Ingrese un nombre">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
                                 <label for="filtercategoryshortdescription">Abreviatura</label>
                                 <input type="text" class="form-control" id="filtercategoryshortdescription" name="filtercategoryshortdescription" placeholder="Ingrese una abreviatura">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
                                 <label for="filtercategorydescription">Descripción</label>
                                 <input type="text" class="form-control" id="filtercategorydescription" name="filtercategorydescription" placeholder="Ingrese una descripción">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
                                 <label for="filtercategorystatus">Estado</label>
                                 <select id="filtercategorystatus" name="filtercategorystatus" class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">- Seleccione una opción -</option>
+                                    <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
                                     <option value="E">Exportado</option>
@@ -67,8 +67,8 @@
                         <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#modalCategory">Nuevo</button>
-                                <button type="submit" id="btnSearchProducts" name="btnSearchProducts" class="btn btn-primary pull-right">Buscar</button>
+                                <button type="button" class="btn btn-success btn-new-category pull-left" data-toggle="modal" data-target="#modalCategory">Nuevo</button>
+                                <button type="submit" id="btnSearchCategories" name="btnSearchCategories" class="btn btn-primary pull-right">Buscar</button>
                             </div>  
 
                             <div class="clearfix"></div>
@@ -100,34 +100,35 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Nueva categoría</h4>
+                            <h4 class="modal-title title-category">Nueva categoría</h4>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <label for="categoryparent">Categoría padre</label>
                                 <select id="categoryparent" name="categoryparent" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected="selected">- Seleccione una opción -</option>
+                                    <option value="" selected="selected">- No asignado -</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->ncategoryid}}</option>
+                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
                                     @endforeach
                                 </select>                            
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <label for="categoryname">Nombre</label>
-                                <input type="text" class="form-control" id="categoryname" name="categoryname" placeholder="Ingrese un nombre">
+                                <input type="text" class="form-control filter" id="categoryname" name="categoryname" placeholder="Ingrese un nombre">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <label for="categoryshortdescription">Abreviatura</label>
-                                <input type="text" class="form-control" id="categoryshortdescription" name="categoryshortdescription" placeholder="Ingrese una abreviatura">
+                                <input type="text" class="form-control filter" id="categoryshortdescription" name="categoryshortdescription" placeholder="Ingrese una abreviatura">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <label for="categorydescription">Descripción</label>
-                                <input type="text" class="form-control" id="categorydescription" name="categorydescription" placeholder="Ingrese una descripción">
+                                <input type="text" class="form-control filter" id="categorydescription" name="categorydescription" placeholder="Ingrese una descripción">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                            <button type="button" id="btnSaveCategory" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
+                            <button type="button" id="btnSaveCategory" class="btn btn-primary">Registrar</button>
+                            <button type="button" id="btnUpdateCategory" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -159,7 +160,27 @@
         </div>
         <!-- /.modal -->
 
-
+        <div class="modal modal-success fade" id="modalActivate">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Activar categoría</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Desea activar la categoría seleccionada?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnActivate" class="btn btn-outline">Confirmar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
     <!-- /.content -->
     </div>
@@ -170,7 +191,7 @@
 <script>
 
     var table;
-    var categoryid;
+    var categoryid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -202,6 +223,24 @@
                 {sTitle : "Nombre", mData: "sname"},
                 {sTitle : "Abreviatura", mData: "sshortdescription"},
                 {sTitle : "Descripción", mData: "sdescription"},
+                {sTitle : "Estado", mRender: function(data, type, row) {
+                    switch (row.sstatus){
+                        case 'A':
+                            return 'Activo';
+                            break;
+                        case 'N':
+                            return 'Inactivo';
+                            break;
+                        case 'E':
+                            return 'Exportado';
+                            break;
+                        case 'M':
+                            return 'Modificado';
+                            break;
+                        default:
+                            return 'No asignado';
+                    }
+                }}, 
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
                         return 	'<a data-id="'+row.ncategoryid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalCategory" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
@@ -231,6 +270,11 @@
 
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
+                aoData.categoryname = $('#filtercategoryname').val();
+                aoData.categoryshortdescription = $('#filtercategoryshortdescription').val();
+                aoData.categorydescription = $('#filtercategorydescription').val();
+                aoData.categorystatus = $('#filtercategorystatus').val();
+
 
             },
             "drawCallback": function( settings ) {
@@ -261,17 +305,186 @@
         
         });
 
-        function reloadTable(){
-            $("#listado").DataTable().ajax.reload();
-        }
+        $('#btnSearchCategories').click(function(ev){
+            ev.preventDefault();
+            reloadTable();
+        });
+
+        $('.filter').change(function(ev){
+            ev.preventDefault();
+            reloadTable();
+        });
+
+        $('#filtercategorystatus').change(function(ev){
+            ev.preventDefault();
+            reloadTable();
+        });
 
         $('#btnSaveCategory').click(function(ev){
             ev.preventDefault();
             saveCategory();
         });
 
+        $('#btnUpdateCategory').click(function(ev){
+            ev.preventDefault();
+            updateCategory();
+        });
+
+        $(document).on('click', '.btn-edit', function(event) {
+
+            var id = $(this).data('id');
+            $('#btnSaveCategory').hide();
+            $('#btnUpdateCategory').show();
+            //alert(id);
+            loadModalCategories(id);
+
+            $.ajax({
+                url: '{{ route('admin.category.get') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {ncategoryid:id, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+                
+                categoryid = id;
+
+                if (data.status == 'success') {
+
+                    $('#categoryparent').val(data.category.ncategoryparent);
+                    $('#categoryparent').select2().trigger('change');
+                    $('#categoryname').val(data.category.sname);
+                    $('#categoryshortdescription').val(data.category.sshortdescription);
+                    $('#categorydescription').val(data.category.sdescription);
+
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+
+
+        });
+
+        $(document).on('click', '.desactivate', function(event) {
+            categoryid = $(this).data('id');
+            //alert('ID: ' + categoryid);
+        });
+
+        $(document).on('click', '.activate', function(event) {
+            categoryid = $(this).data('id');
+            //alert('ID: ' + categoryid);
+        });
+
+        $(document).on('click', '.btn-new-category', function(event) {
+            
+            $("#frmCategory")[0].reset();
+            loadModalCategories(0);
+            $('#btnSaveCategory').show();
+            $('#btnUpdateCategory').hide();
+
+        });
+
+        $(document).on('click', '#btnDesactivate', function(event) {
+            event.preventDefault();
+            $("#btnDesactivate").html('Desactivando...');
+            $("#btnDesactivate").attr('disabled', 'disabled');
+
+            $.ajax({
+                url: '{{ route('admin.category.desactivate') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:categoryid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+
+                $("#btnDesactivate").html('Confirmar');
+                $("#btnDesactivate").removeAttr('disabled');
+
+                if (data.status == 'success') {
+
+                    $('#modalDesactivate').modal('hide');
+                    reloadTable();
+                    categoryid = null;
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+
+                }else{
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                }
+            });
+        });
+
+        $(document).on('click', '#btnActivate', function(event) {
+            event.preventDefault();
+            $("#btnActivate").html('Activando...');
+            $("#btnActivate").attr('disabled', 'disabled');
+
+            $.ajax({
+                url: '{{ route('admin.category.activate') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: categoryid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+
+                $("#btnActivate").html('Confirmar');
+                $("#btnActivate").removeAttr('disabled');
+
+                if (data.status == 'success') {
+
+                    $('#modalActivate').modal('hide');
+                    reloadTable();
+                    categoryid = null;
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+
+                }else{
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                }
+            });
+        });
+
+        function reloadTable(){
+            $("#listado").DataTable().ajax.reload();
+        }
+
         function saveCategory(){
-		    
+            
             categoryparent = $('#categoryparent').val();
             categoryname = $('#categoryname').val();
             categoryshortdescription = $('#categoryshortdescription').val();
@@ -317,129 +530,69 @@
             }
         }
 
-        $(document).on('click', '.btn-edit', function(event) {
+        function updateCategory(){
+            
+            categoryparent = $('#categoryparent').val();
+            categoryname = $('#categoryname').val();
+            categoryshortdescription = $('#categoryshortdescription').val();
+            categorydescription = $('#categorydescription').val();
 
-            cargarCategoriasModal();
-		    
-            var id = $(this).data('id');
+            if(confirm('¿Está seguro de actualizar la categoría?')==true){
+                $("#btnUpdateCategory").html('Actualizando...');
+                $("#btnUpdateCategory").attr('disabled', 'disabled');
 
-            $.ajax({
-                url: '{{ route('admin.category.get') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {ncategoryid:id, _token:'{{ csrf_token() }}'},
-            })
-            .done(function(data) {
+                $.ajax({
+                    url: '{{ route('admin.category.update') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {categoryid:categoryid, categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, _token:'{{ csrf_token() }}'},
+                })
+                .done(function(data) {
 
-                $("#btnSaveCategory").html('Actualizar');
+                    $("#btnUpdateCategory").html('Actualizar');
+                    $("#btnUpdateCategory").removeAttr('disabled');
 
-                if (data.status == 'success') {
+                    if (data.status == 'success') {
+                        $('#modalCategory').modal('hide');
+                        $("#frmCategory")[0].reset();
+                        reloadTable();
+                        Swal.fire({
+                            position: 'top-end',
+                            type: 'success',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }else{
+                        reloadTable();
+                        Swal.fire({
+                            position: 'top-end',
+                            type: 'error',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                });
+            }
+        }
 
-                    $('#categoryparent').val(data.category.ncategoryparent);
-                    $('#categoryparent').select2().trigger('change');
-                    $('#categoryname').val(data.category.sname);
-                    $('#categoryshortdescription').val(data.category.sshortdescription);
-                    $('#categorydescription').val(data.category.sdescription);
-
-                }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        type: 'error',
-                        title: data.msg,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                }
-            });
-
-
-        });
-
-        function cargarCategoriasModal(){
+        function loadModalCategories(id){
 
             $.ajax({
                 url: '{{ route('admin.category.getlist') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {_token:'{{ csrf_token() }}'},
+                data: {id:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
                 $('#categoryparent').html('');
-                $('#categoryparent').append($("<option></option>").attr("value", "").text("- Seleccione una opción -"));
+                $('#categoryparent').append($("<option></option>").attr("value", "0").text("- No asignado -"));
                 $.each(data, function(i, item) {
                     $('#categoryparent').append($("<option></option>").attr("value", data[i].ncategoryid).text(data[i].sname));
                 });
             });
         }
-
-        $(document).on('click', '.desactivate', function(event) {
-            categoryid = $(this).data('id');
-            alert('ID: ' + categoryid);
-        });
-
-        $(document).on('click', '.activate', function(event) {
-            categoryid = $(this).data('id');
-            alert('ID: ' + categoryid);
-        });
-
-        $(document).on('click', '#btnDesactivate', function(event) {
-            event.preventDefault();
-            $("#btnDesactivate").html('Desactivando...');
-            $("#btnDesactivate").attr('disabled', 'disabled');
-
-            $.ajax({
-                url: '{{ route('admin.category.desactivate') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {id: categoryid, _token:'{{ csrf_token() }}'},
-            })
-            .done(function(data) {
-
-                $("#btnDesactivate").html('Confirmar');
-
-                if (data.status == 'success') {
-
-                    $('#modalDesactivate').modal('hide');
-                    reloadTable();
-
-                    Swal.fire({
-                        position: 'top-end',
-                        type: 'error',
-                        title: data.msg,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-
-
-                }else{
-
-                    Swal.fire({
-                        position: 'top-end',
-                        type: 'error',
-                        title: data.msg,
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-
-                }
-            });
-        });
-
-        $(document).on('click', '#btnActivate', function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '{{ route('admin.category.activate') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {id: categoryid, _token:'{{ csrf_token() }}'},
-            })
-            .done(function(data) {
-                if (data.status == 'ok') {
-                    buscarPersonal();
-                    $('.bs-activar').modal('hide');
-                }
-            });
-        });
         
     });
 </script>

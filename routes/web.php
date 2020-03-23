@@ -34,8 +34,14 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 	//Products
 	Route::namespace('Product')->prefix('product')->group(function () {
 		Route::get('/', 'ProductController@showView')->name('admin.product.form');
-		Route::post('getProducts', 'ProductController@getProducts')->name('admin.product.getall');
 		Route::get('product-image/{dimension}/{nproductid}/{type}', 'ProductController@showThumbnailImage')->name('admin.product.thumbnail');
+		Route::post('getProduct', 'ProductController@getProduct')->name('admin.product.get');
+		Route::post('getListCategories', 'ProductController@getListCategories')->name('admin.product.getlistcategories');
+		Route::post('getProducts', 'ProductController@getProducts')->name('admin.product.getall');
+		Route::post('saveProduct', 'ProductController@saveProduct')->name('admin.product.save');
+		Route::post('updateProduct', 'ProductController@updateProduct')->name('admin.product.update');
+		Route::post('desactivateProduct', 'ProductController@desactivateProduct')->name('admin.product.desactivate');
+		Route::post('activateProduct', 'ProductController@activateProduct')->name('admin.product.activate');
 	});
 
 	//Categories
@@ -45,6 +51,9 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		Route::post('getListCategories', 'CategoryController@getListCategories')->name('admin.category.getlist');		
 		Route::post('getCategories', 'CategoryController@getCategories')->name('admin.category.getall');
 		Route::post('saveCategory', 'CategoryController@saveCategory')->name('admin.category.save');
+		Route::post('updateCategory', 'CategoryController@updateCategory')->name('admin.category.update');
+		Route::post('desactivateCategory', 'CategoryController@desactivateCategory')->name('admin.category.desactivate');
+		Route::post('activateCategory', 'CategoryController@activateCategory')->name('admin.category.activate');
 	});
 
 	//Parameters

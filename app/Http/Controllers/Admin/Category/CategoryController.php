@@ -17,8 +17,10 @@
 		}
 
         public function showView(){
-            
-            $categories = $this->getListCategories();
+
+            $request = new Request();
+
+            $categories = $this->getListCategories($request);
 
 			$data = [
 				'categories' => $categories
@@ -60,24 +62,47 @@
 
 			//$codigousuario = Auth::user()->id;
 			$item_por_pag = $request->length;
-			$pagina = $request->start;
+            $pagina = $request->start;
+
+            $categoryname=$request->categoryname;
+            $categoryshortdescription=$request->categoryshortdescription;
+            $categorydescription=$request->categorydescription;
+            $categorystatus=$request->categorystatus;
 	
 			$data = [];
 			$data['draw'] = (int)$request->draw;
 	
-			$data['recordsTotal'] = $this->getCategoriesFilter($item_por_pag,$pagina,true);
+			$data['recordsTotal'] = $this->getCategoriesFilter($categoryname,$categoryshortdescription,$categorydescription,$categorystatus,$item_por_pag,$pagina,true);
 			$data['recordsFiltered'] = $data['recordsTotal'];
 	
-			$data['data'] = $this->getCategoriesFilter($item_por_pag,$pagina,false);
+			$data['data'] = $this->getCategoriesFilter($categoryname,$categoryshortdescription,$categorydescription,$categorystatus,$item_por_pag,$pagina,false);
 	
 			return response($data);
 
 		}
 
-		public function getCategoriesFilter($item_por_pag,$pagina,$contar){
+		public function getCategoriesFilter($categoryname,$categoryshortdescription,$categorydescription,$categorystatus,$item_por_pag,$pagina,$contar){
 
             $data = Category::from('categories as categoryone')
                     ->leftJoin('categories as categorytwo','categoryone.ncategoryparent','=','categorytwo.ncategoryid');
+
+            //var_dump($categoryname);
+
+            if(trim($categoryname)!=''){
+                $data = $data->where(\DB::raw('UPPER(categoryone.sname)'), 'like', '%'. mb_strtoupper(trim($categoryname)).'%');
+            }
+
+            if(trim($categoryshortdescription)!=''){
+                $data = $data->where(\DB::raw('UPPER(categoryone.sshortdescription)'), 'like', '%'. mb_strtoupper(trim($categoryshortdescription)).'%');
+            }
+
+            if(trim($categorydescription)!=''){
+                $data = $data->where(\DB::raw('UPPER(categoryone.sdescription)'), 'like', '%'. mb_strtoupper(trim($categorydescription)).'%');
+            }
+
+            if(trim($categorystatus)!=''){
+                $data = $data->where(\DB::raw('UPPER(categoryone.sstatus)'), '=', $categorystatus);
+            }
 		
 			if ($contar){
 	
@@ -87,6 +112,8 @@
 	
                 $select[] = 'categoryone.*';
                 $select[] = 'categorytwo.sname as categoryparent';
+
+                
 					
 				$data = $data->select($select)
 				//->orderByRaw('prd.nproductid ASC')
@@ -98,11 +125,19 @@
 	
         }
         
-        public function getListCategories(){
+        public function getListCategories(Request $request){
 
             $data = Category::from('categories');
             
-            $data = $data->where('sstatus','A');
+            //$data = $data->where('sstatus','A');
+
+            //var_dump($request->id);
+
+            if ($request->id != null){
+            
+                $data = $data->where('ncategoryid','<>',$request->id);
+
+            }
 	
             $select[] = '*';
             
@@ -141,12 +176,35 @@
 
         }
 
+        public function updateCategory(Request $request){
+            try {
+                $data = \DB::connection('mysql')
+                        ->table('categories')
+                        ->where('ncategoryid',$request->categoryid)
+                        ->update(['ncategoryparent'=>$request->categoryparent,
+                                  'sname'=>$request->categoryname,
+                                  'sshortdescription'=>$request->categoryshortdescription,
+                                  'sdescription'=>$request->categorydescription]);
+
+                $resp['status'] = 'success';
+                $resp['msg'] = 'La categoría de actualizó correctamente.';
+
+            } catch (\Exception $ex) {
+
+                $resp['status'] = 'error';
+                $resp['msg'] = 'No se pudo actualizar la categoría '.$ex->getMessage();
+
+            }
+                
+            return response()->json($resp);
+        }
+
         public function desactivateCategory(Request $request){
             try {
                 $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'N']);
 
                 $resp['status'] = 'success';
-                $resp['msg'] = 'La categoría de desactivó correctamente.';
+                $resp['msg'] = 'La categoría se desactivó correctamente.';
 
             } catch (\Exception $ex) {
 
@@ -163,7 +221,7 @@
                 $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'A']);
 
                 $resp['status'] = 'success';
-                $resp['msg'] = 'La categoría de activó correctamente.';
+                $resp['msg'] = 'La categoría se activó correctamente.';
 
             } catch (\Exception $ex) {
 
