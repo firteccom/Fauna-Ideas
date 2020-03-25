@@ -51,8 +51,6 @@
                 $resp['msg'] = 'No se obtuvo la categoría '.$ex->getMessage();
                 $resp['category'] = '';
             }
-    
-            //var_dump($data);
 
 			return response($resp);
 
@@ -128,10 +126,6 @@
         public function getListCategories(Request $request){
 
             $data = Category::from('categories');
-            
-            //$data = $data->where('sstatus','A');
-
-            //var_dump($request->id);
 
             if ($request->id != null){
             

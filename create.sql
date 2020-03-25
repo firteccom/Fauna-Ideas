@@ -41,6 +41,23 @@ CREATE TABLE `user` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `parameters`
+--
+
+CREATE TABLE `parameters` (
+  `nparameterid` int(11) NOT NULL COMMENT 'PK of “Parameters” Table.',
+  `sname` varchar(100) NOT NULL COMMENT 'Parameter name.',
+  `scode` varchar(20) NOT NULL COMMENT 'Parameter short code.',
+  `svalue` varchar(20) NOT NULL COMMENT 'Parameter value.',
+  `sdescription` varchar(100) DEFAULT NULL COMMENT 'Parameter description.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Parameter status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Parameter create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Parameter modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the parameter',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the parameter'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameter Table.';
+
+--
 -- Estructura de tabla para la tabla `categories`
 --
 
@@ -93,6 +110,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`nuserid`);
 
 --
+-- Indices de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  ADD PRIMARY KEY (`nparameterid`);
+
+--
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
@@ -109,10 +132,16 @@ ALTER TABLE `products`
 --
 
 --
--- AUTO_INCREMENT de la tabla `categories`
+-- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of User Table.';
+  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
+
+--
+-- AUTO_INCREMENT de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
 
 --
 -- AUTO_INCREMENT de la tabla `categories`
