@@ -9,17 +9,26 @@
 
 		use Notifiable;
 
+		protected $connection = "mysql";
 		protected $table = "user";
 		protected $primaryKey  = 'nuserid';
 		public $timestamps = false;
 		public $incrementing = false;
 
-		/*protected $fillable = ['ncodusuario', 'snombre', 'sapellido', 'susuario', 'sclave', 'ncodrol', 'stipologin','sactivo','dfechaultimologin' ,'dfechacreacion', 'ncodusucreacion', 'dfechaedicion', 'ncodusuedicion'];*/
+		protected $fillable = ['nuserid', 'sname', 'sfatherlastname', 'smotherlastname', 'semail', 'spassword','sstatus','dcreatedon','dmodifiedon','ncreatedby','nmodifiedby'];
 
 		public function getFullName(){
 			$name = $this->sname;
 			$name = trim($name). ' ' . $this->sfatherlastname. ' ' . $this->smotherlastname;
 			return trim($name);
+		}
+
+		public function saveAsNew(){
+			if(!isset($this->nuserid)){
+	        	$this->save();
+			}
+
+			return $this->nuserid;
 		}
 
 	}
