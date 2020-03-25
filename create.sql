@@ -18,7 +18,43 @@ USE `faunaideas`;
 
 -- --------------------------------------------------------
 
+
+CREATE TABLE `user` (
+  `nuserid` int(11) NOT NULL COMMENT 'PK of User Table.',
+  `sname` varchar(100) NOT NULL COMMENT 'User name.',
+  `sfatherlastname` varchar(50) NOT NULL COMMENT 'Fathers lastname.',
+  `smotherlastname` varchar(50) DEFAULT NULL COMMENT 'Mothers lastname.',
+  `semail` varchar(50) DEFAULT NULL COMMENT 'User email.',
+  `spassword` varchar(100) DEFAULT NULL COMMENT 'User password.',
+  `dbirthdate` date NULL COMMENT 'User birth date.',
+  `remember_token` varchar(100) NULL COMMENT 'Token remember session',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'User status. A=Active, N=Inactive, M=Modified, E=Exported',
+  `dcreatedon` datetime NOT NULL COMMENT 'User create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'User modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the user',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Table.';
+
+-- --------------------------------------------------------
+
 --
+-- Estructura de tabla para la tabla `parameters`
+--
+
+CREATE TABLE `parameters` (
+  `nparameterid` int(11) NOT NULL COMMENT 'PK of “Parameters” Table.',
+  `sname` varchar(100) NOT NULL COMMENT 'Parameter name.',
+  `scode` varchar(20) NOT NULL COMMENT 'Parameter short code.',
+  `svalue` varchar(20) NOT NULL COMMENT 'Parameter value.',
+  `sdescription` varchar(100) DEFAULT NULL COMMENT 'Parameter description.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Parameter status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Parameter create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Parameter modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the parameter',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the parameter'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameter Table.';
+
+
 -- Estructura de tabla para la tabla `categories`
 --
 
@@ -159,6 +195,12 @@ INSERT INTO `types` (`ntypeid`, `ntypeparentid`, `sname`, `sdescription`, `sexte
 --
 
 --
+-- Indices de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  ADD PRIMARY KEY (`nparameterid`);
+
+--
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
@@ -177,7 +219,19 @@ ALTER TABLE `product_attribute`
   ADD PRIMARY KEY (`nproductattributeid`),
   ADD KEY `dsd_idx` (`nproductid`);
 
+
+-- AUTO_INCREMENT de la tabla `user`
 --
+ALTER TABLE `user`
+  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
+
+--
+-- AUTO_INCREMENT de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
+
+
 -- Indices de la tabla `types`
 --
 ALTER TABLE `types`

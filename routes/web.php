@@ -83,7 +83,24 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 
 	//Parameters
 	Route::namespace('Parameter')->prefix('parameter')->group(function () {
-		Route::get('/', 'ParameterController@index')->name('admin.parameter.form');
+		Route::get('/', 'ParameterController@showView')->name('admin.parameter.form');
+		Route::post('getParameter', 'ParameterController@getParameter')->name('admin.parameter.get');
+		Route::post('getParameters', 'ParameterController@getParameters')->name('admin.parameter.getall');
+		Route::post('saveParameter', 'ParameterController@saveParameter')->name('admin.parameter.save');
+		Route::post('updateParameter', 'ParameterController@updateParameter')->name('admin.parameter.update');
+		Route::post('desactivateParameter', 'ParameterController@desactivateParameter')->name('admin.parameter.desactivate');
+		Route::post('activateParameter', 'ParameterController@activateParameter')->name('admin.parameter.activate');
+	});
+
+	//Users
+	Route::namespace('User')->prefix('user')->group(function () { 
+		Route::get('/', 'UserController@showView')->name('admin.user.form');
+		Route::post('datatable', 'UserController@datatable')->name('admin.user.datatable');
+		Route::post('create', 'UserController@create')->name('admin.user.create');
+		Route::post('edit', 'UserController@edit')->name('admin.user.edit');
+		Route::post('save', 'UserController@save')->name('admin.user.save');
+		Route::post('remove', 'UserController@remove')->name('admin.user.remove');
+		Route::post('enable', 'UserController@enable')->name('admin.user.enable');
 	});
 
 });
