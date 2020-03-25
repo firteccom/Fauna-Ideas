@@ -22,12 +22,12 @@
 
 			if ($user):
 
-				//$passexists = Hash::check($request->password, $user->spassword);
-				$passexists = $request->password == $user->password;
+				$passexists = Hash::check($request->spassword, $user->spassword);
+				//$passexists = $request->password == $user->password;
 
-				if($request->password == $user->password):
+				if($passexists):
 
-					Auth::guard('admin')->loginUsingId($user->id);
+					Auth::guard('admin')->loginUsingId($user->nuserid);
 					$message = 'Login exitoso';
 					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.product.form'), 'errors' => null], 'status' => 200, 'route' => route('admin.product.form'), 'message' => null, 'type' => 'success'];
 					$data = $this->optimize($array);

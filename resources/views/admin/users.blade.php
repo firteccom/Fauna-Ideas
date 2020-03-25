@@ -17,13 +17,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Configuración
+            Usuarios
             <small>Mantenimiento</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
             <li><a href="#">Mantenimiento</a></li>
-            <li class="active">Configuración</li>
+            <li class="active">Usuarios</li>
         </ol>
         </section>
 
@@ -38,19 +38,23 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frmListParameters">
+                        <form role="form" id="frmListusers">
                         <div class="box-body">
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filterparametername">Nombre</label>
-                                <input type="text" class="form-control" id="filterparametername" name="filterparametername" placeholder="Ingrese un nombre">
+                                <label for="filterusername">Nombre</label>
+                                <input type="text" class="form-control" id="filterusername" name="filterusername" placeholder="Ingrese un nombre">
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filterparametercode">Código</label>
-                                <input type="text" class="form-control" id="filterparametercode" name="filterparametercode" placeholder="Ingrese una abreviatura">
+                                <label for="filteruserfatherlastname">Ap. Paterno</label>
+                                <input type="text" class="form-control" id="filteruserfatherlastname" name="filteruserfatherlastname" placeholder="Ingrese Ap. paterno">
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filterparameterstatus">Estado</label>
-                                <select id="filterparameterstatus" name="filterparameterstatus" class="form-control select2" style="width: 100%;">
+                                <label for="filterusermotherlastname">Ap. Materno</label>
+                                <input type="text" class="form-control" id="filterusermotherlastname" name="filterusermotherlastname" placeholder="Ingrese Ap. materno">
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filteruserstatus">Estado</label>
+                                <select id="filteruserstatus" name="filteruserstatus" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
@@ -61,8 +65,8 @@
                         <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="button" class="btn btn-success btn-new-parameter pull-left" data-toggle="modal" data-target="#modalParameter">Nuevo</button>
-                                <button type="submit" id="btnSearchParameter" name="btnSearchParameter" class="btn btn-primary pull-right">Buscar</button>
+                                <button type="button" class="btn btn-success btn-new-user pull-left" data-toggle="modal" data-target="#modaUser">Nuevo</button>
+                                <button type="submit" id="btnSearchUsers" name="btnSearchUsers" class="btn btn-primary pull-right">Buscar</button>
                             </div>  
 
                             <div class="clearfix"></div>
@@ -70,7 +74,7 @@
 
                         <div class="box  box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Lista de parámetros</h3>
+                                <h3 class="box-title">Lista de usuarios</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -87,38 +91,45 @@
             </div>
         </section>
         
-        <div class="modal fade" id="modalParameter">
+        <div class="modal fade" id="modaUser">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="frmParameter" method="post" enctype="multipart/form-data">
+                    <form id="frmUser" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title title-parameter">Nuevo parámetro</h4>
+                            <h4 class="modal-title title-user">Nuevo Usuario</h4>
                         </div>
                         <div class="modal-body">
-
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="parametername">Nombre</label>
-                                <input type="text" class="form-control filter" id="parametername" name="parametername" placeholder="Ingrese un nombre">
+                                <label for="username">Nombre</label>
+                                <input type="text" class="form-control filter" id="username" name="username" placeholder="Ingrese un nombre">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="parametercode">Código</label>
-                                <input type="text" class="form-control filter" id="parametercode" name="parametercode" placeholder="Ingrese un código">
+                                <label for="userfatherlastname">Ap. paterno</label>
+                                <input type="text" class="form-control filter" id="userfatherlastname" name="userfatherlastname" placeholder="Ingrese ap. paterno">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="parametervalue">Valor</label>
-                                <input type="text" class="form-control filter" id="parametervalue" name="parametervalue" placeholder="Ingrese un código">
+                                <label for="usermotherlastname">Ap. materno</label>
+                                <input type="text" class="form-control filter" id="usermotherlastname" name="usermotherlastname" placeholder="Ingrese ap. materno">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="parameterdescription">Descripción</label>
-                                <input type="text" class="form-control filter" id="parameterdescription" name="parameterdescription" placeholder="Ingrese una descripción">
+                                <label for="useremail">Email</label>
+                                <input type="text" class="form-control filter" id="useremail" name="useremail" placeholder="Ingrese email">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="userpassword">Contraseña</label>
+                                <input type="password" class="form-control filter" id="userpassword" name="userpassword" placeholder="Ingrese contraseña">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="userpassword2">Confirmar contraseña</label>
+                                <input type="password" class="form-control filter" id="userpassword2" name="userpassword2" placeholder="Confirmar contraseña">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
-                            <button type="button" id="btnSaveParameter" class="btn btn-primary">Registrar</button>
-                            <button type="button" id="btnUpdateParameter" style="display:none;" class="btn btn-primary">Actualizar</button>
+                            <button type="button" id="btnSaveUser" class="btn btn-primary">Registrar</button>
+                            <button type="button" id="btnUpdateUser" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -134,10 +145,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Desactivar parameter</h4>
+                <h4 class="modal-title">Desactivar usuario</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea desactivar el parámetro seleccionado?</p>
+                <p>¿Desea desactivar el usuario seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -156,10 +167,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Activar parámetro</h4>
+                <h4 class="modal-title">Activar usuario</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea activar el parámetro seleccionado?</p>
+                <p>¿Desea activar el usuario seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -181,7 +192,7 @@
 <script>
 
     var table;
-    var parameterid = 0;
+    var userid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -202,11 +213,11 @@
             "aoColumns"   : [
                 {sTitle : "#", responsivePriority: 1, targets: 0, mRender: function(data, type, row, meta) {
                     return (meta.row+1) + (meta.settings._iDisplayStart);
-                }},      
+                }},     
                 {sTitle : "Nombre", mData: "sname"},
-                {sTitle : "Código", mData: "scode"},
-                {sTitle : "Valor", mData: "svalue"},
-                {sTitle : "Descripción", mData: "sdescription"},
+                {sTitle : "Ap. paterno", mData: "sfatherlastname"},
+                {sTitle : "Ap. materno", mData: "smotherlastname"},
+                {sTitle : "Email", mData: "semail"},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
                         case 'A':
@@ -221,15 +232,15 @@
                 }}, 
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.nparameterid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalParameter" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
-                            ' <i data-id="'+row.nparameterid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
+                        return 	'<a data-id="'+row.nuserid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modaUser" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                            ' <i data-id="'+row.nuserid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.nparameterid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	'<i data-id="'+row.nuserid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
             "ajax": {
-                    "url": "{{ route('admin.parameter.getall') }}",
+                    "url": "{{ route('admin.user.getall') }}",
                     "type": "POST"
             },
 
@@ -248,9 +259,10 @@
 
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
-                aoData.parametername = $('#filterparametername').val();
-                aoData.parametercode = $('#filterparametercode').val();
-                aoData.parameterstatus = $('#filterparameterstatus').val();
+                aoData.username = $('#filterusername').val();
+                aoData.userfatherlastname = $('#filteruserfatherlastname').val();
+                aoData.usermotherlastname = $('#filterusermotherlastname').val();
+                aoData.userstatus = $('#filteruserstatus').val();
             },
             "drawCallback": function( settings ) {
                 $('.tooltips').tooltip();
@@ -280,7 +292,7 @@
         
         });
 
-        $('#btnSearchParameter').click(function(ev){
+        $('#btnSearchUsers').click(function(ev){
             ev.preventDefault();
             reloadTable();
         });
@@ -290,43 +302,51 @@
             reloadTable();
         });
 
-        $('#filterparameterstatus').change(function(ev){
+        $('#filteruserstatus').change(function(ev){
             ev.preventDefault();
             reloadTable();
         });
 
-        $('#btnSaveParameter').click(function(ev){
+        $('#btnSaveUser').click(function(ev){
             ev.preventDefault();
-            saveParameter();
+            saveUser();
         });
 
-        $('#btnUpdateParameter').click(function(ev){
+        $('#btnUpdateUser').click(function(ev){
             ev.preventDefault();
-            updateParameter();
+            updateUser();
+        });
+
+        $(document).on('click', '.btn-new-user', function(event) {
+            $("#frmUser")[0].reset();
+            $('.title-user').text('Nuevo usuario');
+            $('#btnSaveUser').show();
+            $('#btnUpdateUser').hide();
         });
 
         $(document).on('click', '.btn-edit', function(event) {
 
             var id = $(this).data('id');
-            $('#btnSaveParameter').hide();
-            $('#btnUpdateParameter').show();
-    
+            $('.title-user').text('Actualizar usuario');
+            $('#btnSaveUser').hide();
+            $('#btnUpdateUser').show();
+
             $.ajax({
-                url: '{{ route('admin.parameter.get') }}',
+                url: '{{ route('admin.user.get') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {nparameterid:id, _token:'{{ csrf_token() }}'},
+                data: {nuserid:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
                 
-                parameterid = id;
+                userid = id;
 
                 if (data.status == 'success') {
 
-                    $('#parametername').val(data.parameter.sname);
-                    $('#parametercode').val(data.parameter.scode);
-                    $('#parametervalue').val(data.parameter.svalue);
-                    $('#parameterdescription').val(data.parameter.sdescription);
+                    $('#username').val(data.user.sname);
+                    $('#userfatherlastname').val(data.user.sfatherlastname);
+                    $('#usermotherlastname').val(data.user.smotherlastname);
+                    $('#useremail').val(data.user.semail);
 
                 }else{
                     Swal.fire({
@@ -343,20 +363,11 @@
         });
 
         $(document).on('click', '.desactivate', function(event) {
-            parameterid = $(this).data('id');
+            userid = $(this).data('id');
         });
 
         $(document).on('click', '.activate', function(event) {
-            parameterid = $(this).data('id');
-        });
-
-        $(document).on('click', '.btn-new-parameter', function(event) {
-            
-            $("#frmParameter")[0].reset();
-            loadModalParameters(0);
-            $('#btnSaveParameter').show();
-            $('#btnUpdateParameter').hide();
-
+            userid = $(this).data('id');
         });
 
         $(document).on('click', '#btnDesactivate', function(event) {
@@ -365,10 +376,10 @@
             $("#btnDesactivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.parameter.desactivate') }}',
+                url: '{{ route('admin.user.desactivate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id:parameterid, _token:'{{ csrf_token() }}'},
+                data: {id:userid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -379,7 +390,7 @@
 
                     $('#modalDesactivate').modal('hide');
                     reloadTable();
-                    parameterid = null;
+                    userid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -410,10 +421,10 @@
             $("#btnActivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.parameter.activate') }}',
+                url: '{{ route('admin.user.activate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id: parameterid, _token:'{{ csrf_token() }}'},
+                data: {id: userid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -424,7 +435,7 @@
 
                     $('#modalActivate').modal('hide');
                     reloadTable();
-                    parameterid = null;
+                    userid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -453,31 +464,33 @@
             $("#listado").DataTable().ajax.reload();
         }
 
-        function saveParameter(){
+        function saveUser(){
+            
+            username = $('#username').val();
+            userfatherlastname = $('#userfatherlastname').val();
+            usermotherlastname = $('#usermotherlastname').val();
+            useremail = $('#useremail').val();
+            userpassword = $('#userpassword').val();
+            userpassword2 = $('#userpassword2').val();
 
-            parametername = $('#parametername').val();
-            parametercode = $('#parametercode').val();
-            parametervalue = $('#parametervalue').val();
-            parameterdescription = $('#parameterdescription').val();
-
-            if(confirm('¿Está seguro de registrar el parámetro?')==true){
-                $("#btnSaveParameter").html('Guardando...');
-                $("#btnSaveParameter").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de registrar el usuario?')==true){
+                $("#btnSaveUser").html('Guardando...');
+                $("#btnSaveUser").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.parameter.save') }}',
+                    url: '{{ route('admin.user.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {parametername:parametername, parametercode:parametercode, parametervalue:parametervalue, parameterdescription:parameterdescription, _token:'{{ csrf_token() }}'},
+                    data: {username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname, useremail:useremail,userpassword:userpassword,userpassword2:userpassword2, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnSaveParameter").html('Guardar');
-                    $("#btnSaveParameter").removeAttr('disabled');
+                    $("#btnSaveUser").html('Guardar');
+                    $("#btnSaveUser").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalParameter').modal('hide');
-                        $("#frmParameter")[0].reset();
+                        $('#modaUser').modal('hide');
+                        $("#frmUser")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -500,31 +513,33 @@
             }
         }
 
-        function updateParameter(){
+        function updateUser(){
             
-            parametername = $('#parametername').val();
-            parametercode = $('#parametercode').val();
-            parametervalue = $('#parametervalue').val();
-            parameterdescription = $('#parameterdescription').val();
+            username = $('#username').val();
+            userfatherlastname = $('#userfatherlastname').val();
+            usermotherlastname = $('#usermotherlastname').val();
+            useremail = $('#useremail').val();
+            userpassword = $('#userpassword').val();
+            userpassword2 = $('#userpassword2').val();
 
-            if(confirm('¿Está seguro de actualizar el parámetro?')==true){
-                $("#btnUpdateParameter").html('Actualizando...');
-                $("#btnUpdateParameter").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de actualizar el usuario?')==true){
+                $("#btnUpdateUser").html('Actualizando...');
+                $("#btnUpdateUser").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.parameter.update') }}',
+                    url: '{{ route('admin.user.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {parameterid:parameterid,parametername:parametername, parametercode:parametercode, parametervalue:parametervalue, parameterdescription:parameterdescription, _token:'{{ csrf_token() }}'},
+                    data: {userid:userid, username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname, useremail:useremail,userpassword:userpassword,userpassword2:userpassword2, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnUpdateParameter").html('Actualizar');
-                    $("#btnUpdateParameter").removeAttr('disabled');
+                    $("#btnUpdateUser").html('Actualizar');
+                    $("#btnUpdateUser").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalParameter').modal('hide');
-                        $("#frmParameter")[0].reset();
+                        $('#modaUser').modal('hide');
+                        $("#frmUser")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',

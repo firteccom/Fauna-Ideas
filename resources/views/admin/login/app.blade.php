@@ -24,11 +24,11 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Catálogo</b> en línea</a>
+	    <a href="../../index2.html"><b>Fauna</b> & Ideas</a>
 	  </div>
 	  <!-- /.login-logo -->
 	  <div class="login-box-body">
-	    <p class="login-box-msg">Sign in to start your session</p>
+	    <p class="login-box-msg">Ingrese sus datos para iniciar sesión</p>
 
 	    <form class="form-login form" method="post" action="{{ route('admin.login') }}">
 	    	{{ csrf_field() }}

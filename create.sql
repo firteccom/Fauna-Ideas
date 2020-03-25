@@ -26,7 +26,6 @@ CREATE TABLE `user` (
   `smotherlastname` varchar(50) DEFAULT NULL COMMENT 'Mothers lastname.',
   `semail` varchar(50) DEFAULT NULL COMMENT 'User email.',
   `spassword` varchar(100) DEFAULT NULL COMMENT 'User password.',
-  `dbirthdate` date NULL COMMENT 'User birth date.',
   `remember_token` varchar(100) NULL COMMENT 'Token remember session',
   `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'User status. A=Active, N=Inactive, M=Modified, E=Exported',
   `dcreatedon` datetime NOT NULL COMMENT 'User create date.',
@@ -35,7 +34,16 @@ CREATE TABLE `user` (
   `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Table.';
 
--- --------------------------------------------------------
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`nuserid`, `sname`, `sfatherlastname`, `smotherlastname`, `semail`, `spassword`, `remember_token`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 'Bryan', 'Amado', 'Miranda', 'eamadom2@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL),
+(2, 'Angello', 'Del Carpio', 'Bravo', 'angellomijail10@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL);
+
+
 
 --
 -- Estructura de tabla para la tabla `parameters`
@@ -53,6 +61,14 @@ CREATE TABLE `parameters` (
   `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the parameter',
   `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the parameter'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameter Table.';
+
+--
+-- Volcado de datos para la tabla `parameters`
+--
+
+INSERT INTO `parameters` (`nparameterid`, `sname`, `scode`, `svalue`, `sdescription`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 'Nombre Sitio', 'SITENAME', 'Fauna & Ideas', 'Nombre largo del sitio', 'A', now(), NULL, 1, NULL)
+
 
 
 -- Estructura de tabla para la tabla `categories`
@@ -195,6 +211,12 @@ INSERT INTO `types` (`ntypeid`, `ntypeparentid`, `sname`, `sdescription`, `sexte
 --
 
 --
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`nuserid`);
+
+--
 -- Indices de la tabla `parameters`
 --
 ALTER TABLE `parameters`
@@ -274,6 +296,3 @@ ALTER TABLE `types`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `nproductid_fk` FOREIGN KEY (`nproductid`) REFERENCES `products` (`nproductid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-insert into user values (null,'Bryan','Amado','Miranda','eamadom2@gmail.com','123456',null,null,'A',now(),null,1,null);
