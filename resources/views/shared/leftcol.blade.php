@@ -48,9 +48,12 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          <li><a href="{{ route('admin.type.form') }}"><i class="fa fa-book"></i> Tipos de valor</a></li>
           <li><a href="{{ route('admin.category.form') }}"><i class="fa fa-bars"></i> Categorías</a></li>
           <li><a href="{{ route('admin.product.form') }}"><i class="fa fa-book"></i> Productos</a></li>
-          <li><a href="../../index.html"><i class="fa fa-shopping-bag"></i> Catálogos</a></li>
+          <li><a href="{{ route('admin.attribute.form') }}"><i class="fa fa-book"></i> Atributos de productos</a></li>
+          <!--<li><a href="{{ route('admin.product.form') }}"><i class="fa fa-book"></i> Repositorio imágenes</a></li>
+          <li><a href="../../index.html"><i class="fa fa-shopping-bag"></i> Catálogos</a></li>-->
         </ul>
       </li>
     </ul>

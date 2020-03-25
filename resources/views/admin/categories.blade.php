@@ -330,9 +330,20 @@
             updateCategory();
         });
 
+        $(document).on('click', '.btn-new-category', function(event) {
+            
+            $("#frmCategory")[0].reset();
+            $('.title-category').text('Nueva categoría');
+            loadModalCategories(0);
+            $('#btnSaveCategory').show();
+            $('#btnUpdateCategory').hide();
+
+        });
+
         $(document).on('click', '.btn-edit', function(event) {
 
             var id = $(this).data('id');
+            $('.title-category').text('Actualizar categoría');
             $('#btnSaveCategory').hide();
             $('#btnUpdateCategory').show();
             //alert(id);
@@ -378,15 +389,6 @@
         $(document).on('click', '.activate', function(event) {
             categoryid = $(this).data('id');
             //alert('ID: ' + categoryid);
-        });
-
-        $(document).on('click', '.btn-new-category', function(event) {
-            
-            $("#frmCategory")[0].reset();
-            loadModalCategories(0);
-            $('#btnSaveCategory').show();
-            $('#btnUpdateCategory').hide();
-
         });
 
         $(document).on('click', '#btnDesactivate', function(event) {

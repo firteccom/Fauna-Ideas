@@ -56,6 +56,31 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		Route::post('activateCategory', 'CategoryController@activateCategory')->name('admin.category.activate');
 	});
 
+	//ProductAttribute Attributes
+	Route::namespace('ProductAttribute')->prefix('productattribute')->group(function () {
+		Route::get('/', 'ProductAttributeController@showView')->name('admin.attribute.form');
+		Route::post('getProductAttribute', 'ProductAttributeController@getProductAttribute')->name('admin.productattribute.get');
+		Route::post('getListTypes', 'ProductAttributeController@getListTypes')->name('admin.productattribute.getlisttypes');
+		Route::post('getListProducts', 'ProductAttributeController@getListProducts')->name('admin.productattribute.getlistproducts');
+		Route::post('getProductAttributes', 'ProductAttributeController@getProductAttributes')->name('admin.productattribute.getall');
+		Route::post('saveProductAttribute', 'ProductAttributeController@saveProductAttribute')->name('admin.productattribute.save');
+		Route::post('updateProductAttribute', 'ProductAttributeController@updateProductAttribute')->name('admin.productattribute.update');
+		Route::post('desactivateProductAttribute', 'ProductAttributeController@desactivateProductAttribute')->name('admin.productattribute.desactivate');
+		Route::post('activateProductAttribute', 'ProductAttributeController@activateProductAttribute')->name('admin.productattribute.activate');
+	});
+
+	//Types
+	Route::namespace('Type')->prefix('type')->group(function () {
+		Route::get('/', 'TypeController@showView')->name('admin.type.form');
+		Route::post('getType', 'TypeController@getType')->name('admin.type.get');
+		Route::post('getListTypes', 'TypeController@getListTypes')->name('admin.type.getlist');		
+		Route::post('getTypes', 'TypeController@getTypes')->name('admin.type.getall');
+		Route::post('saveType', 'TypeController@saveType')->name('admin.type.save');
+		Route::post('updateType', 'TypeController@updateType')->name('admin.type.update');
+		Route::post('desactivateType', 'TypeController@desactivateType')->name('admin.type.desactivate');
+		Route::post('activateType', 'TypeController@activateType')->name('admin.type.activate');
+	});
+
 	//Parameters
 	Route::namespace('Parameter')->prefix('parameter')->group(function () {
 		Route::get('/', 'ParameterController@index')->name('admin.parameter.form');

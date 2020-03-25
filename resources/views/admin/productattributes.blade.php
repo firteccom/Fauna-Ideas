@@ -24,13 +24,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Productos
+            Atributos de producto
             <small>Mantenimiento</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
             <li><a href="#">Tienda</a></li>
-            <li class="active">Productos</li>
+            <li class="active">Atributos de producto</li>
         </ol>
         </section>
 
@@ -45,28 +45,37 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frmProducts">
+                        <form role="form" id="frmProductAttributes">
                         <div class="box-body">
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductname">Nombre</label>
-                                <input type="text" class="form-control" id="filterproductname" name="filterproductname" placeholder="Ingrese un nombre">
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductcategory">Categoría</label>
-                                <select id="filterproductcategory" name="filterproductcategory" class="form-control select2" style="width: 100%;">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filterproductattributeproduct">Producto</label>
+                                <select id="filterproductattributeproduct" name="filterproductattributeproduct" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{$product->nproductid}}">{{$product->sname}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductsku">SKU Producto</label>
-                                <input type="text" class="form-control" id="filterproductsku" name="filterproductsku" placeholder="Ingrese un SKU" >
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filterproductattributetype">Tipo de dato</label>
+                                <select id="filterproductattributetype" name="filterproductattributetype" class="form-control select2" style="width: 100%;">
+                                    <option value="" selected="selected">- Seleccione una opción -</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductstatus">Estado</label>
-                                <select id="filterproductstatus" name="filterproductstatus" class="form-control select2" style="width: 100%;">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filterproductattributename">Nombre de atributo</label>
+                                <input type="text" class="form-control" id="filterproductattributename" name="filterproductattributename" placeholder="Ingrese un nombre">
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filterproductattributevalue">Valor de atributo</label>
+                                <input type="text" class="form-control" id="filterproductattributevalue" name="filterproductattributevalue" placeholder="Ingrese un SKU" >
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filterproductattributestatus">Estado</label>
+                                <select id="filterproductattributestatus" name="filterproductattributestatus" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
@@ -79,8 +88,8 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="button" class="btn btn-success btn-new-product pull-left" data-toggle="modal" data-target="#modalProduct">Nuevo</button>
-                            <button type="submit" id="btnSearchProducts" name="btnSearchProducts" class="btn btn-primary pull-right">Buscar</button>
+                            <button type="button" class="btn btn-success btn-new-product-attribute pull-left" data-toggle="modal" data-target="#modalProductAttribute">Nuevo</button>
+                            <button type="submit" id="btnSearchProductAttributes" name="btnSearchProductAttributes" class="btn btn-primary pull-right">Buscar</button>
                         </div>  
 
                         <div class="clearfix"></div>
@@ -88,7 +97,7 @@
 
                         <div class="box  box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Lista de productos</h3>
+                                <h3 class="box-title">Lista de atributos de productos</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -106,58 +115,46 @@
         </section>
 
         
-        <div class="modal fade" id="modalProduct">
+        <div class="modal fade" id="modalProductAttribute">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="frmProduct" method="post" data-parsley-validate enctype="multipart/form-data">
+                    <form id="frmProductAttribute" method="post" data-parsley-validate enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title title-product">Nuevo producto</h4>
+                            <h4 class="modal-title title-product-attribute">Nuevo atributo de producto</h4>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productcategory">Categoría <span class="required">*</span></label>
-                                <select id="productcategory" name="productcategory" class="form-control select2" style="width: 100%;" required>
-                                    <option value="" selected="selected">- No asignado -</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
+                                <label for="productattributeproduct">Producto <span class="required">*</span></label>
+                                <select id="productattributeproduct" name="productattributeproduct" class="form-control select2" style="width: 100%;">
+                                    <option value="" selected="selected">- Seleccione una opción -</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{$product->nproductid}}">{{$product->sname}}</option>
                                     @endforeach
-                                </select>                            
+                                </select>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productsku">SKU Producto <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productsku" name="productsku" placeholder="Ingrese un nombre" required>
+                                <label for="productattributetype">Producto <span class="required">*</span></label>
+                                <select id="productattributetype" name="productattributetype" class="form-control select2" style="width: 100%;">
+                                    @foreach ($types as $type)
+                                        <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productname">Nombre <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productname" name="productname" placeholder="Ingrese un nombre" minlenght="1" required>
+                                <label for="productattributename">Nombre del atributo<span class="required">*</span></label>
+                                <input type="text" class="form-control filter" id="productattributename" name="productattributename" placeholder="Ingrese un nombre" minlenght="1" required>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productdescription">Descripción</label>
-                                <input type="text" class="form-control filter" id="productdescription" name="productdescription" placeholder="Ingrese una descripción">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productfullimage">Imagen principal</label>
-                                <input type="url" class="form-control filter" id="productfullimage" name="productfullimage" placeholder="URL de imagen principal">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productthumbnail">Imagen miniatura</label>
-                                <input type="url" class="form-control filter" id="productthumbnail" name="productthumbnail" placeholder="URL de imagen en miniatura">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productmasterprice">Precio master <span class="required">*</span></label>
-                                <input type="number" class="form-control filter" id="productmasterprice" name="productmasterprice" placeholder="Ingrese un precio master" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productprice">Precio <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productprice" name="productprice" placeholder="Ingrese un precio" required>
+                                <label for="productattributevalue">Valor del atributo</label>
+                                <input type="text" class="form-control filter" id="productattributevalue" name="productattributevalue" placeholder="Ingrese un valor">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" id="btnSaveProduct" class="btn btn-primary">Registrar</button>
-                            <button type="submit" id="btnUpdateProduct" style="display:none;" class="btn btn-primary">Actualizar</button>
+                            <button type="submit" id="btnSaveProductAttribute" class="btn btn-primary">Registrar</button>
+                            <button type="submit" id="btnUpdateProductAttribute" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -176,7 +173,7 @@
                 <h4 class="modal-title">Desactivar producto</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea desactivar el producto seleccionado?</p>
+                <p>¿Desea desactivar el atributo del producto seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -198,7 +195,7 @@
                 <h4 class="modal-title">Activar producto</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea activar el producto seleccionado?</p>
+                <p>¿Desea activar el atributo del producto seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -220,7 +217,7 @@
 <script>
 
     var table;
-    var productid = 0;
+    var nproductattributeid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -242,15 +239,10 @@
                 {sTitle : "#", responsivePriority: 1, targets: 0, mRender: function(data, type, row, meta) {
                     return (meta.row+1) + (meta.settings._iDisplayStart);
                 }},
-                {sTitle : "Categoría", mData: "categoryname"},
-                {sTitle : "SKU", mData: "ssku"},
+                {sTitle : "Producto", mData: "productname"},
+                {sTitle : "Tipo de dato", mData: "typename"},
                 {sTitle : "Nombre", mData: "sname"},
-                {sTitle : "Descripción", mData: "sdescription"},
-                {sTitle : "Precio master (S/)", mData: "nmasterprice"},
-                {sTitle : "Precio oferta (S/)", mData: "nprice"},
-                {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nproductid+'" data-title="'+row.sname+'" data-file="'+row.sthumbnailimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sthumbnailimage+'" width="30" height="30" /></a>';
-                }}, 
+                {sTitle : "Valor", mData: "svalue"},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
                         case 'A':
@@ -271,15 +263,15 @@
                 }},
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.nproductid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProduct" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
-                            ' <i data-id="'+row.nproductid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
+                        return 	'<a data-id="'+row.nproductattributeid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProductAttribute" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                            ' <i data-id="'+row.nproductattributeid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.nproductid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	'<i data-id="'+row.nproductattributeid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
             "ajax": {
-                    "url": "{{ route('admin.product.getall') }}",
+                    "url": "{{ route('admin.productattribute.getall') }}",
                     "type": "POST"
             },
 
@@ -298,10 +290,11 @@
 
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
-                aoData.productname = $('#filterproductname').val();
-                aoData.productcategory = $('#filterproductcategory').val();
-                aoData.productsku = $('#filterproductsku').val();
-                aoData.productstatus = $('#filterproductstatus').val();
+                aoData.productattributeproduct = $('#filterproductattributeproduct').val();
+                aoData.productattributetype = $('#filterproductattributetype').val();
+                aoData.productattributename = $('#filterproductattributename').val();
+                aoData.productattributevalue = $('#filterproductattributevalue').val();
+                aoData.productattributestatus = $('#filterproductattributestatus').val();
 
             },
             "drawCallback": function( settings ) {
@@ -327,9 +320,9 @@
                     }	        
                 },
 
-        })
+        });
 
-        $('#btnSearchProducts').click(function(ev){
+        $('#btnSearchProductAttributes').click(function(ev){
             ev.preventDefault();
             reloadTable();
         });
@@ -339,66 +332,69 @@
             reloadTable();
         });
 
-        $('#filterproductstatus').change(function(ev){
+        $('#filterproductattributestatus').change(function(ev){
             ev.preventDefault();
             reloadTable();
         });
 
-        $('#filterproductcategory').change(function(ev){
+        $('#filterproductattributeproduct').change(function(ev){
             ev.preventDefault();
             reloadTable();
         });
 
-        $('#btnSaveProduct').click(function(ev){
+        $('#filterproductattributetype').change(function(ev){
+            ev.preventDefault();
+            reloadTable();
+        });
+
+        $('#btnSaveProductAttribute').click(function(ev){
             ev.preventDefault();
             saveProduct();
         });
 
-        $('#btnUpdateProduct').click(function(ev){
+        $('#btnUpdateProductAttribute').click(function(ev){
             ev.preventDefault();
             updateProduct();
         });
 
-        $(document).on('click', '.btn-new-product', function(event) {
+        $(document).on('click', '.btn-new-product-attribute', function(event) {
             
-            $("#frmProduct")[0].reset();
-            $('.title-product').text('Nuevo producto');
-            loadModalCategories(0);
-            $('#btnSaveProduct').show();
-            $('#btnUpdateProduct').hide();
+            $("#frmProductAttribute")[0].reset();
+            $('.title-product-attribute').text('Nuevo atributo del producto');
+            loadModalProducts(0);
+            $('#btnSaveProductAttribute').show();
+            $('#btnUpdateProductAttribute').hide();
 
         });
 
         $(document).on('click', '.btn-edit', function(event) {
 
             var id = $(this).data('id');
-            $('.title-product').text('Actualizar producto');
-            $('#btnSaveProduct').hide();
-            $('#btnUpdateProduct').show();
+            $('.title-product-attribute').text('Actualizar atributo del producto');
+            $('#btnSaveProductAttribute').hide();
+            $('#btnUpdateProductAttribute').show();
             //alert(id);
-            loadModalCategories(id);
+            loadModalProducts(id);
+            loadModalTypes(id);
 
             $.ajax({
-                url: '{{ route('admin.product.get') }}',
+                url: '{{ route('admin.productattribute.get') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {nproductid:id, _token:'{{ csrf_token() }}'},
+                data: {nproductattributeid:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
                 
-                productid = id;
+                nproductattributeid = id;
 
                 if (data.status == 'success') {
-                    
-                    $('#productsku').val(data.product.ssku);
-                    $('#productname').val(data.product.sname);
-                    $('#productdescription').val(data.product.sdescription);
-                    $('#productcategory').val(data.product.ncategoryid);
-                    $('#productcategory').select2().trigger('change');
-                    $('#productfullimage').val(data.product.sfullimage);
-                    $('#productthumbnail').val(data.product.sthumbnail);
-                    $('#productmasterprice').val(data.product.nmasterprice);
-                    $('#productprice').val(data.product.nprice);
+
+                    $('#productattributeproduct').val(data.productattribute.nproductid);
+                    $('#productattributeproduct').select2().trigger('change');
+                    $('#productattributetype').val(data.productattribute.ntypeid);
+                    $('#productattributetype').select2().trigger('change');
+                    $('#productattributename').val(data.productattribute.sname);
+                    $('#productattributevalue').val(data.productattribute.svalue);
 
                 }else{
                     Swal.fire({
@@ -414,13 +410,13 @@
         });
 
         $(document).on('click', '.desactivate', function(event) {
-            productid = $(this).data('id');
-            //alert('ID: ' + productid);
+            nproductattributeid = $(this).data('id');
+            //alert('ID: ' + nproductattributeid);
         });
 
         $(document).on('click', '.activate', function(event) {
-            productid = $(this).data('id');
-            //alert('ID: ' + productid);
+            nproductattributeid = $(this).data('id');
+            //alert('ID: ' + nproductattributeid);
         });
 
         $(document).on('click', '#btnDesactivate', function(event) {
@@ -429,10 +425,10 @@
             $("#btnDesactivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.product.desactivate') }}',
+                url: '{{ route('admin.productattribute.desactivate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id:productid, _token:'{{ csrf_token() }}'},
+                data: {id:nproductattributeid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -443,7 +439,7 @@
 
                     $('#modalDesactivate').modal('hide');
                     reloadTable();
-                    productid = null;
+                    nproductattributeid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -474,10 +470,10 @@
             $("#btnActivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.product.activate') }}',
+                url: '{{ route('admin.productattribute.activate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id: productid, _token:'{{ csrf_token() }}'},
+                data: {id: nproductattributeid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -488,7 +484,7 @@
 
                     $('#modalActivate').modal('hide');
                     reloadTable();
-                    productid = null;
+                    nproductattributeid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -518,36 +514,31 @@
         }
 
         function saveProduct(){
-            
-            productcategory = $('#productcategory').val();
-            productcategoryname = $('#productcategory option:selected').text();
-            productsku = $('#productsku').val();
-            productname = $('#productname').val();
-            productdescription = $('#productdescription').val();
-            productfullimage = $('#productfullimage').val();
-            productthumbnail = $('#productthumbnail').val();
-            productmasterprice = $('#productmasterprice').val();
-            productprice = $('#productprice').val();
 
+            productattributeproduct = $('#productattributeproduct').val();
+            productattributetype = $('#productattributetype').val();
+            productattributetypename = $('#productattributetype option:selected').text();
+            productattributename = $('#productattributename').val();
+            productattributevalue = $('#productattributevalue').val();
 
-            if(confirm('¿Está seguro de registrar el producto?')==true){
-                $("#btnSaveProduct").html('Guardando...');
-                $("#btnSaveProduct").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de registrar el atributo del producto?')==true){
+                $("#btnSaveProductAttribute").html('Guardando...');
+                $("#btnSaveProductAttribute").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.product.save') }}',
+                    url: '{{ route('admin.productattribute.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {productattributeproduct:productattributeproduct,productattributetype:productattributetype,productattributetypename:productattributetypename,productattributename:productattributename,productattributevalue:productattributevalue, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnSaveProduct").html('Guardar');
-                    $("#btnSaveProduct").removeAttr('disabled');
+                    $("#btnSaveProductAttribute").html('Guardar');
+                    $("#btnSaveProductAttribute").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalProduct').modal('hide');
-                        $("#frmProduct")[0].reset();
+                        $('#modalProductAttribute').modal('hide');
+                        $("#frmProductAttribute")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -571,35 +562,31 @@
         }
 
         function updateProduct(){
-            
-            productcategory = $('#productcategory').val();
-            productcategoryname = $('#productcategory option:selected').text();
-            productsku = $('#productsku').val();
-            productname = $('#productname').val();
-            productdescription = $('#productdescription').val();
-            productfullimage = $('#productfullimage').val();
-            productthumbnail = $('#productthumbnail').val();
-            productmasterprice = $('#productmasterprice').val();
-            productprice = $('#productprice').val();
+              
+            productattributeproduct = $('#productattributeproduct').val();
+            productattributetype = $('#productattributetype').val();
+            productattributetypename = $('#productattributetype option:selected').text();
+            productattributename = $('#productattributename').val();
+            productattributevalue = $('#productattributevalue').val();
 
-            if(confirm('¿Está seguro de actualizar el producto?')==true){
-                $("#btnUpdateProduct").html('Actualizando...');
-                $("#btnUpdateProduct").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de actualizar el atributo del producto?')==true){
+                $("#btnUpdateProductAttribute").html('Actualizando...');
+                $("#btnUpdateProductAttribute").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.product.update') }}',
+                    url: '{{ route('admin.productattribute.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productid:productid,productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {nproductattributeid:nproductattributeid,productattributeproduct:productattributeproduct,productattributetype:productattributetype,productattributetypename:productattributetypename,productattributename:productattributename,productattributevalue:productattributevalue, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnUpdateProduct").html('Actualizar');
-                    $("#btnUpdateProduct").removeAttr('disabled');
+                    $("#btnUpdateProductAttribute").html('Actualizar');
+                    $("#btnUpdateProductAttribute").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalProduct').modal('hide');
-                        $("#frmProduct")[0].reset();
+                        $('#modalProductAttribute').modal('hide');
+                        $("#frmProductAttribute")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -622,24 +609,43 @@
             }
         }
 
-        function loadModalCategories(id){
+        function loadModalProducts(id){
 
             $.ajax({
-                url: '{{ route('admin.product.getlistcategories') }}',
+                url: '{{ route('admin.productattribute.getlistproducts') }}',
                 type: 'POST',
                 dataType: 'json',
                 data: {id:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
-                $('#productcategory').html('');
-                $('#productcategory').append($("<option></option>").attr("value", "0").text("- No asignado -"));
+                $('#productattributeproduct').html('');
+                $('#productattributeproduct').append($("<option></option>").attr("value", "0").text("- No asignado -"));
                 $.each(data, function(i, item) {
-                    $('#productcategory').append($("<option></option>").attr("value", data[i].ncategoryid).text(data[i].sname));
+                    $('#productattributeproduct').append($("<option></option>").attr("value", data[i].nproductid).text(data[i].sname));
                 });
             });
         }
 
-    })
-</script>
+        function loadModalTypes(id){
 
-@endsection
+            $.ajax({
+                url: '{{ route('admin.productattribute.getlisttypes') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+                $('#productattributetype').html('');
+                $.each(data, function(i, item) {
+                    $('#productattributetype').append($("<option></option>").attr("value", data[i].ntypeid).text(data[i].sname));
+                });
+            });
+        }
+
+        })
+        </script>
+
+        @endsection
+
+
+        

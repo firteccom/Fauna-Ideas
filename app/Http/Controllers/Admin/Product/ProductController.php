@@ -60,22 +60,43 @@
 			//$codigousuario = Auth::user()->id;
 			$item_por_pag = $request->length;
 			$pagina = $request->start;
+
+			$productname = $request->productname;
+			$productcategory = $request->productcategory;
+			$productsku = $request->productsku;
+			$productstatus = $request->productstatus;
 	
 			$data = [];
 			$data['draw'] = (int)$request->draw;
-	
-			$data['recordsTotal'] = $this->getProductsFilter($item_por_pag,$pagina,true);
+
+			$data['recordsTotal'] = $this->getProductsFilter($productname,$productcategory,$productsku,$productstatus,$item_por_pag,$pagina,true);
 			$data['recordsFiltered'] = $data['recordsTotal'];
 	
-			$data['data'] = $this->getProductsFilter($item_por_pag,$pagina,false);
+			$data['data'] = $this->getProductsFilter($productname,$productcategory,$productsku,$productstatus,$item_por_pag,$pagina,false);
 	
 			return response($data);
 
 		}
 
-		public function getProductsFilter($item_por_pag,$pagina,$contar){
+		public function getProductsFilter($productname,$productcategory,$productsku,$productstatus,$item_por_pag,$pagina,$contar){
 			$data = Product::from('products as prd')
 					->join('categories as cat','cat.ncategoryid','=','prd.ncategoryid');
+
+			if(trim($productname)!=''){
+				$data = $data->where(\DB::raw('UPPER(prd.sname)'), 'like', '%'. mb_strtoupper(trim($productname)).'%');
+			}
+
+			if(trim($productcategory)!='' && $productcategory!=0){
+				$data = $data->where(\DB::raw('UPPER(prd.ncategoryid)'), '=', $productcategory);
+			}
+
+			if(trim($productsku)!=''){
+				$data = $data->where(\DB::raw('UPPER(prd.ssku)'), 'like', '%'. mb_strtoupper(trim($productsku)).'%');
+			}
+
+			if(trim($productstatus)!=''){
+				$data = $data->where(\DB::raw('UPPER(prd.sstatus)'), '=', $productstatus);
+			}
 		
 			if ($contar){
 	
@@ -83,7 +104,7 @@
 	
 			} else {
 	
-				$select[] = '*';
+				$select[] = 'prd.*';
 				$select[] = 'cat.sname as categoryname';
 				$select[] = \DB::raw('CONCAT("",sthumbnail) AS sthumbnailimage');
 				$select[] = \DB::raw('CONCAT("",sfullimage) AS simagefull');
@@ -123,23 +144,29 @@
         public function saveProduct(Request $request){
 
             try {
-                $category = new Category();
-                $category->ncategoryparent = $request->categoryparent;
-                $category->sname = $request->categoryname;
-                $category->sshortdescription = $request->categoryshortdescription;
-                $category->sdescription = $request->categorydescription;
-                $category->ncreatedby = 1;
-
-                $category->saveAsNew();
-                //var_dump($category);
+                $product = new Product();
+				$product->ncategoryid = $request->productcategory;
+				$product->scategoryname = $request->productcategoryname;
+				$product->nsellerid = 1;
+				$product->ssku = $request->productsku;
+				$product->sname = $request->productname;
+				$product->sdescription = $request->productdescription;
+				$product->sfullimage = $request->productfullimage;
+				$product->sthumbnail = $request->productthumbnail;
+				$product->nmasterprice = $request->productmasterprice;
+				$product->nprice = $request->productprice;
+				$product->ncreatedby = 1;
+				
+                $product->saveAsNew();
+                //var_dump($product);
 
                 $data['status'] = 'success';
-                $data['msg'] = 'La categoría de registró correctamente.';
+                $data['msg'] = 'El producto se registró correctamente.';
 
             } catch (\Exception $ex) {
 
                 $data['status'] = 'error';
-                $data['msg'] = 'No se pudo registrar la categoría '.$ex->getMessage();
+                $data['msg'] = 'No se pudo registrar el producto '.$ex->getMessage();
 
             }
                 
@@ -150,20 +177,26 @@
         public function updateProduct(Request $request){
             try {
                 $data = \DB::connection('mysql')
-                        ->table('categories')
-                        ->where('ncategoryid',$request->categoryid)
-                        ->update(['ncategoryparent'=>$request->categoryparent,
-                                  'sname'=>$request->categoryname,
-                                  'sshortdescription'=>$request->categoryshortdescription,
-                                  'sdescription'=>$request->categorydescription]);
-
+                        ->table('products')
+                        ->where('nproductid',$request->productid)
+						->update(['ncategoryid'=>$request->productcategory,
+								  'scategoryname'=>$request->productcategoryname,
+								  'nsellerid'=>1,
+								  'ssku'=>$request->productsku,
+								  'sname'=>$request->productname,
+								  'sdescription'=>$request->productdescription,
+								  'sfullimage'=>$request->productfullimage,
+								  'sthumbnail'=>$request->productthumbnail,
+								  'nmasterprice'=>$request->productmasterprice,
+								  'nprice'=>$request->productprice]);
+								  
                 $resp['status'] = 'success';
-                $resp['msg'] = 'La categoría de actualizó correctamente.';
+                $resp['msg'] = 'El producto se actualizó correctamente.';
 
             } catch (\Exception $ex) {
 
                 $resp['status'] = 'error';
-                $resp['msg'] = 'No se pudo actualizar la categoría '.$ex->getMessage();
+                $resp['msg'] = 'No se pudo actualizar el producto '.$ex->getMessage();
 
             }
                 
@@ -202,6 +235,6 @@
             }
                 
             return response()->json($resp);
-        }
+		}
 
     }
