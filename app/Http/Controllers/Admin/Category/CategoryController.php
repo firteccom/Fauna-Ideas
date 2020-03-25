@@ -157,7 +157,7 @@
                 //var_dump($category);
 
                 $data['status'] = 'success';
-                $data['msg'] = 'La categoría de registró correctamente.';
+                $data['msg'] = 'La categoría se registró correctamente.';
 
             } catch (\Exception $ex) {
 
@@ -181,7 +181,7 @@
                                   'sdescription'=>$request->categorydescription]);
 
                 $resp['status'] = 'success';
-                $resp['msg'] = 'La categoría de actualizó correctamente.';
+                $resp['msg'] = 'La categoría se actualizó correctamente.';
 
             } catch (\Exception $ex) {
 

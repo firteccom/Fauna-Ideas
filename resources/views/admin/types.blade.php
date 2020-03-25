@@ -2,18 +2,11 @@
 
 @section('css')
 <style type="text/css">
-    input:invalid {
-    border: 2px dashed red;
-    }
 
-    input:invalid:required {
-    background-image: linear-gradient(to right, pink, lightgreen);
-    }
-
-    input:valid {
-    border: 2px solid black;
-    }
 </style>
+<script type="module">
+  import Swal from 'sweetalert2/src/sweetalert2.js'
+</script>
 @endsection
 
 @section('content')
@@ -24,13 +17,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Productos
+            Tipos de valor
             <small>Mantenimiento</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
             <li><a href="#">Tienda</a></li>
-            <li class="active">Productos</li>
+            <li class="active">Tipos de valor</li>
         </ol>
         </section>
 
@@ -45,28 +38,23 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frmProducts">
+                        <form role="form" id="frmListTypes">
                         <div class="box-body">
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductname">Nombre</label>
-                                <input type="text" class="form-control" id="filterproductname" name="filterproductname" placeholder="Ingrese un nombre">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filtertypename">Nombre</label>
+                                <input type="text" class="form-control" id="filtertypename" name="filtertypename" placeholder="Ingrese un nombre">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductcategory">Categoría</label>
-                                <select id="filterproductcategory" name="filterproductcategory" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected="selected">- Seleccione una opción -</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filtertypedescription">Descripción</label>
+                                <input type="text" class="form-control" id="filtertypedescription" name="filtertypedescription" placeholder="Ingrese una descripción">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductsku">SKU Producto</label>
-                                <input type="text" class="form-control" id="filterproductsku" name="filterproductsku" placeholder="Ingrese un SKU" >
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filtertypeextension">Extensión</label>
+                                <input type="text" class="form-control" id="filtertypeextension" name="filtertypeextension" placeholder="Ingrese una extensión">
                             </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
-                                <label for="filterproductstatus">Estado</label>
-                                <select id="filterproductstatus" name="filterproductstatus" class="form-control select2" style="width: 100%;">
+                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                <label for="filtertypestatus">Estado</label>
+                                <select id="filtertypestatus" name="filtertypestatus" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
@@ -78,17 +66,17 @@
                         </div>
                         <!-- /.box-body -->
 
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-success btn-new-product pull-left" data-toggle="modal" data-target="#modalProduct">Nuevo</button>
-                            <button type="submit" id="btnSearchProducts" name="btnSearchProducts" class="btn btn-primary pull-right">Buscar</button>
-                        </div>  
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-success btn-new-type pull-left" data-toggle="modal" data-target="#modalType">Nuevo</button>
+                                <button type="submit" id="btnSearchTypes" name="btnSearchTypes" class="btn btn-primary pull-right">Buscar</button>
+                            </div>  
 
-                        <div class="clearfix"></div>
-                        <br>
+                            <div class="clearfix"></div>
+                            <br>
 
                         <div class="box  box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Lista de productos</h3>
+                                <h3 class="box-title">Lista de tipos de valor</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -104,60 +92,43 @@
                 </div>
             </div>
         </section>
-
         
-        <div class="modal fade" id="modalProduct">
+        <div class="modal fade" id="modalType">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="frmProduct" method="post" data-parsley-validate enctype="multipart/form-data">
+                    <form id="frmType" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title title-product">Nuevo producto</h4>
+                            <h4 class="modal-title title-type">Nueva tipo de valor</h4>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productcategory">Categoría <span class="required">*</span></label>
-                                <select id="productcategory" name="productcategory" class="form-control select2" style="width: 100%;" required>
+                                <label for="typeparent">Tipo de valor padre</label>
+                                <select id="typeparent" name="typeparent" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- No asignado -</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
                                     @endforeach
                                 </select>                            
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productsku">SKU Producto <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productsku" name="productsku" placeholder="Ingrese un nombre" required>
+                                <label for="typename">Nombre</label>
+                                <input type="text" class="form-control filter" id="typename" name="typename" placeholder="Ingrese un nombre">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productname">Nombre <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productname" name="productname" placeholder="Ingrese un nombre" minlenght="1" required>
+                                <label for="typeextension">Extensión</label>
+                                <input type="text" class="form-control filter" id="typeextension" name="typeextension" placeholder="Ingrese una extensión">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productdescription">Descripción</label>
-                                <input type="text" class="form-control filter" id="productdescription" name="productdescription" placeholder="Ingrese una descripción">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productfullimage">Imagen principal</label>
-                                <input type="url" class="form-control filter" id="productfullimage" name="productfullimage" placeholder="URL de imagen principal">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productthumbnail">Imagen miniatura</label>
-                                <input type="url" class="form-control filter" id="productthumbnail" name="productthumbnail" placeholder="URL de imagen en miniatura">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productmasterprice">Precio master <span class="required">*</span></label>
-                                <input type="number" class="form-control filter" id="productmasterprice" name="productmasterprice" placeholder="Ingrese un precio master" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="productprice">Precio <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="productprice" name="productprice" placeholder="Ingrese un precio" required>
+                                <label for="typedescription">Descripción</label>
+                                <input type="text" class="form-control filter" id="typedescription" name="typedescription" placeholder="Ingrese una descripción">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" id="btnSaveProduct" class="btn btn-primary">Registrar</button>
-                            <button type="submit" id="btnUpdateProduct" style="display:none;" class="btn btn-primary">Actualizar</button>
+                            <button type="button" id="btnSaveType" class="btn btn-primary">Registrar</button>
+                            <button type="button" id="btnUpdateType" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -173,10 +144,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Desactivar producto</h4>
+                <h4 class="modal-title">Desactivar tipo de valor</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea desactivar el producto seleccionado?</p>
+                <p>¿Desea desactivar el tipo de valor seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -195,10 +166,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Activar producto</h4>
+                <h4 class="modal-title">Activar tipo de valor</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea activar el producto seleccionado?</p>
+                <p>¿Desea activar el tipo de valor seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -220,7 +191,7 @@
 <script>
 
     var table;
-    var productid = 0;
+    var typeid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -237,20 +208,21 @@
             "bFilter"     : false,
             'ordering'    : false,
             'info'        : true,
-            'autoWidth'   : true,
+            'autoWidth'   : false,
             "aoColumns"   : [
                 {sTitle : "#", responsivePriority: 1, targets: 0, mRender: function(data, type, row, meta) {
                     return (meta.row+1) + (meta.settings._iDisplayStart);
                 }},
-                {sTitle : "Categoría", mData: "categoryname"},
-                {sTitle : "SKU", mData: "ssku"},
+                {sTitle : "Tipo de valor padre", mRender: function(data, type, row) {
+                    if(row.typeparent != null){
+                        return ($.trim(row.typeparent) != '') ? row.typeparent : 'No asignado';
+                    }else{
+                        return 'No asignado';
+                    }
+                }},           
                 {sTitle : "Nombre", mData: "sname"},
                 {sTitle : "Descripción", mData: "sdescription"},
-                {sTitle : "Precio master (S/)", mData: "nmasterprice"},
-                {sTitle : "Precio oferta (S/)", mData: "nprice"},
-                {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nproductid+'" data-title="'+row.sname+'" data-file="'+row.sthumbnailimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sthumbnailimage+'" width="30" height="30" /></a>';
-                }}, 
+                {sTitle : "Extensión", mData: "sextension"},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
                         case 'A':
@@ -268,18 +240,18 @@
                         default:
                             return 'No asignado';
                     }
-                }},
+                }}, 
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.nproductid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProduct" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
-                            ' <i data-id="'+row.nproductid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
+                        return 	'<a data-id="'+row.ntypeid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalType" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                            ' <i data-id="'+row.ntypeid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.nproductid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	'<i data-id="'+row.ntypeid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
             "ajax": {
-                    "url": "{{ route('admin.product.getall') }}",
+                    "url": "{{ route('admin.type.getall') }}",
                     "type": "POST"
             },
 
@@ -298,38 +270,42 @@
 
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
-                aoData.productname = $('#filterproductname').val();
-                aoData.productcategory = $('#filterproductcategory').val();
-                aoData.productsku = $('#filterproductsku').val();
-                aoData.productstatus = $('#filterproductstatus').val();
+                aoData.typename = $('#filtertypename').val();
+                aoData.typedescription = $('#filtertypedescription').val();
+                aoData.typeextension = $('#filtertypeextension').val();
+                aoData.typestatus = $('#filtertypestatus').val();
+
 
             },
             "drawCallback": function( settings ) {
-                    $('.tooltips').tooltip();
-                    var minPag = 0;
-                    var maxPag = 0;
+                $('.tooltips').tooltip();
+                var minPag = 0;
+                var maxPag = 0;
 
-                    if($('.paginate_button').length > 2){
-                        minPag = parseInt($($('.paginate_button')[1]).text());
-                        maxPag = parseInt($($('.paginate_button')[$('.paginate_button').length-2]).text());
+                if($('.paginate_button').length > 2){
+                    minPag = parseInt($($('.paginate_button')[1]).text());
+                    maxPag = parseInt($($('.paginate_button')[$('.paginate_button').length-2]).text());
 
-                        var inputPag = $('<div class="dt-input-page"></div>');
+                    var inputPag = $('<div class="dt-input-page"></div>');
 
-                        $(inputPag).find('input').change(function(ev){
-                            var ipag = parseInt($(this).val()!=''?$(this).val():'0');
-                            if(ipag>=minPag && ipag<=maxPag){
-                                ipag = parseInt($(this).val())-1;
-                                table.fnPageChange(ipag);
-                            }
-                        });
+                    $(inputPag).find('input').change(function(ev){
+                        var ipag = parseInt($(this).val()!=''?$(this).val():'0');
+                        if(ipag>=minPag && ipag<=maxPag){
+                            ipag = parseInt($(this).val())-1;
+                            table.fnPageChange(ipag);
+                        }
+                    });
 
-                        $('#listado_paginate').prepend(inputPag);
-                    }	        
-                },
+                    $('#listado_paginate').prepend(inputPag);
+                }	        
+            },
 
-        })
+        
+        
+        
+        });
 
-        $('#btnSearchProducts').click(function(ev){
+        $('#btnSearchTypes').click(function(ev){
             ev.preventDefault();
             reloadTable();
         });
@@ -339,66 +315,57 @@
             reloadTable();
         });
 
-        $('#filterproductstatus').change(function(ev){
+        $('#filtertypestatus').change(function(ev){
             ev.preventDefault();
             reloadTable();
         });
 
-        $('#filterproductcategory').change(function(ev){
+        $('#btnSaveType').click(function(ev){
             ev.preventDefault();
-            reloadTable();
+            saveType();
         });
 
-        $('#btnSaveProduct').click(function(ev){
+        $('#btnUpdateType').click(function(ev){
             ev.preventDefault();
-            saveProduct();
+            updateType();
         });
 
-        $('#btnUpdateProduct').click(function(ev){
-            ev.preventDefault();
-            updateProduct();
-        });
-
-        $(document).on('click', '.btn-new-product', function(event) {
+        $(document).on('click', '.btn-new-type', function(event) {
             
-            $("#frmProduct")[0].reset();
-            $('.title-product').text('Nuevo producto');
-            loadModalCategories(0);
-            $('#btnSaveProduct').show();
-            $('#btnUpdateProduct').hide();
+            $("#frmType")[0].reset();
+            $('.title-type').text('Nuevo tipo');
+            loadModalTypes(0);
+            $('#btnSaveType').show();
+            $('#btnUpdateType').hide();
 
         });
 
         $(document).on('click', '.btn-edit', function(event) {
 
             var id = $(this).data('id');
-            $('.title-product').text('Actualizar producto');
-            $('#btnSaveProduct').hide();
-            $('#btnUpdateProduct').show();
+            $('.title-type').text('Actualizar tipo de valor');
+            $('#btnSaveType').hide();
+            $('#btnUpdateType').show();
             //alert(id);
-            loadModalCategories(id);
+            loadModalTypes(id);
 
             $.ajax({
-                url: '{{ route('admin.product.get') }}',
+                url: '{{ route('admin.type.get') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {nproductid:id, _token:'{{ csrf_token() }}'},
+                data: {ntypeid:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
                 
-                productid = id;
+                typeid = id;
 
                 if (data.status == 'success') {
-                    
-                    $('#productsku').val(data.product.ssku);
-                    $('#productname').val(data.product.sname);
-                    $('#productdescription').val(data.product.sdescription);
-                    $('#productcategory').val(data.product.ncategoryid);
-                    $('#productcategory').select2().trigger('change');
-                    $('#productfullimage').val(data.product.sfullimage);
-                    $('#productthumbnail').val(data.product.sthumbnail);
-                    $('#productmasterprice').val(data.product.nmasterprice);
-                    $('#productprice').val(data.product.nprice);
+
+                    $('#typeparent').val(data.type.ntypeparentid);
+                    $('#typeparent').select2().trigger('change');
+                    $('#typename').val(data.type.sname);
+                    $('#typedescription').val(data.type.sdescription);
+                    $('#typeextension').val(data.type.sextension);
 
                 }else{
                     Swal.fire({
@@ -411,16 +378,17 @@
                 }
             });
 
+
         });
 
         $(document).on('click', '.desactivate', function(event) {
-            productid = $(this).data('id');
-            //alert('ID: ' + productid);
+            typeid = $(this).data('id');
+            //alert('ID: ' + typeid);
         });
 
         $(document).on('click', '.activate', function(event) {
-            productid = $(this).data('id');
-            //alert('ID: ' + productid);
+            typeid = $(this).data('id');
+            //alert('ID: ' + typeid);
         });
 
         $(document).on('click', '#btnDesactivate', function(event) {
@@ -429,10 +397,10 @@
             $("#btnDesactivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.product.desactivate') }}',
+                url: '{{ route('admin.type.desactivate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id:productid, _token:'{{ csrf_token() }}'},
+                data: {id:typeid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -443,7 +411,7 @@
 
                     $('#modalDesactivate').modal('hide');
                     reloadTable();
-                    productid = null;
+                    typeid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -474,10 +442,10 @@
             $("#btnActivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.product.activate') }}',
+                url: '{{ route('admin.type.activate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id: productid, _token:'{{ csrf_token() }}'},
+                data: {id: typeid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -488,7 +456,7 @@
 
                     $('#modalActivate').modal('hide');
                     reloadTable();
-                    productid = null;
+                    typeid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -517,37 +485,31 @@
             $("#listado").DataTable().ajax.reload();
         }
 
-        function saveProduct(){
+        function saveType(){
             
-            productcategory = $('#productcategory').val();
-            productcategoryname = $('#productcategory option:selected').text();
-            productsku = $('#productsku').val();
-            productname = $('#productname').val();
-            productdescription = $('#productdescription').val();
-            productfullimage = $('#productfullimage').val();
-            productthumbnail = $('#productthumbnail').val();
-            productmasterprice = $('#productmasterprice').val();
-            productprice = $('#productprice').val();
+            typeparent = $('#typeparent').val();
+            typename = $('#typename').val();
+            typedescription = $('#typedescription').val();
+            typeextension = $('#typeextension').val();
 
-
-            if(confirm('¿Está seguro de registrar el producto?')==true){
-                $("#btnSaveProduct").html('Guardando...');
-                $("#btnSaveProduct").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de registrar el tipo?')==true){
+                $("#btnSaveType").html('Guardando...');
+                $("#btnSaveType").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.product.save') }}',
+                    url: '{{ route('admin.type.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {typeparent:typeparent, typename:typename, typedescription:typedescription, typeextension:typeextension, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnSaveProduct").html('Guardar');
-                    $("#btnSaveProduct").removeAttr('disabled');
+                    $("#btnSaveType").html('Guardar');
+                    $("#btnSaveType").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalProduct').modal('hide');
-                        $("#frmProduct")[0].reset();
+                        $('#modalType').modal('hide');
+                        $("#frmType")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -570,36 +532,31 @@
             }
         }
 
-        function updateProduct(){
+        function updateType(){
             
-            productcategory = $('#productcategory').val();
-            productcategoryname = $('#productcategory option:selected').text();
-            productsku = $('#productsku').val();
-            productname = $('#productname').val();
-            productdescription = $('#productdescription').val();
-            productfullimage = $('#productfullimage').val();
-            productthumbnail = $('#productthumbnail').val();
-            productmasterprice = $('#productmasterprice').val();
-            productprice = $('#productprice').val();
+            typeparent = $('#typeparent').val();
+            typename = $('#typename').val();
+            typedescription = $('#typedescription').val();
+            typeextension = $('#typeextension').val();
 
-            if(confirm('¿Está seguro de actualizar el producto?')==true){
-                $("#btnUpdateProduct").html('Actualizando...');
-                $("#btnUpdateProduct").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de actualizar el tipo?')==true){
+                $("#btnUpdateType").html('Actualizando...');
+                $("#btnUpdateType").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.product.update') }}',
+                    url: '{{ route('admin.type.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productid:productid,productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {typeid:typeid, typeparent:typeparent, typename:typename, typedescription:typedescription, typeextension:typeextension, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnUpdateProduct").html('Actualizar');
-                    $("#btnUpdateProduct").removeAttr('disabled');
+                    $("#btnUpdateType").html('Actualizar');
+                    $("#btnUpdateType").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalProduct').modal('hide');
-                        $("#frmProduct")[0].reset();
+                        $('#modalType').modal('hide');
+                        $("#frmType")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -622,24 +579,24 @@
             }
         }
 
-        function loadModalCategories(id){
+        function loadModalTypes(id){
 
             $.ajax({
-                url: '{{ route('admin.product.getlistcategories') }}',
+                url: '{{ route('admin.type.getlist') }}',
                 type: 'POST',
                 dataType: 'json',
                 data: {id:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
-                $('#productcategory').html('');
-                $('#productcategory').append($("<option></option>").attr("value", "0").text("- No asignado -"));
+                $('#typeparent').html('');
+                $('#typeparent').append($("<option></option>").attr("value", "0").text("- No asignado -"));
                 $.each(data, function(i, item) {
-                    $('#productcategory').append($("<option></option>").attr("value", data[i].ncategoryid).text(data[i].sname));
+                    $('#typeparent').append($("<option></option>").attr("value", data[i].ntypeid).text(data[i].sname));
                 });
             });
         }
-
-    })
+        
+    });
 </script>
 
 @endsection
