@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'Front\HomeController@_index'); //http://localhost/Fauna-Ideas/public
+Route::get('products','Front\ProductController@showView');
 
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
