@@ -19,7 +19,7 @@
 			
 			/*return view('portal._index')->with(['title' => 'Visita virtual - Ministerio de Cultura','espacios'=> $espacios,'logo'=>$logo,'txt_portada'=>$txt_portada,'tipo_espacios'=>$tipo_espacios]);*/
 
-			$nsitio = Parameter::where('sstatus', 'A')->where('scode','SITENAME')->pluck('svalue')[0];
+			$nsitio = null; //Parameter::where('sstatus', 'A')->where('scode','SITENAME')->pluck('svalue')[0];
 
 			return view('portal._index')->with(['nsitio' => $nsitio]);
 		}
