@@ -17,31 +17,30 @@
         
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('portal/images/icons/favicon.ico') }}">
-    
+
     <script type="text/javascript">
         WebFontConfig = {
             google: { families: [ 'Open+Sans:300,400,600,700,800','Poppins:300,400,500,600,700','Segoe Script:300,400,500,600,700' ] }
         };
         (function(d) {
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = "{{ asset('js/webfont.js') }}";
-            wf.async = true;
-            s.parentNode.insertBefore(wf, s);
-        })(document);
-    </script>
-    
-    <script type="text/javascript">
-        WebFontConfig = {
-            google: { families: [ 'Open+Sans:300,400,600,700,800','Poppins:300,400,500,600,700','Segoe Script:300,400,500,600,700' ] }
-        };
-        (function(d) {
-            var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = "{{ asset('js/webfont.js') }}";
+            wf.src = '{{ asset("portal/js/webfont.js") }}';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
 
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans:300,400,600,700,800','Poppins:300,400,500,600,700','Segoe Script:300,400,500,600,700' ] }
+        };
+        (function(d) {
+            var wf = d.createElement('script'), s = d.scripts[0];
+            wf.src = '{{ asset("portal/js/webfont.js") }}';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('portal/css/bootstrap.min.css') }}">
@@ -163,9 +162,9 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
-    <div class="newsletter-popup mfp-hide" id="" style="background-image: url(assets/images/newsletter_popup_bg.jpg)">
+    <div class="newsletter-popup mfp-hide" id="" style="background-image: url({{ asset('portal/images/newsletter_popup_bg.jpg') }})">
         <div class="newsletter-popup-content">
-            <img src="assets/images/logo-black.png" alt="Logo" class="logo-newsletter">
+            <img src="{{ asset('portal/images/logo-black.png') }}" alt="Logo" class="logo-newsletter">
             <h2>BE THE FIRST TO KNOW</h2>
             <p>Subscribe to the Porto eCommerce newsletter to receive timely updates from your favorite products.</p>
             <form action="#">
@@ -204,7 +203,6 @@
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
-
     <!-- Plugins JS File -->
     <script src="{{ asset('portal/js/jquery.min.js') }}"></script>
     <script src="{{ asset('portal/js/bootstrap.bundle.min.js') }}"></script>
@@ -212,5 +210,8 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('portal/js/main.min.js') }}"></script>
+
+    <!-- www.addthis.com share plugin -->
+    <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b927288a03dbde6"></script>
 </body>
 </html>
