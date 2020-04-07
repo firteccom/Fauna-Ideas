@@ -270,11 +270,14 @@
                     }
                 }},
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
+
+                    var high = '<a data-id="'+row.nproductid+'" high="'+row.shighlighted+'" id="btnhighlight" class="btn btn-default fa fa-star btn-highlight rw_'+row.shighlighted+'" tooltips" data-target="#modalProduct" data-placement="top" title="Destacado" data-original-title="Destacado"></a>';
+
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.nproductid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProduct" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                        return 	high+'<a data-id="'+row.nproductid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProduct" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
                             ' <i data-id="'+row.nproductid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.nproductid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	high+'<i data-id="'+row.nproductid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
@@ -358,6 +361,14 @@
             ev.preventDefault();
             updateProduct();
         });
+
+        $(document).on('click', '#btnhighlight', function(ev) {
+            ev.preventDefault();
+            var high = $(this).attr('high');
+            var id = $(this).attr('data-id');
+            highlightProduct(high, id);
+        });
+        
 
         $(document).on('click', '.btn-new-product', function(event) {
             
@@ -620,6 +631,20 @@
                     }
                 });
             }
+        }
+
+        function highlightProduct(high, id){
+
+            $.ajax({
+                url: '{{ route('admin.product.highlight') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {high:high, id:id, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+               reloadTable();
+            });
+
         }
 
         function loadModalCategories(id){

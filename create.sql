@@ -80,6 +80,7 @@ CREATE TABLE `categories` (
   `sname` varchar(100) NOT NULL COMMENT 'Category name.',
   `sshortdescription` varchar(20) NOT NULL COMMENT 'Category short description.',
   `sdescription` varchar(100) DEFAULT NULL COMMENT 'Category description.',
+  `sfullimage` varchar(400) NOT NULL COMMENT 'Category full image.',
   `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Category status. A=Active, N=Inactive, M=Modified, E=Exported',
   `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Category create date.',
   `dmodifiedon` datetime DEFAULT NULL COMMENT 'Category modify date.',
@@ -91,13 +92,13 @@ CREATE TABLE `categories` (
 -- Volcado de datos para la tabla `categories`
 --
 
-INSERT INTO `categories` (`ncategoryid`, `ncategoryparent`, `sname`, `sshortdescription`, `sdescription`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
-(1, 0, 'Agendas', 'AGENDA-H', 'Agendas para hombres', 'A', '2020-03-20 15:37:01', NULL, NULL, NULL),
-(2, 1, 'Agenda Mujer 3', 'AGENDA-M3', 'Agenda para mujeres 3', 'A', '2020-03-20 17:59:40', NULL, 1, NULL),
-(3, 1, 'Agendas unisex', 'AGENDA-U', 'Agendas para ambos sexos', 'A', '2020-03-20 18:13:45', NULL, 1, NULL),
-(4, 1, 'Agenda Niños', 'AGENDA-N', 'Agenda para niños', 'A', '2020-03-20 18:25:17', NULL, 1, NULL),
-(5, 1, 'Agenda 3ra edad', 'AGENDA-3RA', 'Agenda para la tercera edad', 'A', '2020-03-20 18:27:47', NULL, 1, NULL),
-(6, 1, 'Agenda oficina', 'AGENDA-O', 'Agenda para oficina', 'A', '2020-03-20 18:30:11', NULL, 1, NULL);
+INSERT INTO `categories` (`ncategoryid`, `ncategoryparent`, `sname`, `sshortdescription`, `sdescription`, `sfullimage`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 0, 'Agendas', 'AGENDA-H', 'Agendas para hombres', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 15:37:01', NULL, NULL, NULL),
+(2, 1, 'Agenda Mujer 3', 'AGENDA-M3', 'Agenda para mujeres 3', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 17:59:40', NULL, 1, NULL),
+(3, 1, 'Agendas unisex', 'AGENDA-U', 'Agendas para ambos sexos', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 18:13:45', NULL, 1, NULL),
+(4, 1, 'Agenda Niños', 'AGENDA-N', 'Agenda para niños', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 18:25:17', NULL, 1, NULL),
+(5, 1, 'Agenda 3ra edad', 'AGENDA-3RA', 'Agenda para la tercera edad', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 18:27:47', NULL, 1, NULL),
+(6, 1, 'Agenda oficina', 'AGENDA-O', 'Agenda para oficina', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-03-20 18:30:11', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,6 +118,7 @@ CREATE TABLE `products` (
   `nmasterprice` decimal(10,2) NOT NULL COMMENT 'Product master price.',
   `nprice` decimal(10,2) NOT NULL,
   `ssku` varchar(64) NOT NULL COMMENT 'Product sku.',
+  `shighlighted` char(1) NOT NULL DEFAULT 'N' COMMENT 'Product highlight. Y=Yes, N=No',
   `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Product status. A=Active, N=Inactive, M=Modified, E=Exported',
   `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Category create date.',
   `dmodifiedon` datetime DEFAULT NULL COMMENT 'Category modify date.',

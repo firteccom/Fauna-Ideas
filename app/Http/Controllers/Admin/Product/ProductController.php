@@ -106,8 +106,8 @@
 	
 				$select[] = 'prd.*';
 				$select[] = 'cat.sname as categoryname';
-				$select[] = \DB::raw('CONCAT("",sthumbnail) AS sthumbnailimage');
-				$select[] = \DB::raw('CONCAT("",sfullimage) AS simagefull');
+				$select[] = \DB::raw('CONCAT("",prd.sthumbnail) AS sthumbnailimage');
+				$select[] = \DB::raw('CONCAT("",prd.sfullimage) AS simagefull');
 				
 	
 				$data = $data->select($select)
@@ -234,6 +234,29 @@
 
             }
                 
+            return response()->json($resp);
+		}
+
+		public function highlightProduct(Request $request){
+
+			$flag = 'Y';
+			$msg = 'El producto fue destacado.';
+
+			if($request->high == 'Y'){ $flag = 'N'; $msg = 'El producto fue quitado de los destacados.';}
+
+
+			 try {
+                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['shighlighted'=>$flag]);
+
+                $resp['status'] = 'success';
+                $resp['msg'] = $msg;
+
+            } catch (\Exception $ex) {
+
+                $resp['status'] = 'error';
+                $resp['msg'] = 'No se pudo modificar el producto '.$ex->getMessage();
+            }
+            
             return response()->json($resp);
 		}
 

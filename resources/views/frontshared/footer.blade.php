@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="footer-left widget-newsletter">
                 <div class="widget-newsletter-info">
-                    <a href="#" class="widget-newsletter-title">subscribe newsletter</a>
+                    <a href="#" class="widget-newsletter-title">Visita nuestro Blog</a>
                     <p class="widget-newsletter-content">Get all the latest information on Events, Sales and Offers.</p>
                 </div>
                 <form action="#">
@@ -27,12 +27,12 @@
             <div class="row row-sm">
                 <div class="col-lg-6">
                     <div class="widget">
-                        <h4 class="widget-title">Contact Info</h4>
+                        <h4 class="widget-title">Información de contacto</h4>
 
                         <div class="row row-sm">
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">ADDRESS</h4>
+                                    <h4 class="widget-title">DIRECCIÓN</h4>
                                     <a href="#">123 Street Name, City, England</a>
                                 </div>
                             </div>
@@ -44,14 +44,14 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">PHONE</h4>
+                                    <h4 class="widget-title">TELÉFONO</h4>
                                     <a href="#">Toll Free (123) 456-7890</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">WORKING DAYS/HOURS</h4>
-                                    <a href="#">Mon - Sun / 9:00AM - 8:00PM</a>
+                                    <h4 class="widget-title">HORARIO DE ATENCIÓN</h4>
+                                    <a href="#">Lun - Dom / 9:00AM - 8:00PM</a>
                                 </div>
                             </div>
                         </div>
@@ -62,30 +62,12 @@
                         <h4 class="widget-title">My Account</h4>
                         <ul class="links link-parts">
                             <div class="link-part">
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="my-account.html">My account</a></li>
+                                <li><a href="about.html">Sobre nosotros</a></li>
+                                <li><a href="contact.html">Contáctanos</a></li>
                             </div>
                             <div class="link-part">
                                 <li><a href="#">Orders History</a></li>
                                 <li><a href="#">Advanced Search</a></li>
-                                <li><a href="login.html">Login</a></li>
-                            </div>
-                        </ul>
-                    </div><!-- End .widget -->
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="widget">
-                        <h4 class="widget-title">Main Features</h4>
-                        <ul class="links link-parts">
-                            <div class="link-part">    
-                                <li><a href="#">Super Fast Magento Theme</a></li>
-                                <li><a href="#">1st Fully working Ajax Theme</a></li>
-                                <li><a href="#">10 Unique Homepage Layouts</a></li>
-                            </div>
-                            <div class="link-part">
-                                <li><a href="#">Powerful Admin Panel</a></li>
-                                <li><a href="#">Mobile & Retina Optimized</a></li>
                             </div>
                         </ul>
                     </div><!-- End .widget -->
@@ -96,7 +78,7 @@
 
     <div class="footer-bottom">
         <div class="container-fluid">
-            <p class="footer-copyright">Porto eCommerce. &copy;  2019.  All Rights Reserved</p>
+            <p class="footer-copyright">Firteccom. &copy;  {{ now()->year }}.  Todos los derechos reservados</p>
             <img src="{{ asset('portal/images/payments.png') }}" alt="payment image">
         </div>
     </div>
