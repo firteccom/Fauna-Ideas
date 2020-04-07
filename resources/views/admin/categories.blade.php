@@ -124,6 +124,10 @@
                                 <label for="categorydescription">Descripción</label>
                                 <input type="text" class="form-control filter" id="categorydescription" name="categorydescription" placeholder="Ingrese una descripción">
                             </div>
+                            <div class="col-sm-12 form-group">
+                                <label for="categoryfullimage">Imagen</label>
+                                <input type="url" class="form-control filter" id="categoryfullimage" name="categoryfullimage" placeholder="URL de imagen">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
@@ -366,6 +370,7 @@
                     $('#categoryname').val(data.category.sname);
                     $('#categoryshortdescription').val(data.category.sshortdescription);
                     $('#categorydescription').val(data.category.sdescription);
+                    $('#categoryfullimage').val(data.category.sfullimage);
 
                 }else{
                     Swal.fire({
@@ -491,6 +496,7 @@
             categoryname = $('#categoryname').val();
             categoryshortdescription = $('#categoryshortdescription').val();
             categorydescription = $('#categorydescription').val();
+            categoryfullimage = $('#categoryfullimage').val();
 
             if(confirm('¿Está seguro de registrar la categoría?')==true){
                 $("#btnSaveCategory").html('Guardando...');
@@ -500,7 +506,7 @@
                     url: '{{ route('admin.category.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, _token:'{{ csrf_token() }}'},
+                    data: {categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, categoryfullimage:categoryfullimage, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
@@ -538,6 +544,7 @@
             categoryname = $('#categoryname').val();
             categoryshortdescription = $('#categoryshortdescription').val();
             categorydescription = $('#categorydescription').val();
+            categoryfullimage = $('#categoryfullimage').val();
 
             if(confirm('¿Está seguro de actualizar la categoría?')==true){
                 $("#btnUpdateCategory").html('Actualizando...');
@@ -547,7 +554,7 @@
                     url: '{{ route('admin.category.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {categoryid:categoryid, categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, _token:'{{ csrf_token() }}'},
+                    data: {categoryid:categoryid, categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, categoryfullimage:categoryfullimage, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 

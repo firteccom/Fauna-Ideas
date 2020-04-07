@@ -151,10 +151,10 @@
                 $category->sname = $request->categoryname;
                 $category->sshortdescription = $request->categoryshortdescription;
                 $category->sdescription = $request->categorydescription;
+                $category->sfullimage = $request->categoryfullimage;
                 $category->ncreatedby = 1;
 
                 $category->saveAsNew();
-                //var_dump($category);
 
                 $data['status'] = 'success';
                 $data['msg'] = 'La categoría se registró correctamente.';
@@ -178,6 +178,7 @@
                         ->update(['ncategoryparent'=>$request->categoryparent,
                                   'sname'=>$request->categoryname,
                                   'sshortdescription'=>$request->categoryshortdescription,
+                                  'sfullimage' => $request->categoryfullimage,
                                   'sdescription'=>$request->categorydescription]);
 
                 $resp['status'] = 'success';

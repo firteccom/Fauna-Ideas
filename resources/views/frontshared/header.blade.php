@@ -5,51 +5,44 @@
                 <button class="mobile-menu-toggler" type="button">
                     <i class="icon-menu"></i>
                 </button>
-                <a href="index.html" class="logo">
-                    <img src="{{ asset('portal/images/logo.png') }}" alt="Porto Logo">
+                <a href="{{ route('front.home') }}" class="logo">
+                    @if(isset($logo))
+                        <img src="{{$logo}}" alt="Porto Logo">
+                    @else
+                        <img src="{{ asset('portal/images/logo.png') }}" alt="Porto Logo">
+                    @endif                    
                 </a>
 
                 <nav class="main-nav">
                     <ul class="menu">
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a href="category.html">Categories</a>
-                            <div class="megamenu">
-                                <div class="row row-sm">
-                                    <div class="col-lg-4">
-                                        <a href="#" class="nolink">VARIATION 1</a>
-                                        <ul class="submenu">
-                                            <li><a href="category.html">Fullwidth Banner</a></li>
-                                            <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a></li>
-                                            <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a></li>
-                                            <li><a href="category.html">Left Sidebar</a></li>
-                                            <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
-                                            <li><a href="category-flex-grid.html">Product Flex Grid</a></li>
-                                            <li><a href="category-horizontal-filter1.html">Horizontal Filter1</a></li>
-                                            <li><a href="category-horizontal-filter2.html">Horizontal Filter2</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <a href="#" class="nolink">VARIATION 2</a>
-                                        <ul class="submenu">
-                                            <li><a href="#">Product List Item Types</a></li>
-                                            <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll</a></li>
-                                            <li><a href="category-3col.html">3 Columns Products</a></li>
-                                            <li><a href="category.html">4 Columns Products</a></li>
-                                            <li><a href="category-5col.html">5 Columns Products</a></li>
-                                            <li><a href="category-6col.html">6 Columns Products</a></li>
-                                            <li><a href="category-7col.html">7 Columns Products</a></li>
-                                            <li><a href="category-8col.html">8 Columns Products</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-4 image-container">
-                                        <img src="{{ asset('portal/images/menu-banner-2.jpg') }}" align="Menu banner">
-                                    </div>
-                                </div>
-                            </div><!-- End .megamenu -->
-                        </li>
+                        <li class="active"><a href="{{ route('front.home') }}">Inicio</a></li>
+       
+                            @if(isset($categorias))
+                                <li>
+                                    <a href="category.html">Categorías</a>
+                                    <div class="megamenu">
+                                        <div class="row row-sm">
+                                            <div class="col-lg-8">
+                                                <ul class="submenu">
+                                                    @foreach ($categorias as $cat)
+                                                        <li><a href="categorias/{{ $cat->sname }}">{{ $cat->sname }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-lg-4 image-container">
+                                                <img src="{{ asset('portal/images/menu-banner-2.jpg') }}" align="Menu banner">
+                                            </div>
+
+                                        </div>    
+                                    </div><!-- End .megamenu -->    
+
+                                </li>
+                            @endif
+
+                    
+
+
                         <li class="">
                             <a href="product.html">Products</a>
                             <div class="megamenu">
@@ -119,7 +112,6 @@
                                 <li><a href="forgot-password.html">Forgot Password</a></li>
                             </ul>
                         </li>
-                        <li><a href="https://1.envato.market/DdLk5" target="_blank">Buy Porto!</a></li>
                     </ul>
                 </nav>
             </div><!-- End .header-left -->

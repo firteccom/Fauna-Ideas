@@ -12,7 +12,7 @@ class Category extends Model {
     public $timestamps = false;
     public $incrementing = false;
 
-    protected $fillable = ['ncategoryid','ncategoryparent','sname','sshortdescription','sdescription','sstatus','dcreatedon','dmodifiedon','ncreatedby','nmodifiedby'];
+    protected $fillable = ['ncategoryid','ncategoryparent','sname','sshortdescription','sdescription','sfullimage','sstatus','dcreatedon','dmodifiedon','ncreatedby','nmodifiedby'];
 
 	public function saveAsNew(){
 		if(!isset($this->ncategoryid)){

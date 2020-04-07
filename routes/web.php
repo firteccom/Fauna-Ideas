@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Front\HomeController@_index'); //http://localhost/Fauna-Ideas/public
+Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://localhost/Fauna-Ideas/public
 Route::get('products','Front\ProductController@showView');
 
 
@@ -47,6 +47,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('updateProduct', 'ProductController@updateProduct')->name('admin.product.update');
 			Route::post('desactivateProduct', 'ProductController@desactivateProduct')->name('admin.product.desactivate');
 			Route::post('activateProduct', 'ProductController@activateProduct')->name('admin.product.activate');
+			Route::post('highlightProduct', 'ProductController@highlightProduct')->name('admin.product.highlight');
 		});
 
 		//Categories

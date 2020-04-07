@@ -27,93 +27,36 @@
     </div>
 	<!-- End .home-slider -->
 	
+
+    @if(isset($categorias))
+    <!-- CATEGORÍAS -->
     <section class="container-fluid">
         <div class="section-header mt-6">
-            <h2 class="section-title">Shop By Category</h2>
-            <h3 class="section-subtitle">Browse in all our categories</h3>
+            <h2 class="section-title">Compra por categoría</h2>
+            <h3 class="section-subtitle">Navega por nuestras categorías</h3>
         </div>
 
         <div class="row row-sm mb-2">
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            @foreach ($categorias as $cat)
+                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
                 <div class="product-category">
-                    <a href="category.html">
+                    <a href="categorias/{{$cat->sname}}">
                         <figure>
-                            <img src="assets/images/categories/category-1.jpg">
+                            <img src="{{$cat->sfullimage}}">
                         </figure>
                         <div class="category-content">
-                            <h3>Sunglasses</h3>
-                            <span><mark class="count">8</mark> products</span>
+                            <h3>{{$cat->sname}}</h3>
+                            <!--<span><mark class="count">8</mark> products</span>-->
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                <div class="product-category">
-                    <a href="category.html">
-                        <figure>
-                            <img src="assets/images/categories/category-2.jpg">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Bags</h3>
-                            <span><mark class="count">4</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                <div class="product-category">
-                    <a href="category.html">
-                        <figure>
-                            <img src="assets/images/categories/category-3.jpg">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Electronics</h3>
-                            <span><mark class="count">8</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                <div class="product-category">
-                    <a href="category.html">
-                        <figure>
-                            <img src="assets/images/categories/category-4.jpg">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Fashion</h3>
-                            <span><mark class="count">11</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                <div class="product-category">
-                    <a href="category.html">
-                        <figure>
-                            <img src="assets/images/categories/category-5.jpg">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Headphone</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                <div class="product-category">
-                    <a href="category.html">
-                        <figure>
-                            <img src="assets/images/categories/category-6.jpg">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Shoes</h3>
-                            <span><mark class="count">4</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            @endforeach
+            
         </div>
     </section>
+    @endif
+
 
     <section class="bg-grey pt-3 pb-3">
         <div class="container-fluid mt-6 mb-5">
@@ -171,11 +114,12 @@
         </div>
 
         <div class="row row-sm mb-10">
+            @foreach ($populares as $pop)
             <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-1.jpg">
+                            <img src="{{$pop->sfullimage}}">
                         </a>
                         <div class="label-group">
                             <span class="product-label label-cut">27% OFF</span>
@@ -192,7 +136,7 @@
                             </div>
                         </div>
                         <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
+                            <a href="product.html">{{$pop->sname}}</a>
                         </h2>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -201,408 +145,13 @@
                             </div><!-- End .product-ratings -->
                         </div><!-- End .product-container -->
                         <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
+                            <span class="old-price">S/ {{$pop->nmasterprice}}</span>
+                            <span class="product-price">S/ {{$pop->nprice}}</span>
                         </div><!-- End .price-box -->
                     </div><!-- End .product-details -->
                 </div>
             </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-2.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-3.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-4.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-5.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-6.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-7.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-8.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-9.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-10.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-11.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-12.jpg">
-                        </a>
-                        <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">Product Short Name</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">$59.00</span>
-                            <span class="product-price">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 </main><!-- End .main -->
