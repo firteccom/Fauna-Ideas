@@ -8,7 +8,7 @@
     @if(isset($nsitio))
       <title>{{$nsitio}}</title>
     @else
-      <title>Fauna & Ideass</title>
+      <title>Fauna & Ideas</title>
     @endif
 
     <meta name="keywords" content="HTML5 Template" />
