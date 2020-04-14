@@ -111,6 +111,7 @@ CREATE TABLE `products` (
   `nproductid` int(11) NOT NULL COMMENT 'PK of “Products” Table.',
   `sname` varchar(128) NOT NULL COMMENT 'Product name.',
   `sdescription` varchar(2000) DEFAULT NULL COMMENT 'Product description.',
+  `slongdescription` varchar(4000) DEFAULT NULL COMMENT 'Product long description.',
   `sthumbnail` varchar(256) NOT NULL COMMENT 'Product thumbnail.',
   `sfullimage` varchar(256) NOT NULL COMMENT 'Product full image.',
   `ncategoryid` int(11) NOT NULL COMMENT 'Category id.',
