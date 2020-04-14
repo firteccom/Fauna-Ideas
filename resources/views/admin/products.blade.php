@@ -211,6 +211,53 @@
         </div>
         <!-- /.modal -->
 
+
+        <div class="modal modal-danger fade" id="modalUnhighlight">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Producto destacado</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Desea quitar el producto de los destacados?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnunhigh" class="btn btn-outline">Confirmar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+        <div class="modal modal-success fade" id="modalHighlight">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Producto destacado</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Desea agregar el producto a los destacados?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnhigh" class="btn btn-outline">Confirmar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
     <!-- /.content -->
     </div>
   <!-- /.content-wrapper -->
@@ -271,7 +318,7 @@
                 }},
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
 
-                    var high = '<a data-id="'+row.nproductid+'" high="'+row.shighlighted+'" id="btnhighlight" class="btn btn-default fa fa-star btn-highlight rw_'+row.shighlighted+'" tooltips" data-target="#modalProduct" data-placement="top" title="Destacado" data-original-title="Destacado"></a>';
+                    var high = '<a data-id="'+row.nproductid+'" high="'+row.shighlighted+'" id="btnhighlight" class="btn btn-default fa fa-star btn-highlight rw_'+row.shighlighted+'" tooltips"  data-placement="top" title="Destacado" data-original-title="Destacado"></a>';
 
                     if(row.sstatus != 'N'){
                         return 	high+'<a data-id="'+row.nproductid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalProduct" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
@@ -366,8 +413,41 @@
             ev.preventDefault();
             var high = $(this).attr('high');
             var id = $(this).attr('data-id');
-            highlightProduct(high, id);
+
+            if(high == 'Y'){
+                $('#modalUnhighlight').modal('show');
+            }else{
+                $('#modalHighlight').modal('show');
+            }
+            productid = id;
         });
+
+
+        $(document).on('click', '#btnunhigh', function(event) {
+           highlightProduct('Y');
+        });
+
+        $(document).on('click', '#btnhigh', function(event) {
+           highlightProduct('N');
+        });
+
+
+         function highlightProduct(high){
+            
+            $.ajax({
+                url: '{{ route('admin.product.highlight') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {high:high, id:productid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+               reloadTable();
+               $('#modalUnhighlight').modal('hide');
+               $('#modalHighlight').modal('hide');
+            });
+
+        }
+
         
 
         $(document).on('click', '.btn-new-product', function(event) {
@@ -633,19 +713,7 @@
             }
         }
 
-        function highlightProduct(high, id){
-
-            $.ajax({
-                url: '{{ route('admin.product.highlight') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {high:high, id:id, _token:'{{ csrf_token() }}'},
-            })
-            .done(function(data) {
-               reloadTable();
-            });
-
-        }
+       
 
         function loadModalCategories(id){
 

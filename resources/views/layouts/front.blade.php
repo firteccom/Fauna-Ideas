@@ -80,68 +80,6 @@
                         </li>
                     @endif
                     
-                    <li>
-                        <a href="product.html">Products</a>
-                        <ul>
-                            <li>
-                                <a href="#">Variations</a>
-                                <ul>
-                                    <li><a href="product.html">Horizontal Thumbnails</a></li>
-                                    <li><a href="product-full-width.html">Vertical Thumbnails</a></li>
-                                    <li><a href="product.html">Inner Zoom</a></li>
-                                    <li><a href="product-addcart-sticky.html">Addtocart Sticky</a></li>
-                                    <li><a href="product-sidebar-left.html">Accordion Tabs</a></li>
-                                    <li><a href="product-sticky-tab.html">Sticky Tabs</a></li>
-                                    <li><a href="product-simple.html">Simple Product</a></li>
-                                    <li><a href="product-sidebar-left.html">With Left Sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Product Layout Types</a>
-                                <ul>
-                                    <li><a href="product.html">Default Layout</a></li>
-                                    <li><a href="product-extended-layout.html">Extended Layout</a></li>
-                                    <li><a href="product-full-width.html">Full Width Layout</a></li>
-                                    <li><a href="product-grid-layout.html">Grid Images Layout</a></li>
-                                    <li><a href="product-sticky-both.html">Sticky Both Side Info</a></li>
-                                    <li><a href="product-sticky-info.html">Sticky Right Side Info</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Pages</a>
-                        <ul>
-                            <li><a href="cart.html">Shopping Cart</a></li>
-                            <li>
-                                <a href="#">Checkout</a>
-                                <ul>
-                                    <li><a href="checkout-shipping.html">Checkout Shipping</a></li>
-                                    <li><a href="checkout-shipping-2.html">Checkout Shipping 2</a></li>
-                                    <li><a href="checkout-review.html">Checkout Review</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard</a>
-                                <ul>
-                                    <li><a href="dashboard.html">Dashboard</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li>
-                                <a href="#">Blog</a>
-                                <ul>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single.html">Blog Post</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="#" class="login-link">Login</a></li>
-                            <li><a href="forgot-password.html">Forgot Password</a></li>
-                        </ul>
-                    </li>
-                    
                 </ul>
             </nav><!-- End .mobile-nav -->
 
