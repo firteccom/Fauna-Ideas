@@ -22,7 +22,7 @@
 			/*return view('portal._index')->with(['title' => 'Visita virtual - Ministerio de Cultura','espacios'=> $espacios,'logo'=>$logo,'txt_portada'=>$txt_portada,'tipo_espacios'=>$tipo_espacios]);*/
 
 			$nsitio = Parameter::where('sstatus', 'A')->where('scode','SITENAME')->pluck('svalue')[0];
-			$logo = null;//Parameter::where('sstatus', 'A')->where('scode','LOGO')->pluck('svalue')[0];
+			$logo = Parameter::where('sstatus', 'A')->where('scode','LOGO')->pluck('svalue')[0];
 			$categorias = Category::where('sstatus', 'A')->get();
 			$populares = Product::where('sstatus', 'A')->where('shighlighted','Y')->get();
 
