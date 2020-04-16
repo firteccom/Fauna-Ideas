@@ -9,7 +9,7 @@
                     @if(isset($logo))
                         <img src="{{$logo}}" alt="Porto Logo">
                     @else
-                        <img src="{{ asset('portal/images/logo.png') }}" alt="Porto Logo">
+                        <img src="{{ asset('public/portal/images/logo.png') }}" alt="Porto Logo">
                     @endif                    
                 </a>
 
@@ -31,7 +31,7 @@
                                             </div>
 
                                             <div class="col-lg-4 image-container">
-                                                <img src="{{ asset('portal/images/menu-banner-2.jpg') }}" align="Menu banner">
+                                                <img src="{{ asset('public/portal/images/menu-banner-2.jpg') }}" align="Menu banner">
                                             </div>
 
                                         </div>    

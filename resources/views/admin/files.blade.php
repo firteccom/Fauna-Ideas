@@ -244,7 +244,7 @@
                 {sTitle : "Abreviatura", mData: "sshortdescription"},
                 {sTitle : "Descripción", mData: "sdescription"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nfileid+'" data-title="'+row.sname+'" data-file="'+row.spath+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.spath+'" width="30" height="30" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.nfileid+'" data-title="'+row.sname+'" data-file="../storage/app/'+row.spath+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.spath+'" width="30" height="30" /></a>';
                 }}, 
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
