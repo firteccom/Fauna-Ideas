@@ -79,7 +79,7 @@
     <div class="footer-bottom">
         <div class="container-fluid">
             <p class="footer-copyright">Firteccom. &copy;  {{ now()->year }}.  Todos los derechos reservados</p>
-            <img src="{{ asset('portal/images/payments.png') }}" alt="payment image">
+            <img src="{{ asset('public/portal/images/payments.png') }}" alt="payment image">
         </div>
     </div>
 </footer>

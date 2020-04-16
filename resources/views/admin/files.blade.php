@@ -144,7 +144,7 @@
                                 <label for="fileupload">Cargar archivo</label>
                                 <input type="file" id="fileupload" name="fileupload">
                                 <br>
-                                <p>El archivo debe ser menor de 20MB *</p>
+                                <p>El archivo debe ser menor a 20MB *</p>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group" id="imagepreview" style="display:none;">
                                 <img id="imgpreview" alt="" width="100" height="100" />
@@ -244,7 +244,7 @@
                 {sTitle : "Abreviatura", mData: "sshortdescription"},
                 {sTitle : "Descripción", mData: "sdescription"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nfileid+'" data-title="'+row.sname+'" data-file="'+row.sthumbnailimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sthumbnailimage+'" width="30" height="30" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.nfileid+'" data-title="'+row.sname+'" data-file="'+row.spath+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.spath+'" width="30" height="30" /></a>';
                 }}, 
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
@@ -261,10 +261,10 @@
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
 
                     if(row.sstatus != 'N'){
-                        return 	high+'<a data-id="'+row.nfileid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalFile" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                        return '<a data-id="'+row.nfileid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalFile" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
                             ' <i data-id="'+row.nfileid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	high+'<i data-id="'+row.nfileid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return '<i data-id="'+row.nfileid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
@@ -530,10 +530,10 @@
 
         function saveFile(){
             
-            filetype = $('#filetype').val();
+            /*filetype = $('#filetype').val();
             filename = $('#filename').val();
             fileshortdescription = $('#fileshortdescription').val();
-            filedescription = $('#filedescription').val();
+            filedescription = $('#filedescription').val();*/
 
 
             if(confirm('¿Está seguro de registrar el archivo?')==true){
@@ -643,7 +643,7 @@
                 $('#filetype').html('');
                 $('#filetype').append($("<option></option>").attr("value", "0").text("- No asignado -"));
                 $.each(data, function(i, item) {
-                    $('#filetype').append($("<option></option>").attr("value", data[i].ncategoryid).text(data[i].sname));
+                    $('#filetype').append($("<option></option>").attr("value", data[i].ntypeid).text(data[i].sname));
                 });
             });
         }

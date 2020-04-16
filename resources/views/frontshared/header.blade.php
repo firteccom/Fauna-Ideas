@@ -9,7 +9,7 @@
                     @if(isset($logo))
                         <img src="{{$logo}}" alt="Porto Logo">
                     @else
-                        <img src="{{ asset('portal/images/logo.png') }}" alt="Porto Logo">
+                        <img src="{{ asset('public/portal/images/logo.png') }}" alt="Porto Logo">
                     @endif                    
                 </a>
 
@@ -31,7 +31,7 @@
                                             </div>
 
                                             <div class="col-lg-4 image-container">
-                                                <img src="{{ asset('portal/images/menu-banner-2.jpg') }}" align="Menu banner">
+                                                <img src="{{ asset('public/portal/images/menu-banner-2.jpg') }}" align="Menu banner">
                                             </div>
 
                                         </div>    
@@ -78,7 +78,7 @@
                                     </div><!-- End .col-lg-4 -->
 
                                     <div class="col-lg-3 image-container">
-                                        <img src="{{ asset('portal/images/menu-bg.png') }}" alt="Menu banner" class="product-promo">
+                                        <img src="{{ asset('public/portal/images/menu-bg.png') }}" alt="Menu banner" class="product-promo">
                                     </div><!-- End .col-lg-4 -->
                                 </div><!-- End .row -->
                             </div><!-- End .megamenu -->
@@ -185,7 +185,7 @@
 
                                     <figure class="product-image-container">
                                         <a href="product.html" class="product-image">
-                                            <img src="{{ asset('portal/images/products/cart/product-1.jpg') }}" alt="product">
+                                            <img src="{{ asset('public/portal/images/products/cart/product-1.jpg') }}" alt="product">
                                         </a>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-retweet"></i></a>
                                     </figure>
@@ -205,7 +205,7 @@
 
                                     <figure class="product-image-container">
                                         <a href="product.html" class="product-image">
-                                            <img src="{{ asset('portal/images/products/cart/product-2.jpg') }}" alt="product">
+                                            <img src="{{ asset('public/portal/images/products/cart/product-2.jpg') }}" alt="product">
                                         </a>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-retweet"></i></a>
                                     </figure>

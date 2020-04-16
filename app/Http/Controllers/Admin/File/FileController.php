@@ -58,6 +58,7 @@
 		
 		public function getFiles(Request $request){
 
+
 			//$codigousuario = Auth::user()->id;
 			$item_por_pag = $request->length;
 			$pagina = $request->start;
@@ -69,6 +70,7 @@
 			$filestatus = $request->filestatus;
 	
 			$data = [];
+
 			$data['draw'] = (int)$request->draw;
 
 			$data['recordsTotal'] = $this->getFilesFilter($filename,$filetype,$fileshortdescription,$filedescription,$filestatus,$item_por_pag,$pagina,true);
@@ -111,9 +113,8 @@
 			} else {
 	
 				$select[] = 'fi.*';
-				$select[] = 't.sname as typename';
-				
-	
+                $select[] = 't.sname as typename';
+
 				$data = $data->select($select)
 				//->orderByRaw('fi.nfileid ASC')
 				->offset($pagina)->limit($item_por_pag)
@@ -130,6 +131,7 @@
             $data = Type::from('types');
             
             $data = $data->where('sstatus','A');
+            $data = $data->where('ntypeparentid',0);
 	
             $select[] = '*';
             
@@ -145,66 +147,75 @@
             try {
                 
                 $result = [];
-
-                /*$tipo = $request->tipoanexo;
-                $descripcion = $request->anexodesc;
-                $publico = $request->anexopublico;*/
-
-                //echo "Pruebaaaaa";
+                $route = "";
 
                 $archivo = $request->file('fileupload');
-                $ext = mb_strtolower($archivo->getClientOriginalExtension());
+                $filetype = $request->filetype;
+                $filename = $request->filename;
+                $fileshortdescription = $request->fileshortdescription;
+                $filedescription = $request->filedescription;
+
+                //echo $filetype;
                 
-                if ($archivo != null) {
-                    echo $ext;
+                $ext = mb_strtolower($archivo->getClientOriginalExtension());
+
+                //Validate if files are images
+                if (in_array($ext, ['jpg','gif','png','jpeg'])){
+                    $route = "images";
+                    $name = "img";
+                //Validate if files are images
+                } else if (in_array($ext, ['3gp','mov','mp4','avi','mpeg','mpg','m4v'])){
+                    $route = "videos";
+                    $name = "video";
+                //Validate if files are images
+                } else if (in_array($ext, ['mp3','wav','ogg','midi','mid','wma'])){
+                    $route = "audios";
+                    $name = "audio";
+                //Validate if files are another files
+                } else {
+                    $route = "files";
+                    $name = "file";
                 }
 
-                $nombre = $ext.'_'.uniqid();
+                $finalname = $name.'_'.uniqid().'.'.$ext;
 
                 if(isset($archivo)){
-                    if(in_array($ext, ['doc','docx','xls','xlsx','ppt', 'pptx', 'pdf'])){
-                        if($archivo->storeAs('',$nombre.'.'.$ext,'files')){
-                            $result['status'] = 'success';
-                            $result['msg'] = 'Archivo agregado';
-                            $result['anexo'] = [
-                            'repositorio'=>'',
-                            'archivo'=>$nombre.'.'.$ext,
-                            'id'=>'0'
-                            ];
-                        }else{
-                            $result['status'] = 'error';
-                            $result['msg'] = 'No se pudo guardar el archivo';
-                        }
-                    } else{
-                        $result['status'] = 'error';
-                        $result['msg'] = 'Sólo se permiten doc, docx, xls, xlsx, ppt, pptx, pdf';
+                    if($archivo->storeAs('',$finalname.'.'.$ext,$route)){
+
+                        $file = new File();
+                        $file->ntypeid = $filetype;
+                        $file->sname = $filename;
+                        $file->sshortdescription = $fileshortdescription;
+                        $file->sdescription = $filedescription;
+                        $file->spath = $route."/".$finalname;
+                        $file->ncreatedby = 1;
+
+                        //echo "Tipo ID: ".$filetype;
+                        
+                        $file->saveAsNew();
+
+                        $data['status'] = 'success';
+                        $data['msg'] = 'El archivo se registró correctamente';
+
+                    }else{
+                        $data['status'] = 'error';
+                        $data['msg'] = 'No se pudo guardar el archivo';
                     }
                 } else{
-                    $result['status'] = 'error';
-                    $result['msg'] = 'No se detectó archivo';
+                    $data['status'] = 'error';
+                    $data['msg'] = 'No se detectó archivo';
                 }
-
-                /*$file = new File();
-				$file->ntypeid = $request->filetype;
-				$file->sname = $request->sname;
-				$file->sshortdescription = $request->sshortdescription;
-				$file->sdescription = $request->sdescription;
-				$file->ncreatedby = 1;
-				
-                $file->saveAsNew();*/
+                
                 //var_dump($file);
-
-                /*$data['status'] = 'success';
-                $data['msg'] = 'El archivo se registró correctamente.';*/
 
             } catch (\Exception $ex) {
 
-                $result['status'] = 'error';
-                $result['msg'] = 'No se pudo registrar el archivo '.$ex->getMessage();
+                $data['status'] = 'error';
+                $data['msg'] = 'No se pudo registrar el archivo '.$ex->getMessage();
 
             }
                 
-            return response()->json($result);
+            return response()->json($data);
 
         }
 

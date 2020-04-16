@@ -22,18 +22,18 @@
                                 <div class="product-single-carousel owl-carousel owl-theme">
                                     <!-- Principal image -->
                                     <div class="product-item">
-                                        <img class="product-single-image" src="{{ asset('portal/images/products/zoom/product-1.jpg') }}" data-zoom-image="{{ asset('portal/images/products/zoom/product-1-big.jpg') }}"/>
+                                        <img class="product-single-image" src="{{ asset('public/portal/images/products/zoom/product-1.jpg') }}" data-zoom-image="{{ asset('public/portal/images/products/zoom/product-1-big.jpg') }}"/>
                                     </div>
                                     <!-- End principal image -->
 
                                     <div class="product-item">
-                                        <img class="product-single-image" src="{{ asset('portal/images/products/zoom/product-2.jpg') }}" data-zoom-image="{{ asset('portal/images/products/zoom/product-2-big.jpg') }}"/>
+                                        <img class="product-single-image" src="{{ asset('public/portal/images/products/zoom/product-2.jpg') }}" data-zoom-image="{{ asset('public/portal/images/products/zoom/product-2-big.jpg') }}"/>
                                     </div>
                                     <div class="product-item">
-                                        <img class="product-single-image" src="{{ asset('portal/images/products/zoom/product-3.jpg') }}" data-zoom-image="{{ asset('portal/images/products/zoom/product-3-big.jpg') }}"/>
+                                        <img class="product-single-image" src="{{ asset('public/portal/images/products/zoom/product-3.jpg') }}" data-zoom-image="{{ asset('public/portal/images/products/zoom/product-3-big.jpg') }}"/>
                                     </div>
                                     <div class="product-item">
-                                        <img class="product-single-image" src="{{ asset('portal/images/products/zoom/product-4.jpg') }}" data-zoom-image="{{ asset('portal/images/products/zoom/product-4-big.jpg') }}"/>
+                                        <img class="product-single-image" src="{{ asset('public/portal/images/products/zoom/product-4.jpg') }}" data-zoom-image="{{ asset('public/portal/images/products/zoom/product-4-big.jpg') }}"/>
                                     </div>
                                 </div>
                                 <!-- End .product-single-carousel -->
@@ -43,16 +43,16 @@
                             </div>
                             <div class="prod-thumbnail row owl-dots" id='carousel-custom-dots'>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('portal/images/products/zoom/product-1.jpg') }}"/>
+                                    <img src="{{ asset('public/portal/images/products/zoom/product-1.jpg') }}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('portal/images/products/zoom/product-2.jpg') }}"/>
+                                    <img src="{{ asset('public/portal/images/products/zoom/product-2.jpg') }}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('portal/images/products/zoom/product-3.jpg') }}"/>
+                                    <img src="{{ asset('public/portal/images/products/zoom/product-3.jpg') }}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('portal/images/products/zoom/product-4.jpg') }}"/>
+                                    <img src="{{ asset('public/portal/images/products/zoom/product-4.jpg') }}"/>
                                 </div>
                             </div>
                         </div><!-- End .col-lg-7 -->
@@ -125,7 +125,7 @@
                     <div class="widget widget-brand">
                         <a href="#">
                             <!-- Logo Fauna & Ideas M -->
-                            <img src="{{ asset('portal/images/product-brand.png') }}" alt="brand name">
+                            <img src="{{ asset('public/portal/images/product-brand.png') }}" alt="brand name">
                         </a>
                     </div><!-- End .widget -->
 
@@ -150,7 +150,7 @@
                         <div class="banner banner-image">
                             <a href="#">
                                 <!-- Banner Publicidad Fauna & Ideas M -->
-                                <img src="{{ asset('portal/images/banners/banner-sidebar.jpg') }}" alt="Banner Desc">
+                                <img src="{{ asset('public/portal/images/banners/banner-sidebar.jpg') }}" alt="Banner Desc">
                             </a>
                         </div><!-- End .banner -->
                     </div><!-- End .widget -->
@@ -164,7 +164,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-1.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -185,7 +185,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-2.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-2.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -206,7 +206,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-3.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-3.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -230,7 +230,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-4.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-4.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -251,7 +251,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-5.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-5.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -272,7 +272,7 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="product.html">
-                                                <img src="{{ asset('portal/images/products/product-6.jpg') }}">
+                                                <img src="{{ asset('public/portal/images/products/product-6.jpg') }}">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -310,7 +310,7 @@
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="product.html">
-                            <img src="{{ asset('portal/images/products/product-1.jpg') }}">
+                            <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
                         </a>
                         <div class="label-group">
                             <span class="product-label label-cut">27% descuento</span>
