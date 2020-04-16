@@ -49,6 +49,13 @@
 		}
 
 
+		public function error(){
+			$message = 'Debe iniciar sesión';
+			$array = (object)['array' => ['request' => null,'resp' => false, 'message' => $message, 'errors' => null], 'status' => 422, 'route' => route('admin.login'), 'message' => $message, 'type' => 'improper'];
+			$data = $this->optimize($array);
+			return $data;
+		}
+
 		public function destroy(Request $request) {
 			Auth::guard('admin')->logout();
 			$message = 'Sesión cerrada exitosamente';
