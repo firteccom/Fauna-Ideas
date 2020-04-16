@@ -24,6 +24,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 	Route::namespace('Auth')->group(function () {
 		//Login
 		Route::get('login', 'LoginController@form')->name('admin.login'); // http://localhost/Fauna-Ideas/public/admin/login
+		Route::get('error', 'LoginController@error')->name('admin.error');
 		Route::post('login', 'LoginController@login');
 		Route::get('logout', 'LoginController@destroy')->name('admin.logout');
 	});

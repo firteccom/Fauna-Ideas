@@ -118,16 +118,13 @@
             <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
-                        <a href="product.html">
+                        <a href="product/{{$pop->nproductid}}">
                             <img src="{{$pop->sfullimage}}">
                         </a>
                         <div class="label-group">
-                            <span class="product-label label-cut">27% OFF</span>
+                            <!--<span class="product-label label-cut">27% OFF</span>-->
                         </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
-                        </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
+                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Vista rápida">Vista rápida</a> 
                     </figure>
                     <div class="product-details">
                         <div class="category-wrap">
