@@ -76,6 +76,20 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('activateProductAttribute', 'ProductAttributeController@activateProductAttribute')->name('admin.productattribute.activate');
 		});
 
+		//Files
+		Route::namespace('File')->prefix('file')->group(function () {
+			Route::get('/', 'FileController@showView')->name('admin.file.form');
+			Route::get('file-image/{dimension}/{nfileid}/{type}', 'FileController@showThumbnailImage')->name('admin.file.thumbnail');
+			Route::post('getFile', 'FileController@getFile')->name('admin.file.get');
+			Route::post('getListTypes', 'FileController@getListTypes')->name('admin.file.getlisttypes');
+			Route::post('getFiles', 'FileController@getFiles')->name('admin.file.getall');
+			Route::post('saveFile', 'FileController@saveFile')->name('admin.file.save');
+			Route::post('updateFile', 'FileController@updateFile')->name('admin.file.update');
+			Route::post('desactivateFile', 'FileController@desactivateFile')->name('admin.file.desactivate');
+			Route::post('activateFile', 'FileController@activateFile')->name('admin.file.activate');
+			Route::post('highlightFile', 'FileController@highlightFile')->name('admin.file.highlight');
+		});
+
 		//Types
 		Route::namespace('Type')->prefix('type')->group(function () {
 			Route::get('/', 'TypeController@showView')->name('admin.type.form');
