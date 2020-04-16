@@ -42,13 +42,16 @@ class ProductController extends Controller {
 
         //echo $product->nproductid;
 
-        if ($this->getProduct($id)['status'] != 'success'){
-
-            return view('portal.product_not_found');
+        if ($this->getProduct($id)['status'] == 'success' && $this->getProduct($id)['product'] != null)
+        {
+            echo $this->getProduct($id)['status'];
+            
+            return view('portal.detail_product', $this->_view_data($data));
 
         } else {
 
-            return view('portal.detail_product', $this->_view_data($data));
+            return view('portal.product_not_found', $this->_view_data($data));
+            
         }
 
     }

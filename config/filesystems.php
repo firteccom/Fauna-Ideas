@@ -64,6 +64,26 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'files' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/files'),
+        ],
+
+        'images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images'),
+        ],
+
+        'audios' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/audios'),
+        ],
+
+        'videos' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/videos'),
+        ],
+
     ],
 
     /*

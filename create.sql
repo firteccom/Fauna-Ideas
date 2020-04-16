@@ -168,6 +168,26 @@ INSERT INTO `product_attribute` (`nproductattributeid`, `nproductid`, `sname`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `files`
+--
+
+CREATE TABLE `files` (
+  `nfileid` int(11) NOT NULL COMMENT 'PK of “Files” Table.',
+  `ntypeid` int(11) NOT NULL DEFAULT '0' COMMENT 'Type ID. FK of Types table.',
+  `sname` varchar(100) NOT NULL COMMENT 'File name.',
+  `sshortdescription` varchar(50) DEFAULT NULL COMMENT 'File short description',
+  `sdescription` varchar(400) DEFAULT NULL COMMENT 'File description.',
+  `spath` varchar(100) NOT NULL DEFAULT '-' COMMENT 'File relative path.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'File status. A=Active, N=Inactive, M=Modified, E=Exported',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'File create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'File modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the file',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the file'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `types`
 --
 

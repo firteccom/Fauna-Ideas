@@ -6,8 +6,8 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Categoría</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Categoría</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $product->category }}</li>
             </ol>
         </div><!-- End .container-fluid -->
@@ -299,7 +299,7 @@
         </div><!-- End .row -->
     </div><!-- End .container-fluid -->
 
-    @if (count($featuredproducts) > 0)
+    @if ($featuredproducts != null && count($featuredproducts) > 0)
     <div class="featured-section">
         <div class="container-fluid">
             <h2 class="carousel-title">Productos destacados</h2>
