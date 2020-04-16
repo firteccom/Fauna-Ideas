@@ -36,7 +36,7 @@
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="product.html">
-                            <img src="{{ asset('portal/images/products/product-1.jpg') }}">
+                            <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
                         </a>
                         <div class="label-group">
                             <span class="product-label label-cut">27% descuento</span>

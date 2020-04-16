@@ -320,3 +320,11 @@ ALTER TABLE `types`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `nproductid_fk` FOREIGN KEY (`nproductid`) REFERENCES `products` (`nproductid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Indices de la tabla `product_attribute`
+-- AUTO_INCREMENT de la tabla `product_attribute`
+--
+ALTER TABLE `faunaideas`.`files` 
+CHANGE COLUMN `nfileid` `nfileid` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Files” Table.' ,
+ADD PRIMARY KEY (`nfileid`);

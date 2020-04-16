@@ -4,7 +4,7 @@
 <main class="main">
     <div class="home-slider owl-carousel owl-theme">
         <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="assets/images/slider/slide1.jpg"></div><!-- End .slide-bg -->
+            <div class="slide-bg owl-lazy"  data-src="public/portal/images/slider/slide1.jpg"></div><!-- End .slide-bg -->
             <div class="home-slide-content">
                 <h2>Winter Sale <br>Get 30% OFF <br>On JACKETS.</h2>
 
@@ -15,7 +15,7 @@
         </div><!-- End .home-slide -->
 
         <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="assets/images/slider/slide2.jpg"></div><!-- End .slide-bg -->
+            <div class="slide-bg owl-lazy"  data-src="public/portal/images/slider/slide2.jpg"></div><!-- End .slide-bg -->
             <div class="home-slide-content">
                 <h2>New Campaign Sale <br>UP to 70% </h2>
 
@@ -63,7 +63,7 @@
             <div class="row row-sm">
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="assets/images/banners/home-banner1.jpg">
+                        <img src="public/portal/images/banners/home-banner1.jpg">
                         <div class="home-banner-content content-left-bottom">
                             <h3>Sunglasses Sale</h3>
                             <h4>See all and find yours</h4>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="assets/images/banners/home-banner2.jpg">
+                        <img src="public/portal/images/banners/home-banner2.jpg">
                         <div class="home-banner-content content-top-center">
                             <h3>Cosmetics Trends</h3>
                             <h4>Browse in all and find yours</h4>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="assets/images/banners/home-banner3.jpg">
+                        <img src="public/portal/images/banners/home-banner3.jpg">
                         <div class="home-banner-content content-reverse content-center">
                             <h3>Fashion Summer Sale</h3>
                             <h4>Browse in all our categories</h4>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="assets/images/banners/home-banner4.jpg">
+                        <img src="public/portal/images/banners/home-banner4.jpg">
                         <div class="home-banner-content boxed-content content-bottom-center">
                             <div class="info-group">
                                 <h3>UP TO 70% IN ALL BAGS</h3>

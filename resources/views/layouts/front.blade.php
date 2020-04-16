@@ -16,7 +16,7 @@
     <meta name="author" content="SW-THEMES">
         
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('portal/images/icons/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('public/portal/images/icons/favicon.ico') }}">
 
     <script type="text/javascript">
         WebFontConfig = {
@@ -24,7 +24,7 @@
         };
         (function(d) {
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = '{{ asset("portal/js/webfont.js") }}';
+            wf.src = '{{ asset("public/portal/js/webfont.js") }}';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
@@ -36,18 +36,18 @@
         };
         (function(d) {
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = '{{ asset("portal/js/webfont.js") }}';
+            wf.src = '{{ asset("public/portal/js/webfont.js") }}';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
 
     <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="{{ asset('portal/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/portal/css/bootstrap.min.css') }}">
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('portal/css/style.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('portal/vendor/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/portal/css/style.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/portal/vendor/fontawesome-free/css/all.min.css') }}">
 </head>
 <body class="full-screen-slider">
     <div class="page-wrapper">
@@ -91,9 +91,9 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
-    <div class="newsletter-popup mfp-hide" id="" style="background-image: url({{ asset('portal/images/newsletter_popup_bg.jpg') }})">
+    <div class="newsletter-popup mfp-hide" id="" style="background-image: url({{ asset('public/portal/images/newsletter_popup_bg.jpg') }})">
         <div class="newsletter-popup-content">
-            <img src="{{ asset('portal/images/logo-black.png') }}" alt="Logo" class="logo-newsletter">
+            <img src="{{ asset('public/portal/images/logo-black.png') }}" alt="Logo" class="logo-newsletter">
             <h2>BE THE FIRST TO KNOW</h2>
             <p>Subscribe to the Porto eCommerce newsletter to receive timely updates from your favorite products.</p>
             <form action="#">
@@ -133,12 +133,12 @@
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <!-- Plugins JS File -->
-    <script src="{{ asset('portal/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('portal/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('portal/js/plugins.min.js') }}"></script>
+    <script src="{{ asset('public/portal/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/portal/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/portal/js/plugins.min.js') }}"></script>
 
     <!-- Main JS File -->
-    <script src="{{ asset('portal/js/main.min.js') }}"></script>
+    <script src="{{ asset('public/portal/js/main.min.js') }}"></script>
 
     <!-- www.addthis.com share plugin -->
     <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b927288a03dbde6"></script>
