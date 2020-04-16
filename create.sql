@@ -53,7 +53,7 @@ CREATE TABLE `parameters` (
   `nparameterid` int(11) NOT NULL COMMENT 'PK of “Parameters” Table.',
   `sname` varchar(100) NOT NULL COMMENT 'Parameter name.',
   `scode` varchar(20) NOT NULL COMMENT 'Parameter short code.',
-  `svalue` varchar(20) NOT NULL COMMENT 'Parameter value.',
+  `svalue` varchar(150) NOT NULL COMMENT 'Parameter value.',
   `sdescription` varchar(100) DEFAULT NULL COMMENT 'Parameter description.',
   `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Parameter status. A=Active, N=Inactive',
   `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Parameter create date.',
@@ -67,7 +67,8 @@ CREATE TABLE `parameters` (
 --
 
 INSERT INTO `parameters` (`nparameterid`, `sname`, `scode`, `svalue`, `sdescription`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
-(1, 'Nombre Sitio', 'SITENAME', 'Fauna & Ideas', 'Nombre largo del sitio', 'A', now(), NULL, 1, NULL);
+(1, 'Nombre Sitio', 'SITENAME', 'Fauna & Ideas', 'Nombre largo del sitio', 'A', now(), NULL, 1, NULL),
+(2, 'Logo', 'LOGO', 'https://preview.oklerthemes.com/porto/8.0.0/img/logo-flat.png', 'Logo del sitio', 'A', now(), NULL, 1, NULL);
 
 
 
