@@ -163,11 +163,10 @@
                                             <p style="font-size:9px">El archivo debe pesar menos de 20MB*</p>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12" id="imagepreview" align="center">
-                                            <img  id="imgpreview" alt="" width="150" height="150" />
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12" id="btndownload" align="center">
-                                            <br>
-                                            <button type="button" class="btn btn-success">Descargar</button>
+                                            <a id="imgpreview_" download>
+                                                <br><p id="txtdownload">Descargar</p><br>
+                                                <img id="imgpreview" alt="" width="150" height="150" />
+                                            </a>
                                         </div>
 
                                     </div>
@@ -372,11 +371,11 @@
             //alert(type);
             if (type == 'jpg' || type == 'jpeg' || type == 'png' || type == 'gif'){
                 document.getElementById('imgpreview').src = window.URL.createObjectURL(this.files[0]);
-                $('#inputuploadfile').removeClass( "col-sm-12 col-md-12 col-lg-12 form-group" ).addClass( "col-sm-12 col-md-6 col-lg-6 form-group" );
-				$('#imagepreview').show();
+                //$('#inputuploadfile').removeClass( "col-sm-12 col-md-12 col-lg-12 form-group" ).addClass( "col-sm-12 col-md-6 col-lg-6 form-group" );
+				$('#imgpreview_').show();
             } else {
-                $('#inputuploadfile').removeClass( "col-sm-12 col-md-6 col-lg-6 form-group" ).addClass( "col-sm-12 col-md-12 col-lg-12 form-group" );
-				$('#imagepreview').hide();
+                //$('#inputuploadfile').removeClass( "col-sm-12 col-md-6 col-lg-6 form-group" ).addClass( "col-sm-12 col-md-12 col-lg-12 form-group" );
+				$('#imgpreview_').hide();
             }
 
         });
@@ -410,7 +409,8 @@
 
             $('#inputuploadfile').show();
             $('#messagefile').show();
-            $('#btndownload').hide();
+            $('#txtdownload').hide();
+            $('#imgpreview_').hide();
 
         });
 
@@ -441,9 +441,14 @@
                     $('#fileshortdescription').val(data.file.sshortdescription);
                     $('#filedescription').val(data.file.sdescription);
 
+                    $("#imgpreview_").attr("href",'../storage/app/'+data.file.spath);
+                    
+                    $("#imgpreview").attr("src",'../storage/app/'+data.file.spath);
+
                     $('#inputuploadfile').hide();
                     $('#messagefile').hide();
-                    $('#btndownload').show();
+                    $('#imgpreview_').show();
+                    $('#txtdownload').show();
 
                 }else{
                     Swal.fire({
