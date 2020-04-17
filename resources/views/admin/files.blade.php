@@ -3,16 +3,17 @@
 @section('css')
 <style type="text/css">
     input:invalid {
-    border: 2px dashed red;
+        border: 2px dashed red;
     }
 
     input:invalid:required {
-    background-image: linear-gradient(to right, pink, lightgreen);
+        *background-image: linear-gradient(to right, pink, lightgreen);
     }
 
     input:valid {
-    border: 2px solid black;
+        border: 2px solid black;
     }
+
 </style>
 @endsection
 
@@ -49,7 +50,7 @@
                         <div class="box-body">
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterfiletype">Tipos de archivo</label>
-                                <select id="filterfiletype" name="filterfiletype" class="form-control select2" style="width: 100%;">
+                                <select id="filterfiletype" name="filterfiletype" class="form-control filter select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     @foreach ($types as $type)
                                         <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
@@ -58,19 +59,19 @@
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterfilename">Nombre</label>
-                                <input type="text" class="form-control" id="filterfilename" name="filterfilename" placeholder="Ingrese un nombre">
+                                <input type="text" class="form-control filter" id="filterfilename" name="filterfilename" placeholder="Ingrese un nombre">
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterfileshortdescription">Abreviatura</label>
-                                <input type="text" class="form-control" id="filterfileshortdescription" name="filterfileshortdescription" placeholder="Ingrese una abreviatura" >
+                                <input type="text" class="form-control filter" id="filterfileshortdescription" name="filterfileshortdescription" placeholder="Ingrese una abreviatura" >
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterfiledescription">Descripción</label>
-                                <input type="text" class="form-control" id="filterfiledescription" name="filterfiledescription" placeholder="Ingrese una descripción" >
+                                <input type="text" class="form-control filter" id="filterfiledescription" name="filterfiledescription" placeholder="Ingrese una descripción" >
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterfilestatus">Estado</label>
-                                <select id="filterfilestatus" name="filterfilestatus" class="form-control select2" style="width: 100%;">
+                                <select id="filterfilestatus" name="filterfilestatus" class="form-control filter select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
@@ -109,51 +110,76 @@
 
         
         <div class="modal fade" id="modalFile">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <form id="frmFile" method="post" data-parsley-validate enctype="multipart/form-data">
                         {!! csrf_field() !!}
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title title-file">Nuevo archivo</h4>
-                        </div>
                         <div class="modal-body">
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="filetype">Tipos de archivo <span class="required">*</span></label>
-                                <select id="filetype" name="filetype" class="form-control select2" style="width: 100%;" required>
-                                    <option value="" selected="selected">- No asignado -</option>
-                                    @foreach ($types as $type)
-                                        <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
-                                    @endforeach
-                                </select>                            
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="filename">Nombre <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="filename" name="filename" placeholder="Ingrese un nombre" minlenght="1" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="fileshortdescription">Abreviatura </label>
-                                <input type="text" class="form-control filter" id="fileshortdescription" name="fileshortdescription" placeholder="Ingrese una abreviatura">
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="filedescription">Descripción</label>
-                                <input type="text" class="form-control filter" id="filedescription" name="filedescription" placeholder="Ingrese una descripción">
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 form-group" id="inputuploadfile">
-                                <label for="fileupload">Cargar archivo</label>
-                                <input type="file" id="fileupload" name="fileupload">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title title-file">Nuevo archivo</h4>
+                                    </div>
+                                </div>
                                 <br>
-                                <p>El archivo debe ser menor a 20MB *</p>
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                            <label for="filetype">Tipos de archivo <span class="required">*</span></label>
+                                            <select id="filetype" name="filetype" class="form-control select2" style="width: 100%;" required>
+                                                <option value="" selected="selected">- No asignado -</option>
+                                                @foreach ($types as $type)
+                                                    <option value="{{$type->ntypeid}}">{{$type->sname}}</option>
+                                                @endforeach
+                                            </select>                            
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                            <label for="filename">Nombre <span class="required">*</span></label>
+                                            <input type="text" class="form-control" id="filename" name="filename" placeholder="Ingrese un nombre" minlenght="1" required>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                            <label for="fileshortdescription">Abreviatura </label>
+                                            <input type="text" class="form-control" id="fileshortdescription" name="fileshortdescription" placeholder="Ingrese una abreviatura">
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                            <label for="filedescription">Descripción</label>
+                                            <input type="text" class="form-control" id="filedescription" name="filedescription" placeholder="Ingrese una descripción">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="inputuploadfile" >
+                                            <label for="fileupload">Cargar archivo</label>
+                                            <input type="file" id="fileupload" name="fileupload" >
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="messagefile">
+                                            <p style="font-size:9px">El archivo debe pesar menos de 20MB*</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="imagepreview" align="center">
+                                            <img  id="imgpreview" alt="" width="150" height="150" />
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="btndownload" align="center">
+                                            <br>
+                                            <button type="button" class="btn btn-success">Descargar</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" id="btnSaveFile" class="btn btn-primary">Registrar</button>
+                                        <button type="submit" id="btnUpdateFile" style="display:none;" class="btn btn-primary">Actualizar</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group" id="imagepreview" style="display:none;">
-                                <img id="imgpreview" alt="" width="100" height="100" />
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" id="btnSaveFile" class="btn btn-primary">Registrar</button>
-                            <button type="submit" id="btnUpdateFile" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                         
                     </form>
@@ -382,6 +408,10 @@
             $('#btnSaveFile').show();
             $('#btnUpdateFile').hide();
 
+            $('#inputuploadfile').show();
+            $('#messagefile').show();
+            $('#btndownload').hide();
+
         });
 
         $(document).on('click', '.btn-edit', function(event) {
@@ -410,6 +440,10 @@
                     $('#filename').val(data.file.sname);
                     $('#fileshortdescription').val(data.file.sshortdescription);
                     $('#filedescription').val(data.file.sdescription);
+
+                    $('#inputuploadfile').hide();
+                    $('#messagefile').hide();
+                    $('#btndownload').show();
 
                 }else{
                     Swal.fire({
@@ -630,7 +664,6 @@
             }
         }
         
-        
         function loadModalTypes(id){
 
             $.ajax({
@@ -649,32 +682,32 @@
         }
 
         $('input[type="file"]').change(function(event) {    
-		if($(this).val()!=''){
-			var _size = this.files[0].size/1024/1024;
-			var _type = this.files[0].type.toLowerCase();
-			var _ext = this.files[0].name.substr( (this.files[0].name.lastIndexOf('.') +1) ).toLowerCase();
-			var msg = '';
+            if($(this).val()!=''){
+                var _size = this.files[0].size/1024/1024;
+                var _type = this.files[0].type.toLowerCase();
+                var _ext = this.files[0].name.substr( (this.files[0].name.lastIndexOf('.') +1) ).toLowerCase();
+                var msg = '';
 
 
-			if(_ext == 'exe' || _ext == 'bat' || _ext == 'sh' || _ext == 'dmg' || _ext == 'pkg'){
-				msg = 'No se permiten archivos con extensión: .exe, .bat, .sh, .dmg, .pkg.';
-			}else if(_size > 20){ // Mayor a 20MB
-				msg = 'El archivo supera los 20MB';
-			}
+                if(_ext == 'exe' || _ext == 'bat' || _ext == 'sh' || _ext == 'dmg' || _ext == 'pkg'){
+                    msg = 'No se permiten archivos con extensión: .exe, .bat, .sh, .dmg, .pkg.';
+                }else if(_size > 20){ // Mayor a 20MB
+                    msg = 'El archivo supera los 20MB';
+                }
 
-			if(msg != ''){
-				$(this).val('');
-				//alert(msg);
-                Swal.fire({
-                    position: 'top-end',
-                    type: 'error',
-                    title: msg,
-                    showConfirmButton: false,
-                    timer: 4000
-                });
-			}
-		}
-    });
+                if(msg != ''){
+                    $(this).val('');
+                    //alert(msg);
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: msg,
+                        showConfirmButton: false,
+                        timer: 4000
+                    });
+                }
+            }
+        });
 
     })
 </script>
