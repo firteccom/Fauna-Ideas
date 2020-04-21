@@ -142,5 +142,10 @@
 
     <!-- www.addthis.com share plugin -->
     <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b927288a03dbde6"></script>
+
+    <!-- Google Map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc3LRykbLB-y8MuomRUIY0qH5S6xgBLX4"></script>
+    <script src="{{ asset('public/portal/js/map.js') }}"></script>
+
 </body>
 </html>

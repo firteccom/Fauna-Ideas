@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://localhost/Fauna-Ideas/public
 Route::get('products','Front\ProductController@showView');
 Route::get('product/{id}','Front\ProductController@productDetail');
+Route::get('contact-us','Front\ContactController@showView');
 
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
