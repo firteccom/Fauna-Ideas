@@ -147,5 +147,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc3LRykbLB-y8MuomRUIY0qH5S6xgBLX4"></script>
     <script src="{{ asset('public/portal/js/map.js') }}"></script>
 
+    <!--Sweer Alert 2 -->
+    <script src="{{ asset('public/plugins/sweetalert2.js') }}"></script>
+
+    @yield('js')
+
 </body>
 </html>

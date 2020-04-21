@@ -1,12 +1,22 @@
 @extends('layouts.front')
 
+
+@section('css')
+<style type="text/css">
+
+</style>
+<script type="module">
+  import Swal from 'sweetalert2/src/sweetalert2.js'
+</script>
+@endsection
+
 @section('frontcontent')
 
 <main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Inicio</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Contáctanos</li>
             </ol>
         </div><!-- End .container-fluid -->
@@ -25,29 +35,30 @@
             <div class="col-md-8">
                 <h2 class="light-title">Escríbenos <strong></strong></h2>
 
-                <form action="#">
+                <form id="frmSendEmailContact">
+                    {!! csrf_field() !!}
                     <div class="form-group required-field">
-                        <label for="contact-name">Nombre</label>
-                        <input type="text" class="form-control" id="contact-name" name="contact-name" required>
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div><!-- End .form-group -->
 
                     <div class="form-group required-field">
-                        <label for="contact-email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="contact-email" name="contact-email" required>
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div><!-- End .form-group -->
 
                     <div class="form-group">
-                        <label for="contact-phone">Celular</label>
-                        <input type="tel" class="form-control" id="contact-phone" name="contact-phone">
+                        <label for="mobile">Celular</label>
+                        <input type="tel" class="form-control" id="mobile" name="mobile">
                     </div><!-- End .form-group -->
 
                     <div class="form-group required-field">
-                        <label for="contact-message">Indícanos tu consulta</label>
-                        <textarea cols="30" rows="1" id="contact-message" class="form-control" name="contact-message" required></textarea>
+                        <label for="message">Indícanos tu consulta</label>
+                        <textarea cols="30" rows="1" id="message" class="form-control" name="message" required></textarea>
                     </div><!-- End .form-group -->
 
                     <div class="form-footer">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="button" id="btnSendEmail" name="btnSendEmail" class="btn btn-primary">Enviar</button>
                     </div><!-- End .form-footer -->
                 </form>
             </div><!-- End .col-md-8 -->
@@ -78,5 +89,70 @@
 
     <div class="mb-8"></div><!-- margin -->
 </main><!-- End .main -->
+
+@endsection
+
+@section('js')
+<script>
+
+    $(function() {
+
+        $(document).on('click', '#btnSendEmail', function(event) {
+            $("#btnSendEmail").html('Enviando...');
+            $("#btnSendEmail").attr('disabled', 'disabled');
+
+            var frm = $('#frmSendEmailContact');
+            var formData = new FormData($(frm)[0]);
+
+            $.ajax({
+                url: '{{ route('front.contact.sendemail') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+            .done(function(data) {
+
+                $("#btnSendEmail").html('Enviar');
+                $("#btnSendEmail").removeAttr('disabled');
+
+                if (data.status == 'success') {
+                    $("#frmSendEmailContact")[0].reset();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                } else if (data.status == 'warning') {
+                    reloadTable();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'warning',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                } else if (data.status == 'error') {
+                    reloadTable();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+
+        });
+    
+    });
+</script>
 
 @endsection
