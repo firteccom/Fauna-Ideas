@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://localhost/Fauna-Ideas/public
+//Products
 Route::get('products','Front\ProductController@showView');
 Route::get('product/{id}','Front\ProductController@productDetail');
-Route::get('contact-us','Front\ContactController@showView');
+//Contact Us
+Route::get('contact-us','Front\ContactController@showView')->name('front.contact.page');
+Route::post('send-email','Front\ContactController@sendEmail')->name('front.contact.sendemail');
+
+//About Us
+Route::get('about-us','Front\AboutController@showView')->name('front.about.page');
 
 
 Route::namespace('Admin')->prefix('admin')->group(function () {

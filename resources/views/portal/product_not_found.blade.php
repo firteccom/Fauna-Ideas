@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Inicio</a></li>
                 <li class="breadcrumb-item"><a href="#">Productos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Producto no encontrado</li>
             </ol>
