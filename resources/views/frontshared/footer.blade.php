@@ -4,12 +4,12 @@
             <div class="footer-left widget-newsletter">
                 <div class="widget-newsletter-info">
                     <a href="#" class="widget-newsletter-title">Visita nuestro Blog</a>
-                    <p class="widget-newsletter-content">Get all the latest information on Events, Sales and Offers.</p>
+                    <p class="widget-newsletter-content">Recibe toda la información sobre nuevos productos y ofertas.</p>
                 </div>
                 <form action="#">
                     <div class="footer-submit-wrapper">
-                        <input type="email" class="form-control" placeholder="Email address..." required>
-                        <button type="submit" class="btn">Subscribe</button>
+                        <input type="email" class="form-control" placeholder="Correo electrónico..." required>
+                        <button type="submit" class="btn">Suscribir</button>
                     </div>
                 </form>
             </div>
@@ -32,25 +32,25 @@
                         <div class="row row-sm">
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">DIRECCIÓN</h4>
-                                    <a href="#">123 Street Name, City, England</a>
+                                    <h4 class="widget-title">Dirección</h4>
+                                    <a href="#">Ca. Thomas Ramsey Nº. 915 Dpto. 702, Magdalena del mar, Lima, Perú</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="contact-widget email">
-                                    <h4 class="widget-title">EMAIL</h4>
-                                    <a href="mailto:mail@example.com">mail@example.com</a>
+                                    <h4 class="widget-title">Correo electrónico</h4>
+                                    <a target="_blank" href="mailto:fauna.ideas@gmail.com">fauna.ideas@gmail.com</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">TELÉFONO</h4>
-                                    <a href="#">Toll Free (123) 456-7890</a>
+                                    <h4 class="widget-title">Celular</h4>
+                                    <a href="#">+51 942 088 668</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="contact-widget">
-                                    <h4 class="widget-title">HORARIO DE ATENCIÓN</h4>
+                                    <h4 class="widget-title">Horario de atención</h4>
                                     <a href="#">Lun - Dom / 9:00AM - 8:00PM</a>
                                 </div>
                             </div>
