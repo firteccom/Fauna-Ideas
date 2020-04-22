@@ -49,7 +49,9 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('admin.type.form') }}"><i class="fa fa-book"></i> Tipos de valor</a></li>
+          <li><a href="{{ route('admin.slider.form') }}"><i class="fa fa-book"></i> Slider Principal</a></li>
           <li><a href="{{ route('admin.category.form') }}"><i class="fa fa-bars"></i> Categorías</a></li>
+          <li><a href="{{ route('admin.catalog.form') }}"><i class="fa fa-book"></i> Catálogos</a></li>
           <li><a href="{{ route('admin.product.form') }}"><i class="fa fa-book"></i> Productos</a></li>
           <li><a href="{{ route('admin.attribute.form') }}"><i class="fa fa-book"></i> Atributos de productos</a></li>
           <li><a href="{{ route('admin.file.form') }}"><i class="fa fa-file"></i> Archivos</a></li>

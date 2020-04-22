@@ -15,9 +15,16 @@
             </div>
             <div class="footer-right">
                 <div class="social-icons">
-                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+
+                    @if(isset($facebook))
+                        <a href="{{$facebook}}" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+
+                    @if(isset($twitter))
+                        <a href="{{$twitter}}" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+                    @endif
+                    
+                    <!--<a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>-->
                 </div><!-- End .social-icons -->
             </div>
         </div>
