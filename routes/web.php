@@ -32,7 +32,6 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 	Route::namespace('Auth')->group(function () {
 		//Login
 		Route::get('login', 'LoginController@form')->name('admin.login'); // http://localhost/Fauna-Ideas/public/admin/login
-		Route::get('error', 'LoginController@error')->name('admin.error');
 		Route::post('login', 'LoginController@login');
 		Route::get('logout', 'LoginController@destroy')->name('admin.logout');
 	});
@@ -70,6 +69,28 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('updateCategory', 'CategoryController@updateCategory')->name('admin.category.update');
 			Route::post('desactivateCategory', 'CategoryController@desactivateCategory')->name('admin.category.desactivate');
 			Route::post('activateCategory', 'CategoryController@activateCategory')->name('admin.category.activate');
+		});
+
+		//Catalog
+		Route::namespace('Catalog')->prefix('catalog')->group(function () {
+			Route::get('/', 'CatalogController@showView')->name('admin.catalog.form');
+			Route::post('getCatalog', 'CatalogController@getCatalog')->name('admin.catalog.get');	
+			Route::post('getCatalogs', 'CatalogController@getCatalogs')->name('admin.catalog.getall');
+			Route::post('saveCatalog', 'CatalogController@saveCatalog')->name('admin.catalog.save');
+			Route::post('updateCatalog', 'CatalogController@updateCatalog')->name('admin.catalog.update');
+			Route::post('desactivateCatalog', 'CatalogController@desactivateCatalog')->name('admin.catalog.desactivate');
+			Route::post('activateCatalog', 'CatalogController@activateCatalog')->name('admin.catalog.activate');
+		});
+
+		//Slider
+		Route::namespace('Slider')->prefix('slider')->group(function () {
+			Route::get('/', 'SliderController@showView')->name('admin.slider.form');
+			//Route::post('getCatalog', 'CatalogController@getCatalog')->name('admin.catalog.get');	
+			//Route::post('getCatalogs', 'CatalogController@getCatalogs')->name('admin.catalog.getall');
+			//Route::post('saveCatalog', 'CatalogController@saveCatalog')->name('admin.catalog.save');
+			//Route::post('updateCatalog', 'CatalogController@updateCatalog')->name('admin.catalog.update');
+			//Route::post('desactivateCatalog', 'CatalogController@desactivateCatalog')->name('admin.catalog.desactivate');
+			//Route::post('activateCatalog', 'CatalogController@activateCatalog')->name('admin.catalog.activate');
 		});
 
 		//ProductAttribute Attributes
