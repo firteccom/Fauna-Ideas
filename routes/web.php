@@ -20,9 +20,10 @@ Route::get('product/{id}','Front\ProductController@productDetail');
 //Contact Us
 Route::get('contact-us','Front\ContactController@showView')->name('front.contact.page');
 Route::post('send-email','Front\ContactController@sendEmail')->name('front.contact.sendemail');
-
 //About Us
 Route::get('about-us','Front\AboutController@showView')->name('front.about.page');
+//Blog
+Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
@@ -132,6 +133,33 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('desactivateUser', 'UserController@desactivateUser')->name('admin.user.desactivate');
 			Route::post('activateUser', 'UserController@activateUser')->name('admin.user.activate');
 		});
+
+		//Blog Categories
+		Route::namespace('BlogCategory')->prefix('blogcategory')->group(function () {
+			Route::get('/', 'BlogCategoryController@showView')->name('admin.blogcategory.form');
+			Route::post('getBlogCategory', 'BlogCategoryController@getBlogCategory')->name('admin.blogcategory.get');
+			Route::post('getListBlogCategories', 'BlogCategoryController@getListBlogCategories')->name('admin.blogcategory.getlist');		
+			Route::post('getBlogCategories', 'BlogCategoryController@getBlogCategories')->name('admin.blogcategory.getall');
+			Route::post('saveBlogCategory', 'BlogCategoryController@saveBlogCategory')->name('admin.blogcategory.save');
+			Route::post('updateBlogCategory', 'BlogCategoryController@updateBlogCategory')->name('admin.blogcategory.update');
+			Route::post('desactivateBlogCategory', 'BlogCategoryController@desactivateBlogCategory')->name('admin.blogcategory.desactivate');
+			Route::post('activateBlogCategory', 'BlogCategoryController@activateBlogCategory')->name('admin.blogcategory.activate');
+		});
+
+		//Posts
+		Route::namespace('Post')->prefix('post')->group(function () {
+			Route::get('/', 'PostController@showView')->name('admin.post.form');
+			Route::get('post-image/{dimension}/{npostid}/{type}', 'PostController@showThumbnailImage')->name('admin.post.thumbnail');
+			Route::post('getPost', 'PostController@getPost')->name('admin.post.get');
+			Route::post('getListBlogCategories', 'PostController@getListBlogCategories')->name('admin.post.getlistblogcategories');
+			Route::post('getPosts', 'PostController@getPosts')->name('admin.post.getall');
+			Route::post('savePost', 'PostController@savePost')->name('admin.post.save');
+			Route::post('updatePost', 'PostController@updatePost')->name('admin.post.update');
+			Route::post('desactivatePost', 'PostController@desactivatePost')->name('admin.post.desactivate');
+			Route::post('activatePost', 'PostController@activatePost')->name('admin.post.activate');
+			Route::post('highlightPost', 'PostController@highlightPost')->name('admin.post.highlight');
+		});
+
 	});
 
 });

@@ -31,6 +31,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('public/dist/css/skins/_all-skins.min.css') }}">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="{{ asset('public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">'
 
 
   <link rel="stylesheet" href="{{ asset('public/portal/css/custom.css') }}">
@@ -92,6 +94,11 @@
 <script src="{{ asset('public/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('public/dist/js/demo.js') }}"></script>
+<!-- CK Editor -->
+<script src="{{ asset('public/components/ckeditor/ckeditor.js') }}"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="{{ asset('public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+
 
 <!--Sweer Alert 2 -->
 <script src="{{ asset('public/plugins/sweetalert2.js') }}"></script>
