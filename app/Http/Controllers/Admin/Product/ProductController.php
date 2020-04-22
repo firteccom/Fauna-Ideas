@@ -120,10 +120,6 @@
 			return $data;
 	
 		}
-
-		public function getProductImage($id){
-			return "";
-		}
         
         public function getListCategories(){
 
