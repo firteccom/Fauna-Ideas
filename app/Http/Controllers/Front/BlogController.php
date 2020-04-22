@@ -16,13 +16,13 @@ class BlogController extends Controller {
 
     public function showView(){
         
-        /*$categories = Category::where('sstatus', 'A')->get();
+        $categories = Category::where('sstatus', 'A')->get();
 
         /*$categories = $this->getListCategories();
-
+        */
         $data = [
             'categories' => $categories
-        ];*/
+        ];
 
         return view('portal.blog', $this->_view_data($data));
     }

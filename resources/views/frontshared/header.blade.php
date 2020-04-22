@@ -42,6 +42,7 @@
 
                         <li><a href="{{ route('front.about.page') }}">Nosotros</a></li>
                         <li><a href="{{ route('front.contact.page') }}">Contacto</a></li>
+                        <li><a href="{{ route('front.blog.page') }}">Blog</a></li>
     
                     </ul>
                 </nav>

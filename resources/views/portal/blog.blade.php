@@ -15,8 +15,7 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Blog</li>
             </ol>
         </div><!-- End .container-fluid -->
@@ -34,7 +33,7 @@
                 <article class="entry">
                     <div class="entry-media">
                         <a href="single.html">
-                            <img src="assets/images/blog/post-1.jpg" alt="Post">
+                            <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
                         </a>
                     </div><!-- End .entry-media -->
 
@@ -70,9 +69,9 @@
                     <div class="entry-media">
                         <a href="single.html">
                             <div class="entry-slider owl-carousel owl-theme">
-                                <img src="assets/images/blog/post-1.jpg" alt="Post">
-                                <img src="assets/images/blog/post-2.jpg" alt="Post">
-                                <img src="assets/images/blog/post-3.jpg" alt="Post">
+                                <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
+                                <img src="{{ asset('public/portal/images/blog/post-2.jpg') }}" alt="Post">
+                                <img src="{{ asset('public/portal/images/blog/post-3.jpg') }}" alt="Post">
                             </div><!-- End .entry-slider -->
                         </a>
                     </div><!-- End .entry-media -->
@@ -137,7 +136,7 @@
                 <article class="entry">
                     <div class="entry-media">
                         <a href="single.html">
-                            <img src="assets/images/blog/post-3.jpg" alt="Post">
+                            <img src="{{ asset('public/portal/images/blog/post-3.jpg') }}" alt="Post">
                         </a>
                     </div><!-- End .entry-media -->
 
@@ -217,7 +216,7 @@
                             <li>
                                 <div class="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/widget/post-1.jpg" alt="Post">
+                                        <img src="{{ asset('public/portal/images/blog/widget/post-1.jpg') }}" alt="Post">
                                     </a>
                                 </div><!-- End .entry-media -->
                                 <div class="entry-info">
@@ -231,7 +230,7 @@
                             <li>
                                 <div class="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/widget/post-2.jpg" alt="Post">
+                                        <img src="{{ asset('public/portal/images/blog/widget/post-2.jpg') }}" alt="Post">
                                     </a>
                                 </div><!-- End .entry-media -->
                                 <div class="entry-info">
