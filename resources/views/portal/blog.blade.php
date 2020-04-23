@@ -30,143 +30,53 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <article class="entry">
-                    <div class="entry-media">
-                        <a href="single.html">
-                            <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
-                        </a>
-                    </div><!-- End .entry-media -->
 
-                    <div class="entry-body">
-                        <div class="entry-date">
-                            <span class="day">29</span>
-                            <span class="month">Jun</span>
-                        </div><!-- End .entry-date -->
+                @foreach ($posts as $k=>$post)
 
-                        <h2 class="entry-title">
-                            <a href="single.html">Post Format - Image</a>
-                        </h2>
+                    <article class="entry">
+                        <div class="entry-media">
+                            <a href="single.html">
+                                <div class="entry-slider owl-carousel owl-theme">
+                                    @if (isset($post->simage1))
+                                    <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
+                                    @endif
+                                    @if (isset($post->simage2))
+                                    <img src="{{ asset('public/portal/images/blog/post-2.jpg') }}" alt="Post">
+                                    @endif
+                                    @if (isset($post->simage3))
+                                    <img src="{{ asset('public/portal/images/blog/post-3.jpg') }}" alt="Post">
+                                    @endif
+                                </div><!-- End .entry-slider -->
+                            </a>
+                        </div><!-- End .entry-media -->
 
-                        <div class="entry-content">
-                            <p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.</p>
+                        <div class="entry-body">
+                            <div class="entry-date">
+                                <span class="day">{{ $post->day }}</span>
+                                <span class="month">{{ $post->month }}</span>
+                            </div><!-- End .entry-date -->
 
-                            <a href="single.html" class="read-more">Read More <i class="icon-angle-double-right"></i></a>
-                        </div><!-- End .entry-content -->
+                            <h2 class="entry-title">
+                                <a href="single.html">{{ $post->stitle }}</a>
+                            </h2>
 
-                        <div class="entry-meta">
-                            <span><i class="icon-calendar"></i>June 29, 2018</span>
-                            <span><i class="icon-user"></i>By <a href="#">Admin</a></span>
-                            <span><i class="icon-folder-open"></i>
-                                <a href="#">Haircuts & hairstyles</a>,
-                                <a href="#">Fashion trends</a>,
-                                <a href="#">Accessories</a>
-                            </span>
-                        </div><!-- End .entry-meta -->
-                    </div><!-- End .entry-body -->
-                </article><!-- End .entry -->
+                            <div class="entry-content">
+                                <p>{{ $post->postdescription }}</p>
 
-                <article class="entry">
-                    <div class="entry-media">
-                        <a href="single.html">
-                            <div class="entry-slider owl-carousel owl-theme">
-                                <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
-                                <img src="{{ asset('public/portal/images/blog/post-2.jpg') }}" alt="Post">
-                                <img src="{{ asset('public/portal/images/blog/post-3.jpg') }}" alt="Post">
-                            </div><!-- End .entry-slider -->
-                        </a>
-                    </div><!-- End .entry-media -->
+                                <a href="single.html" class="read-more">Leer más <i class="icon-angle-double-right"></i></a>
+                            </div><!-- End .entry-content -->
 
-                    <div class="entry-body">
-                        <div class="entry-date">
-                            <span class="day">22</span>
-                            <span class="month">Jun</span>
-                        </div><!-- End .entry-date -->
+                            <div class="entry-meta">
+                                <span><i class="icon-calendar"></i>{{ $post->date }}</span>
+                                <span><i class="icon-user"></i>Por <a href="#">{{ $post->sauthor }}</a></span>
+                                <span><i class="icon-folder-open"></i>
+                                    <a href="#">{{ $post->blogcategoryname }}</a>
+                                </span>
+                            </div><!-- End .entry-meta -->
+                        </div><!-- End .entry-body -->
+                    </article><!-- End .entry -->
 
-                        <h2 class="entry-title">
-                            <a href="single.html">Post Format - Image Gallery</a>
-                        </h2>
-
-                        <div class="entry-content">
-                            <p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.</p>
-
-                            <a href="single.html" class="read-more">Read More <i class="icon-angle-double-right"></i></a>
-                        </div><!-- End .entry-content -->
-
-                        <div class="entry-meta">
-                            <span><i class="icon-calendar"></i>June 22, 2018</span>
-                            <span><i class="icon-user"></i>By <a href="#">Admin</a></span>
-                            <span><i class="icon-folder-open"></i>
-                                <a href="#">Haircuts & hairstyles</a>,
-                                <a href="#">Fashion trends</a>,
-                                <a href="#">Accessories</a>
-                            </span>
-                        </div><!-- End .entry-meta -->
-                    </div><!-- End .entry-body -->
-                </article><!-- End .entry -->
-
-                <article class="entry">
-                    <div class="entry-body">
-                        <div class="entry-date">
-                            <span class="day">07</span>
-                            <span class="month">Jun</span>
-                        </div><!-- End .entry-date -->
-
-                        <h2 class="entry-title">
-                            <a href="single.html">Hello World!</a>
-                        </h2>
-
-                        <div class="entry-content">
-                            <p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.</p>
-
-                            <a href="single.html" class="read-more">Read More <i class="icon-angle-double-right"></i></a>
-                        </div><!-- End .entry-content -->
-
-                        <div class="entry-meta">
-                            <span><i class="icon-calendar"></i>June 07, 2018</span>
-                            <span><i class="icon-user"></i>By <a href="#">Admin</a></span>
-                            <span><i class="icon-folder-open"></i>
-                                <a href="#">Haircuts & hairstyles</a>,
-                                <a href="#">Fashion trends</a>,
-                                <a href="#">Accessories</a>
-                            </span>
-                        </div><!-- End .entry-meta -->
-                    </div><!-- End .entry-body -->
-                </article><!-- End .entry -->
-
-                <article class="entry">
-                    <div class="entry-media">
-                        <a href="single.html">
-                            <img src="{{ asset('public/portal/images/blog/post-3.jpg') }}" alt="Post">
-                        </a>
-                    </div><!-- End .entry-media -->
-
-                    <div class="entry-body">
-                        <div class="entry-date">
-                            <span class="day">11</span>
-                            <span class="month">May</span>
-                        </div><!-- End .entry-date -->
-
-                        <h2 class="entry-title">
-                            <a href="single.html">Post Format - Image</a>
-                        </h2>
-
-                        <div class="entry-content">
-                            <p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.</p>
-
-                            <a href="single.html" class="read-more">Read More <i class="icon-angle-double-right"></i></a>
-                        </div><!-- End .entry-content -->
-
-                        <div class="entry-meta">
-                            <span><i class="icon-calendar"></i>May 11, 2018</span>
-                            <span><i class="icon-user"></i>By <a href="#">Admin</a></span>
-                            <span><i class="icon-folder-open"></i>
-                                <a href="#">Haircuts & hairstyles</a>,
-                                <a href="#">Fashion trends</a>,
-                                <a href="#">Accessories</a>
-                            </span>
-                        </div><!-- End .entry-meta -->
-                    </div><!-- End .entry-body -->
-                </article><!-- End .entry -->
+                @endforeach
 
                 <nav class="toolbox toolbox-pagination">
                     <ul class="pagination">
@@ -198,48 +108,34 @@
                     </div><!-- End .widget -->
 
                     <div class="widget widget-categories">
-                        <h4 class="widget-title">Blog Categories</h4>
+                        <h4 class="widget-title">Categorías de blog</h4>
 
                         <ul class="list">
-                            <li><a href="#">All about clothing</a></li>
-                            <li><a href="#">Make-up &amp; beauty</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Fashion trends</a></li>
-                            <li><a href="#">Haircuts &amp; hairstyles</a></li>
+                            @foreach ($blogcategorieslist as $k=>$blogcategory)
+                                <li><a href="#">{{ $blogcategory->blogcategoryname }}</a></li>
+                            @endforeach
                         </ul>
                     </div><!-- End .widget -->
 
                     <div class="widget">
-                        <h4 class="widget-title">Recent Posts</h4>
+                        <h4 class="widget-title">Publicaciones recientes</h4>
 
                         <ul class="simple-entry-list">
-                            <li>
-                                <div class="entry-media">
-                                    <a href="single.html">
-                                        <img src="{{ asset('public/portal/images/blog/widget/post-1.jpg') }}" alt="Post">
-                                    </a>
-                                </div><!-- End .entry-media -->
-                                <div class="entry-info">
-                                    <a href="single.html">Post Format - Video</a>
-                                    <div class="entry-meta">
-                                        April 08, 2018
-                                    </div><!-- End .entry-meta -->
-                                </div><!-- End .entry-info -->
-                            </li>
-
-                            <li>
-                                <div class="entry-media">
-                                    <a href="single.html">
-                                        <img src="{{ asset('public/portal/images/blog/widget/post-2.jpg') }}" alt="Post">
-                                    </a>
-                                </div><!-- End .entry-media -->
-                                <div class="entry-info">
-                                    <a href="single.html">Post Format - Image Gallery</a>
-                                    <div class="entry-meta">
-                                        March 23, 2016
-                                    </div><!-- End .entry-meta -->
-                                </div><!-- End .entry-info -->
-                            </li>
+                            @foreach ($recentposts as $k=>$recentpost)
+                                <li>
+                                    <div class="entry-media">
+                                        <a href="single.html">
+                                            <img src="{{ $recentpost->simage1 }}" alt="Post">
+                                        </a>
+                                    </div><!-- End .entry-media -->
+                                    <div class="entry-info">
+                                        <a href="single.html">{{ $recentpost->stitle }}</a>
+                                        <div class="entry-meta">
+                                            {{ $recentpost->day }} de {{ $recentpost->month }} de {{ $recentpost->year }}
+                                        </div><!-- End .entry-meta -->
+                                    </div><!-- End .entry-info -->
+                                </li>
+                            @endforeach
                         </ul>
                     </div><!-- End .widget -->
 
@@ -259,9 +155,9 @@
                         <h4 class="widget-title">Archive</h4>
 
                         <ul class="list">
-                            <li><a href="#">April 2018</a></li>
-                            <li><a href="#">March 2018</a></li>
-                            <li><a href="#">February 2018</a></li>
+                        @foreach ($archivedposts as $k=>$archivedpost)
+                            <li><a href="#">{{ $archivedpost->archivedate }}</a></li>
+                        @endforeach
                         </ul>
                     </div><!-- End .widget -->
 

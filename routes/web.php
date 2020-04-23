@@ -24,6 +24,7 @@ Route::post('send-email','Front\ContactController@sendEmail')->name('front.conta
 Route::get('about-us','Front\AboutController@showView')->name('front.about.page');
 //Blog
 Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
+//Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
