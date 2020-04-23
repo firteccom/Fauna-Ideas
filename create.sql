@@ -68,7 +68,9 @@ CREATE TABLE `parameters` (
 
 INSERT INTO `parameters` (`nparameterid`, `sname`, `scode`, `svalue`, `sdescription`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
 (1, 'Nombre Sitio', 'SITENAME', 'Fauna & Ideas', 'Nombre largo del sitio', 'A', now(), NULL, 1, NULL),
-(2, 'Logo', 'LOGO', 'https://preview.oklerthemes.com/porto/8.0.0/img/logo-flat.png', 'Logo del sitio', 'A', now(), NULL, 1, NULL);
+(2, 'Logo', 'LOGO', 'https://preview.oklerthemes.com/porto/8.0.0/img/logo-flat.png', 'Logo del sitio', 'A', now(), NULL, 1, NULL),
+(3, 'Twitter', 'TWITTER', 'http://twitter.com/', 'Enlace a Twitter', 'A', now(), NULL, 1, NULL),
+(4, 'Facebook', 'FACEBOOK', 'https://www.facebook.com/', 'Enlace a Facebook', 'A', now(), NULL, 1, NULL);
 
 
 
@@ -205,6 +207,7 @@ CREATE TABLE `types` (
   `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the category'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 --
 -- Volcado de datos para la tabla `types`
 --
@@ -230,6 +233,57 @@ INSERT INTO `types` (`ntypeid`, `ntypeparentid`, `sname`, `sdescription`, `sexte
 (18, 4, 'Descriptivo', 'Tipo de valor descriptivo', '-', 'A', '2020-03-24 13:12:13', NULL, 1, NULL),
 (19, 4, 'Definición', 'Tipo de valor de definición', '-', 'A', '2020-03-24 13:12:38', NULL, 1, NULL);
 
+
+--
+-- Estructura de tabla para la tabla `catalog`
+--
+
+CREATE TABLE `catalog` (
+  `ncatalogid` int(11) NOT NULL COMMENT 'PK of “Catalog” Table.',
+  `sname` varchar(50) NOT NULL COMMENT 'Catalog name.',
+  `sdescription` varchar(200) NOT NULL DEFAULT '-' COMMENT 'Catalog description.',
+  `sfullimage` varchar(256) NOT NULL COMMENT 'Catalog full image.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Catalog status. A=Active, N=Inactive, M=Modified, E=Exported',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Catalog create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Catalog modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the catalog',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the catalog'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Volcado de datos para la tabla `catalog`
+--
+
+INSERT INTO `catalog` (`ncatalogid`, `sname`, `sdescription`, `sfullimage`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 'Catálogo 1', 'Primer catálogo', 'http://localhost/Fauna-Ideas/public/portal/images/banners/home-banner1.jpg','A', now(), NULL, 1, NULL),
+(2, 'Catálogo 2', 'Segundo catálogo', 'http://localhost/Fauna-Ideas/public/portal/images/banners/home-banner2.jpg','A', now(), NULL, 1, NULL),
+(3, 'Catálogo 3', 'Tercer catálogo', 'http://localhost/Fauna-Ideas/public/portal/images/banners/home-banner3.jpg','A', now(), NULL, 1, NULL),
+(4, 'Catálogo 4', 'Cuarto catálogo', 'http://localhost/Fauna-Ideas/public/portal/images/banners/home-banner4.jpg','A', now(), NULL, 1, NULL);
+
+
+
+--
+-- Estructura de tabla para la tabla `slides`
+--
+
+CREATE TABLE `slides` (
+  `nslideid` int(11) NOT NULL COMMENT 'PK of Slides Table.',
+  `nobjecttype` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog, 3=Product',
+  `nobjectid` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog',
+  `smaintext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide main text.',
+  `ssecondarytext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide secondary text.',
+  `sbuttontext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide button text.',
+  `sfullimage` varchar(256) NOT NULL COMMENT 'Slide full image.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Catalog status. A=Active, N=Inactive, M=Modified, E=Exported',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Catalog create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Catalog modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the catalog',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the catalog'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ 
 --
 -- Índices para tablas volcadas
 --
@@ -283,6 +337,13 @@ ALTER TABLE `parameters`
 ALTER TABLE `types`
   ADD PRIMARY KEY (`ntypeid`);
 
+
+-- Indices de la tabla `types`
+--
+ALTER TABLE `catalog`
+  ADD PRIMARY KEY (`ncatalogid`);
+
+
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
@@ -310,6 +371,13 @@ ALTER TABLE `product_attribute`
 --
 ALTER TABLE `types`
   MODIFY `ntypeid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Types” Table.', AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `catalog`
+--
+ALTER TABLE `catalog`
+  MODIFY `ncatalogid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Catalog” Table.', AUTO_INCREMENT=20;
+
 
 --
 -- Restricciones para tablas volcadas

@@ -58,55 +58,31 @@
     @endif
 
 
+<!-- CATALOGOS -->
+    @if(isset($catalogos)) 
     <section class="bg-grey pt-3 pb-3">
         <div class="container-fluid mt-6 mb-5">
             <div class="row row-sm">
+                @foreach ($catalogos as $cata)
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="public/portal/images/banners/home-banner1.jpg">
+                        <img src="{{$cata->sfullimage}}">
                         <div class="home-banner-content content-left-bottom">
-                            <h3>Sunglasses Sale</h3>
-                            <h4>See all and find yours</h4>
-                            <a href="category.html" class="btn" role="button">Shop By Glasses</a>
+                            <h3>{{$cata->sname}}</h3>
+                            <h4>{{$cata->sdecription}}</h4>
+                            <a href="catalog/{{$cata->ncatalogid}}" class="btn" role="button">Ver catálogo</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <div class="home-banner">
-                        <img src="public/portal/images/banners/home-banner2.jpg">
-                        <div class="home-banner-content content-top-center">
-                            <h3>Cosmetics Trends</h3>
-                            <h4>Browse in all and find yours</h4>
-                            <a href="category.html" class="btn" role="button">Shop By Cosmetics</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="home-banner">
-                        <img src="public/portal/images/banners/home-banner3.jpg">
-                        <div class="home-banner-content content-reverse content-center">
-                            <h3>Fashion Summer Sale</h3>
-                            <h4>Browse in all our categories</h4>
-                            <a href="category.html" class="btn" role="button">Shop By Fashion</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="home-banner">
-                        <img src="public/portal/images/banners/home-banner4.jpg">
-                        <div class="home-banner-content boxed-content content-bottom-center">
-                            <div class="info-group">
-                                <h3>UP TO 70% IN ALL BAGS</h3>
-                                <h4>Starting at $99</h4>
-                            </div>
-                            <a href="category.html" class="btn" role="button">Shop By Bags</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
+    @endif
 
+
+<!-- POPULARES -->
+    @if(isset($populares)) 
     <section class="container-fluid">
         <div class="section-header mt-6">
             <h2 class="section-title">Popular Products</h2>
@@ -151,5 +127,7 @@
             @endforeach
         </div>
     </section>
+    @endif
+
 </main><!-- End .main -->
 @endsection

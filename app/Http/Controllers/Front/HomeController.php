@@ -5,6 +5,7 @@
 	use App\Model\Parameter;
 	use App\Model\Category;
 	use App\Model\Product;
+	use App\Model\Catalog;
 	use Exception;
 	use Illuminate\Http\Request;
 	use App\Http\Controllers\Controller;
@@ -16,19 +17,21 @@
 
 		public function _index(){
 
-			/*$logo = Parametro::where('sactivo', 'S')->where('scodigo','LOGO_WEB')->pluck('svalor')[0];
-			$txt_portada = Parametro::where('sactivo', 'S')->where('scodigo','TXT_PORTADA')->pluck('svalor')[0];*/
+			$nsitio = Parameter::where('sstatus', 'A')->where('scode','SITENAME')->pluck('svalue')->first();
+			$logo = Parameter::where('sstatus', 'A')->where('scode','LOGO')->pluck('svalue')->first();
+			$twitter = Parameter::where('sstatus', 'A')->where('scode','TWITTER')->pluck('svalue')->first();
+			$facebook = Parameter::where('sstatus', 'A')->where('scode','FACEBOOK')->pluck('svalue')->first();
 			
-			/*return view('portal._index')->with(['title' => 'Visita virtual - Ministerio de Cultura','espacios'=> $espacios,'logo'=>$logo,'txt_portada'=>$txt_portada,'tipo_espacios'=>$tipo_espacios]);*/
-
-			$nsitio = Parameter::where('sstatus', 'A')->where('scode','SITENAME')->pluck('svalue')[0];
-			$logo = Parameter::where('sstatus', 'A')->where('scode','LOGO')->pluck('svalue')[0];
 			$categorias = Category::where('sstatus', 'A')->get();
 			$populares = Product::where('sstatus', 'A')->where('shighlighted','Y')->get();
+			$catalogos = Catalog::where('sstatus', 'A')->get();
 
 			return view('portal._index')->with(['nsitio' => $nsitio,
 												'logo' => $logo,
+												'twitter'=> $twitter,
+												'facebook'=> $facebook,
 												'categorias' => $categorias,
+												'catalogos' => $catalogos,
 												'populares' => $populares]);
 		}
 	}
