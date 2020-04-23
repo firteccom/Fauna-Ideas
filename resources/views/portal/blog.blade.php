@@ -35,7 +35,7 @@
 
                     <article class="entry">
                         <div class="entry-media">
-                            <a href="single.html">
+                            <a href="{{ asset('blog') }}/{{ $post->npostid }}" target="_blank">
                                 <div class="entry-slider owl-carousel owl-theme">
                                     @if (isset($post->simage1))
                                     <img src="{{ asset('public/portal/images/blog/post-1.jpg') }}" alt="Post">
@@ -57,13 +57,13 @@
                             </div><!-- End .entry-date -->
 
                             <h2 class="entry-title">
-                                <a href="single.html">{{ $post->stitle }}</a>
+                                <a href="{{ asset('blog') }}/{{ $post->npostid }}" target="_blank">{{ $post->stitle }}</a>
                             </h2>
 
                             <div class="entry-content">
                                 <p>{{ $post->postdescription }}</p>
 
-                                <a href="single.html" class="read-more">Leer más <i class="icon-angle-double-right"></i></a>
+                                <a href="{{ asset('blog') }}/{{ $post->npostid }}" target="_blank" class="read-more">Leer más <i class="icon-angle-double-right"></i></a>
                             </div><!-- End .entry-content -->
 
                             <div class="entry-meta">
@@ -99,10 +99,10 @@
                 <div class="sidebar-wrapper">
                     <div class="widget widget-search">
                         <form role="search" method="get" class="search-form" action="#">
-                            <input type="search" class="form-control" placeholder="Search posts here..." name="s" required>
+                            <input type="search" class="form-control" style="font-size: 9px; color:red;" placeholder="Buscar publicaciones aquí..." name="postsearch" id="postsearch" required>
                             <button type="submit" class="search-submit" title="Search">
                                 <i class="icon-search"></i>
-                                <span class="sr-only">Search</span>
+                                <span class="sr-only">Buscar</span>
                             </button>
                         </form>
                     </div><!-- End .widget -->
@@ -124,12 +124,12 @@
                             @foreach ($recentposts as $k=>$recentpost)
                                 <li>
                                     <div class="entry-media">
-                                        <a href="single.html">
+                                        <a href="{{ asset('blog') }}/{{ $recentpost->npostid }}" target="_blank">
                                             <img src="{{ $recentpost->simage1 }}" alt="Post">
                                         </a>
                                     </div><!-- End .entry-media -->
                                     <div class="entry-info">
-                                        <a href="single.html">{{ $recentpost->stitle }}</a>
+                                        <a href="{{ asset('blog') }}/{{ $recentpost->npostid }}" target="_blank">{{ $recentpost->stitle }}</a>
                                         <div class="entry-meta">
                                             {{ $recentpost->day }} de {{ $recentpost->month }} de {{ $recentpost->year }}
                                         </div><!-- End .entry-meta -->

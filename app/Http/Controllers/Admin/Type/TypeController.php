@@ -158,7 +158,7 @@
                 $type->sname = $request->typename;
                 $type->sextension = $request->typeextension;
                 $type->sdescription = $request->typedescription;
-                $type->ncreatedby = 1;
+				$type->ncreatedby = Auth::user()->nuserid;
 
                 $type->saveAsNew();
                 //var_dump($type);
@@ -185,7 +185,9 @@
                         ->update(['ntypeparentid'=>$request->typeparent,
                                   'sname'=>$request->typename,
                                   'sextension'=>$request->typeextension,
-                                  'sdescription'=>$request->typedescription]);
+                                  'sdescription'=>$request->typedescription,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El tipo de valor se actualizó correctamente.';
@@ -202,7 +204,7 @@
 
         public function desactivateType(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('types')->where('ntypeid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('types')->where('ntypeid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El tipo de valor se desactivó correctamente.';
@@ -219,7 +221,7 @@
 
         public function activateType(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('types')->where('ntypeid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('types')->where('ntypeid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El tipo de valor se activó correctamente.';

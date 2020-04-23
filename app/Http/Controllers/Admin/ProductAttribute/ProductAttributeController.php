@@ -178,8 +178,8 @@
 				$productattribute->svalue = $request->productattributevalue;
 				$productattribute->ntypeid = $request->productattributetype;
 				$productattribute->stypename = $request->productattributetypename;
-				$productattribute->sflagdescriptive = 0;				
-				$productattribute->ncreatedby = 1;
+				$productattribute->sflagdescriptive = 0;
+				$productattribute->ncreatedby = Auth::user()->nuserid;
 				
                 $productattribute->saveAsNew();
                 //var_dump($product);
@@ -207,7 +207,9 @@
 								 'sname'=>$request->productattributename,
 								 'svalue'=>$request->productattributevalue,
 								 'ntypeid'=>$request->productattributetype,
-								 'stypename'=>$request->productattributetypename]);
+								 'stypename'=>$request->productattributetypename,
+                                 'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                 'nmodifiedby'=>Auth::user()->nuserid]);
 								  
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El atributo del producto se actualizó correctamente.';
@@ -224,7 +226,7 @@
 
         public function desactivateProductAttribute(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('product_attribute')->where('nproductattributeid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('product_attribute')->where('nproductattributeid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El atributo del producto se desactivó correctamente.';
@@ -241,7 +243,7 @@
 
         public function activateProductAttribute(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('product_attribute')->where('nproductattributeid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('product_attribute')->where('nproductattributeid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El atributo del producto se activó correctamente.';

@@ -41,9 +41,6 @@ class ContactController extends Controller {
 
             try {
 
-                //$to_name = 'Angello';
-                //$to_email = 'angellomijail10@gmail.com';
-
                 $data = array(
                     'name'=>$name,
                     'email'=>$email,
@@ -84,18 +81,6 @@ class ContactController extends Controller {
 
     }
 
-    public function testEmail2(Request $request){
-
-        $to_name = 'Angello';
-        $to_email = 'angellomijail10@gmail.com';
-        $data = array('name'=>'Nombre Prueba', 'body' => 'A test mail');
-        Mail::send('portal.mail', $data, function($message) use ($to_name, $adminemail) {
-            $message->to($adminemail, $to_name)->subject($adminsubject);
-            $message->from('angellomijail10@gmail.com','Test Mail');
-        });
-
-    }
-
     public function testEmail(Request $request){
 
         $adminemail = 'angellomijail10@gmail.com';
@@ -122,46 +107,5 @@ class ContactController extends Controller {
         });
 
     }
-
-    public function sendEmail2(){
-        
-        //$this->load->view('frontend/correoprueba', $data);
-
-	    if($name != '' && $name != null && $email != '' && $email != null && $mobile != '' && $mobile != null && $message != '' && $message != null){
-
-            try {
-                $touser = $email;
-                $tocontacto = "contacto@firteccom.com";
-                $mobileuser = "Hemos recibido su correo";
-                $mobilecontacto = "Nueva Consulta";
-                $headersuser = "From: "."webmaster@firteccom.com";
-                $headerscontacto = "From: ".$email;
-
-
-                $cuerpocorreousuario = $this->load->view('frontend/correousuario', $data, TRUE);
-                $cuerpocorreocontacto = $this->load->view('frontend/correocontacto', $data, TRUE);
-
-                mail($touser,$mobileuser,$cuerpocorreousuario,$headersuser);
-                mail($tocontacto,$mobilecontacto,$cuerpocorreocontacto,$headerscontacto);
-
-
-                echo json_encode(array('status'=>'success', 'msj'=>'Mensaje enviado'));
-
-            } catch (\Throwable $th) {
-
-                echo json_encode(array('status'=>'error', 'msj'=>'Existe un error'));
-            
-            }
-
-	    	
-	    } else{
-
-	    	echo json_encode(array('status'=>'error', 'msj'=>'Debe completar todos los datos.'));
-
-	    }
-
-
-
-	}
 
 }

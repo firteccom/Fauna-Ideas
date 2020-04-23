@@ -152,7 +152,7 @@
                 $blogcategory->sshortdescription = $request->blogcategoryshortdescription;
                 $blogcategory->sdescription = $request->blogcategorydescription;
                 $blogcategory->sfullimage = $request->blogcategoryfullimage;
-                $blogcategory->ncreatedby = 1;
+				$blogcategory->ncreatedby = Auth::user()->nuserid;
 
                 $blogcategory->saveAsNew();
 
@@ -179,7 +179,9 @@
                                   'sname'=>$request->blogcategoryname,
                                   'sshortdescription'=>$request->blogcategoryshortdescription,
                                   'sfullimage' => $request->blogcategoryfullimage,
-                                  'sdescription'=>$request->blogcategorydescription]);
+                                  'sdescription'=>$request->blogcategorydescription,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría se actualizó correctamente.';
@@ -196,7 +198,7 @@
 
         public function desactivateBlogCategory(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('blog_categories')->where('nblogcategoryid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('blog_categories')->where('nblogcategoryid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría de blog se desactivó correctamente.';
@@ -213,7 +215,7 @@
 
         public function activateBlogCategory(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('blog_categories')->where('nblogcategoryid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('blog_categories')->where('nblogcategoryid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría de blog se activó correctamente.';

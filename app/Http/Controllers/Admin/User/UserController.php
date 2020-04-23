@@ -142,7 +142,9 @@
                         			'sfatherlastname'=>$request->userfatherlastname,
                         			'smotherlastname'=>$request->usermotherlastname,
                                 	'semail'=>$request->useremail,
-                                    'spassword'=>Hash::make($request->userpassword)]);
+                                    'spassword'=>Hash::make($request->userpassword),
+                                    'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                    'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El usuario se actualizó correctamente.';
@@ -159,7 +161,7 @@
 
         public function desactivateUser(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('user')->where('nuserid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('user')->where('nuserid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El usaurio se desactivó correctamente.';
@@ -176,7 +178,7 @@
 
         public function activateUser(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('user')->where('nuserid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('user')->where('nuserid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El usaurio se activó correctamente.';
