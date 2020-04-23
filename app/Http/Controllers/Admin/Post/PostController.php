@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\Post;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\Post;
 	use App\Model\BlogCategory;
@@ -62,6 +63,7 @@
 			$pagina = $request->start;
 
 			$posttitle = $request->posttitle;
+			$postdescription = $request->postdescription;
 			$blogcategoryid = $request->blogcategoryid;
 			$posttag = $request->posttag;
 			$postuser = $request->postuser;
@@ -70,21 +72,25 @@
 			$data = [];
 			$data['draw'] = (int)$request->draw;
 
-			$data['recordsTotal'] = $this->getPostsFilter($posttitle,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,true);
+			$data['recordsTotal'] = $this->getPostsFilter($posttitle,$postdescription,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,true);
 			$data['recordsFiltered'] = $data['recordsTotal'];
 	
-			$data['data'] = $this->getPostsFilter($posttitle,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,false);
+			$data['data'] = $this->getPostsFilter($posttitle,$postdescription,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,false);
 	
 			return response($data);
 
 		}
 
-		public function getPostsFilter($posttitle,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,$contar){
+		public function getPostsFilter($posttitle,$postdescription,$blogcategoryid,$posttag,$postuser,$poststatus,$item_por_pag,$pagina,$contar){
 			$data = Post::from('posts as pst')
 					->join('blog_categories as blg','blg.nblogcategoryid','=','pst.nblogcategoryid');
 
 			if(trim($posttitle)!=''){
 				$data = $data->where(\DB::raw('UPPER(pst.stitle)'), 'like', '%'. mb_strtoupper(trim($posttitle)).'%');
+			}
+
+			if(trim($postdescription)!=''){
+				$data = $data->where(\DB::raw('UPPER(pst.sdescription)'), 'like', '%'. mb_strtoupper(trim($postdescription)).'%');
 			}
 
 			if(trim($blogcategoryid)!='' && $blogcategoryid!=0){
@@ -146,13 +152,14 @@
                 $post = new Post();
 				$post->nblogcategoryid = $request->blogcategoryid;
 				$post->stitle = $request->posttitle;
+				$post->sdescription = $request->postdescription;
 				$post->stags = $request->posttags;
-				$post->sauthor = $request->postauthor;
+				$post->sauthor = trim((Auth::user()->sname).' '.(Auth::user()->sfatherlastname));
 				$post->scontent = $request->postcontent;
 				$post->simage1 = $request->postimage1;
 				$post->simage2 = $request->postimage2;
 				$post->simage3 = $request->postimage3;
-				$post->ncreatedby = 1;
+				$post->ncreatedby = Auth::user()->nuserid;
 				
                 $post->saveAsNew();
                 //var_dump($post);
@@ -178,13 +185,14 @@
                         ->where('npostid',$request->postid)
 						->update(['nblogcategoryid'=>$request->blogcategoryid,
 								  'stitle'=>$request->posttitle,
-								  'stags'=>$request->posttitle,
-								  'ssku'=>$request->posttags,
-								  'sauthor'=>$request->postauthor,
+								  'sdescription'=>$request->postdescription,								  
+								  'stags'=>$request->posttags,
 								  'scontent'=>$request->postcontent,
 								  'simage1'=>$request->postimage1,
 								  'simage2'=>$request->postimage2,
-								  'simage3'=>$request->postimage3]);
+								  'simage3'=>$request->postimage3,
+								  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+								  'nmodifiedby'=>Auth::user()->nuserid]);
 								  
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La publicación se actualizó correctamente.';

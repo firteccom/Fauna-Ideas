@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\Parameter;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\Parameter;
 
@@ -109,7 +110,7 @@
                 $parameter->scode = $request->parametercode;
                 $parameter->svalue = $request->parametervalue;
                 $parameter->sdescription = $request->parameterdescription;
-                $parameter->ncreatedby = 1;
+				$parameter->ncreatedby = Auth::user()->nuserid;
 
                 $parameter->saveAsNew();
 
@@ -134,7 +135,9 @@
                         ->update(['sname'=>$request->parametername,
                         			'scode'=>$request->parametercode,
                         			'svalue'=>$request->parametervalue,
-                                	'sdescription'=>$request->parameterdescription]);
+                                	'sdescription'=>$request->parameterdescription,
+                                    'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                    'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El parámetro se actualizó correctamente.';
@@ -151,7 +154,7 @@
 
         public function desactivateParameter(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('parameters')->where('nparameterid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('parameters')->where('nparameterid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El parámetro se desactivó correctamente.';
@@ -168,7 +171,7 @@
 
         public function activateParameter(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('parameters')->where('nparameterid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('parameters')->where('nparameterid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El parámetro se activó correctamente.';

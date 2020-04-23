@@ -58,6 +58,7 @@
                 $catalog->sname = $request->catalogname;
                 $catalog->sdescription = $request->catalogdescription;
                 $catalog->sfullimage = $request->catalogfullimage;
+				$catalog->ncreatedby = Auth::user()->nuserid;
                 
                 $catalog->saveAsNew();
 
@@ -83,7 +84,9 @@
                         ->where('ncatalogid',$request->catalogid)
                         ->update(['sname'=>$request->catalogname,
                                   'sdescription'=>$request->catalogdescription,
-                                  'sfullimage'=>$request->catalogfullimage]);
+                                  'sfullimage'=>$request->catalogfullimage,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
                                   
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El catálogo se actualizó correctamente.';
@@ -158,7 +161,7 @@
 
         public function desactivateCatalog(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('catalog')->where('ncatalogid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('catalog')->where('ncatalogid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El catálogo se desactivó correctamente.';
@@ -175,7 +178,7 @@
 
         public function activateCatalog(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('catalog')->where('ncatalogid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('catalog')->where('ncatalogid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El catálogo se activó correctamente.';

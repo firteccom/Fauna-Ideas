@@ -52,6 +52,10 @@
                                 <input type="text" class="form-control" id="filterposttitle" name="filterposttitle" placeholder="Ingrese un título">
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 form-group">
+                                <label for="filterpostdescription">Descripción</label>
+                                <input type="text" class="form-control" id="filterpostdescription" name="filterpostdescription" placeholder="Ingrese una descripción">
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 form-group">
                                 <label for="filterpostblogcategory">Categoría de blog</label>
                                 <select id="filterpostblogcategory" name="filterpostblogcategory" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
@@ -136,35 +140,39 @@
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="posttitle">Título <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="posttitle" name="posttitle" placeholder="Ingrese un título" required>
+                                <input type="text" class="form-control" id="posttitle" name="posttitle" placeholder="Ingrese un título" required>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                <label for="postdescription">Breve Descripción <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="postdescription" name="postdescription" placeholder="Ingrese una breve descripción (máx. 300 caracteres)" required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="posttags">Etiquetas <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="posttags" name="posttags" placeholder="Ingrese más de 1 etiqueta separandolos por ';'" minlenght="1" required>
+                                <input type="text" class="form-control" id="posttags" name="posttags" placeholder="Ingrese más de 1 etiqueta separandolos por ';'" minlenght="1" required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="postcontent">Contenido <span class="required">*</span></label>
                                 <div class="box-body pad">
                                     <form>
-                                        <textarea class="form-control filter" id="postcontent" name="postcontent" rows="10" cols="80"></textarea>
+                                        <textarea class="form-control" id="postcontent" name="postcontent" rows="10" cols="80"></textarea>
                                     </form>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="postimage1">Imagen 1 <span class="required">*</span></label>
-                                <input type="text" class="form-control filter" id="postimage1" name="postimage1" placeholder="Ingrese una URL">
+                                <input type="text" class="form-control" id="postimage1" name="postimage1" placeholder="Ingrese una URL">
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="postimage2">Imagen 2 </label>
-                                <input type="text" class="form-control filter" id="postimage2" name="postimage2" placeholder="Ingrese una URL">
+                                <input type="text" class="form-control" id="postimage2" name="postimage2" placeholder="Ingrese una URL">
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 <label for="postimage3">Imagen 3 </label>
-                                <input type="text" class="form-control filter" id="postimage3" name="postimage3" placeholder="Ingrese una URL">
+                                <input type="text" class="form-control" id="postimage3" name="postimage3" placeholder="Ingrese una URL">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                             <button type="submit" id="btnSavePost" class="btn btn-primary">Registrar</button>
                             <button type="submit" id="btnUpdatePost" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
@@ -331,7 +339,7 @@
                             return 'No asignado';
                     }
                 }},
-                {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
+                {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"120px", mRender: function(data, type, row) {
 
                     var high = '<a data-id="'+row.npostid+'" high="'+row.shighlighted+'" id="btnhighlight" class="btn btn-default fa fa-star btn-highlight rw_'+row.shighlighted+'" tooltips"  data-placement="top" title="Destacado" data-original-title="Destacado"></a>';
 
@@ -364,6 +372,7 @@
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
                 aoData.posttitle = $('#filterposttitle').val();
+                aoData.postdescription = $('#filterpostdescription').val();
                 aoData.blogcategoryid = $('#filterpostblogcategory').val();
                 aoData.posttags = $('#filterposttag').val();
                 aoData.postuser = $('#filterpostblogcategory').val();
@@ -483,7 +492,6 @@
             $('#btnSavePost').hide();
             $('#btnUpdatePost').show();
             //alert(id);
-            loadModalCategories(id);
 
             $.ajax({
                 url: '{{ route('admin.post.get') }}',
@@ -496,16 +504,18 @@
                 postid = id;
 
                 if (data.status == 'success') {
-                    
-                    $('#postsku').val(data.post.ssku);
-                    $('#postname').val(data.post.sname);
-                    $('#postdescription').val(data.post.sdescription);
-                    $('#postblogcategory').val(data.post.ncategoryid);
+
+                    $('#postblogcategory').val(data.post.nblogcategoryid);
                     $('#postblogcategory').select2().trigger('change');
-                    $('#postfullimage').val(data.post.sfullimage);
-                    $('#postthumbnail').val(data.post.sthumbnail);
-                    $('#postmasterprice').val(data.post.nmasterprice);
-                    $('#postprice').val(data.post.nprice);
+                    $('#posttitle').val(data.post.stitle);
+                    $('#postdescription').val(data.post.sdescription);
+                    $('#posttags').val(data.post.stags);
+                    CKEDITOR.instances.postcontent.setData(data.post.scontent);
+                    //$('#postcontent').val(data.post.scontent);
+                    $('#postimage1').val(data.post.simage1);
+                    $('#postimage2').val(data.post.simage2);
+                    $('#postimage3').val(data.post.simage3);
+                    
 
                 }else{
                     Swal.fire({
@@ -628,6 +638,7 @@
             
             postblogcategory = $('#postblogcategory').val();
             posttitle = $('#posttitle').val();
+            postdescription = $('#postdescription').val();
             posttags = $('#posttags').val();
             postauthor = $('#postblogcategory option:selected').text();
             //postcontent = $('#postcontent').val();
@@ -645,7 +656,7 @@
                     url: '{{ route('admin.post.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {blogcategoryid:postblogcategory,posttitle:posttitle,posttags:posttags,postauthor:postauthor,postcontent:postcontent,postimage1:postimage1,postimage2:postimage2,postimage3:postimage3, _token:'{{ csrf_token() }}'},
+                    data: {blogcategoryid:postblogcategory,posttitle:posttitle,postdescription:postdescription,posttags:posttags,postauthor:postauthor,postcontent:postcontent,postimage1:postimage1,postimage2:postimage2,postimage3:postimage3, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
@@ -680,14 +691,16 @@
         function updatePost(){
             
             postblogcategory = $('#postblogcategory').val();
-            postcategoryname = $('#postblogcategory option:selected').text();
-            postsku = $('#postsku').val();
-            postname = $('#postname').val();
+            //Id del usuario
+            posttitle = $('#posttitle').val();
             postdescription = $('#postdescription').val();
-            postfullimage = $('#postfullimage').val();
-            postthumbnail = $('#postthumbnail').val();
-            postmasterprice = $('#postmasterprice').val();
-            postprice = $('#postprice').val();
+            posttags = $('#posttags').val();
+            postauthor = $('#postblogcategory option:selected').text();
+            //postcontent = $('#postcontent').val();
+            postcontent = CKEDITOR.instances.postcontent.getData();
+            postimage1 = $('#postimage1').val();
+            postimage2 = $('#postimage2').val();
+            postimage3 = $('#postimage3').val();
 
             if(confirm('¿Está seguro de actualizar la publicación?')==true){
                 $("#btnUpdatePost").html('Actualizando...');
@@ -697,7 +710,7 @@
                     url: '{{ route('admin.post.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {postid:postid,postblogcategory:postblogcategory,postcategoryname:postcategoryname,postsku:postsku,postname:postname,postdescription:postdescription,postfullimage:postfullimage,postthumbnail:postthumbnail,postmasterprice:postmasterprice,postprice:postprice, _token:'{{ csrf_token() }}'},
+                    data: {postid:postid,blogcategoryid:postblogcategory,posttitle:posttitle,postdescription:postdescription,posttags:posttags,postauthor:postauthor,postcontent:postcontent,postimage1:postimage1,postimage2:postimage2,postimage3:postimage3, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
@@ -728,8 +741,6 @@
                 });
             }
         }
-
-       
 
         function loadModalCategories(id){
 

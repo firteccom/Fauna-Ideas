@@ -152,7 +152,7 @@
                 $category->sshortdescription = $request->categoryshortdescription;
                 $category->sdescription = $request->categorydescription;
                 $category->sfullimage = $request->categoryfullimage;
-                $category->ncreatedby = 1;
+				$category->ncreatedby = Auth::user()->nuserid;
 
                 $category->saveAsNew();
 
@@ -179,7 +179,9 @@
                                   'sname'=>$request->categoryname,
                                   'sshortdescription'=>$request->categoryshortdescription,
                                   'sfullimage' => $request->categoryfullimage,
-                                  'sdescription'=>$request->categorydescription]);
+                                  'sdescription'=>$request->categorydescription,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría se actualizó correctamente.';
@@ -196,7 +198,7 @@
 
         public function desactivateCategory(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría se desactivó correctamente.';
@@ -213,7 +215,7 @@
 
         public function activateCategory(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('categories')->where('ncategoryid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'La categoría se activó correctamente.';
