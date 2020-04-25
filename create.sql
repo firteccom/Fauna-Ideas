@@ -231,7 +231,11 @@ INSERT INTO `types` (`ntypeid`, `ntypeparentid`, `sname`, `sdescription`, `sexte
 (16, 2, 'PNG', 'Archivo de tipo PNG', '.png', 'A', '2020-03-24 13:08:14', NULL, 1, NULL),
 (17, 0, 'Videos', 'Archivos de video', '-', 'A', '2020-03-24 13:10:28', NULL, 1, NULL),
 (18, 4, 'Descriptivo', 'Tipo de valor descriptivo', '-', 'A', '2020-03-24 13:12:13', NULL, 1, NULL),
-(19, 4, 'Definición', 'Tipo de valor de definición', '-', 'A', '2020-03-24 13:12:38', NULL, 1, NULL);
+(19, 4, 'Definición', 'Tipo de valor de definición', '-', 'A', '2020-03-24 13:12:38', NULL, 1, NULL),
+(20, 0, 'Objetos Slider', 'Objetos que pueden aparecer en el slider principal', '-', 'A', now(), NULL, 1, NULL),
+(21, 20, 'Producto', 'Producto', '-', 'A', now(), NULL, 1, NULL),
+(22, 20, 'Categoría', 'Categoría', '-', 'A', now(), NULL, 1, NULL),
+(23, 20, 'Catálogo', 'Catálogo', '-', 'A', now(), NULL, 1, NULL);
 
 
 --
@@ -263,23 +267,36 @@ INSERT INTO `catalog` (`ncatalogid`, `sname`, `sdescription`, `sfullimage`, `sst
 
 
 
+
+CREATE TABLE `catalog_product` (
+  `ncatalogproductid` int(11) NOT NULL COMMENT 'PK of “Catalog product” Table.',
+  `ncatalogid` int(11) NOT NULL COMMENT 'FK of “Catalog” Table.',
+  `nproductid` int(11) NOT NULL COMMENT 'FK of “Product” Table.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Product status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Category create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Category modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the category',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the category'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 --
 -- Estructura de tabla para la tabla `slides`
 --
 
 CREATE TABLE `slides` (
   `nslideid` int(11) NOT NULL COMMENT 'PK of Slides Table.',
-  `nobjecttype` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog, 3=Product',
-  `nobjectid` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog',
+  `nobjecttype` int(11) NOT NULL DEFAULT '0' COMMENT 'Type ID. FK of Types table.',
+  `nobjectid` int(11) NOT NULL DEFAULT '0' COMMENT 'Object ID',
   `smaintext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide main text.',
   `ssecondarytext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide secondary text.',
   `sbuttontext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide button text.',
   `sfullimage` varchar(256) NOT NULL COMMENT 'Slide full image.',
-  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Catalog status. A=Active, N=Inactive, M=Modified, E=Exported',
-  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Catalog create date.',
-  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Catalog modify date.',
-  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the catalog',
-  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the catalog'
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Slide status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Slide create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Slide modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the slide',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the slide'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -293,6 +310,12 @@ CREATE TABLE `slides` (
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`nuserid`);
+
+--
+-- Indices de la tabla `slides`
+--
+ALTER TABLE `slides`
+  ADD PRIMARY KEY (`nslideid`);
 
 --
 -- Indices de la tabla `parameters`
@@ -320,17 +343,6 @@ ALTER TABLE `product_attribute`
   ADD KEY `dsd_idx` (`nproductid`);
 
 
--- AUTO_INCREMENT de la tabla `user`
---
-ALTER TABLE `user`
-  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
-
---
--- AUTO_INCREMENT de la tabla `parameters`
---
-ALTER TABLE `parameters`
-  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
-
 
 -- Indices de la tabla `types`
 --
@@ -345,8 +357,34 @@ ALTER TABLE `catalog`
 
 
 --
+-- Indices de la tabla `catalog_product`
+--
+ALTER TABLE `catalog_product`
+  ADD PRIMARY KEY (`ncatalogproductid`),
+  ADD KEY `dcp_idx` (`ncatalogid`);
+
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
+
+
+-- AUTO_INCREMENT de la tabla `slides`
+--
+ALTER TABLE `slides`
+  MODIFY `nslideid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Slides” Table.';
+
+--
+-- AUTO_INCREMENT de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
+
 
 --
 -- AUTO_INCREMENT de la tabla `categories`
@@ -380,6 +418,12 @@ ALTER TABLE `catalog`
 
 
 --
+-- AUTO_INCREMENT de la tabla `catalog_product`
+--
+ALTER TABLE `catalog_product`
+  MODIFY `ncatalogproductid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Catalog product” Table.', AUTO_INCREMENT=1;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -388,6 +432,13 @@ ALTER TABLE `catalog`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `nproductid_fk` FOREIGN KEY (`nproductid`) REFERENCES `products` (`nproductid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+--
+-- Filtros para la tabla `product_attribute`
+--
+ALTER TABLE `catalog_product`
+  ADD CONSTRAINT `ncatalogid_fk` FOREIGN KEY (`ncatalogid`) REFERENCES `catalog` (`ncatalogid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Indices de la tabla `product_attribute`
