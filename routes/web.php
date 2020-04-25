@@ -78,17 +78,21 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('updateCatalog', 'CatalogController@updateCatalog')->name('admin.catalog.update');
 			Route::post('desactivateCatalog', 'CatalogController@desactivateCatalog')->name('admin.catalog.desactivate');
 			Route::post('activateCatalog', 'CatalogController@activateCatalog')->name('admin.catalog.activate');
+			Route::post('getallProducts', 'CatalogController@getallProducts')->name('admin.catalog.getallproducts');
+			Route::post('saveProduct', 'CatalogController@saveProduct')->name('admin.catalog.saveproduct');
+			Route::post('desactivateProduct', 'CatalogController@desactivateProduct')->name('admin.catalog.desactivateproduct');
 		});
 
 		//Slider
 		Route::namespace('Slider')->prefix('slider')->group(function () {
 			Route::get('/', 'SliderController@showView')->name('admin.slider.form');
-			//Route::post('getCatalog', 'CatalogController@getCatalog')->name('admin.catalog.get');	
-			//Route::post('getCatalogs', 'CatalogController@getCatalogs')->name('admin.catalog.getall');
-			//Route::post('saveCatalog', 'CatalogController@saveCatalog')->name('admin.catalog.save');
-			//Route::post('updateCatalog', 'CatalogController@updateCatalog')->name('admin.catalog.update');
-			//Route::post('desactivateCatalog', 'CatalogController@desactivateCatalog')->name('admin.catalog.desactivate');
-			//Route::post('activateCatalog', 'CatalogController@activateCatalog')->name('admin.catalog.activate');
+			Route::post('getSlide', 'SliderController@getSlide')->name('admin.slider.get');	
+			Route::post('getSlides', 'SliderController@getSlides')->name('admin.slider.getall');
+			Route::post('saveSlide', 'SliderController@saveSlide')->name('admin.slider.save');
+			Route::post('updateSlide', 'SliderController@updateSlide')->name('admin.slider.update');
+			Route::post('desactivateSlide', 'SliderController@desactivateSlide')->name('admin.slider.desactivate');
+			Route::post('activateSlide', 'SliderController@activateSlide')->name('admin.slider.activate');
+			Route::post('getObjects', 'SliderController@getObjects')->name('admin.slider.getobjects');
 		});
 
 		//ProductAttribute Attributes

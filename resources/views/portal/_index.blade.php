@@ -2,30 +2,24 @@
 
 @section('frontcontent')
 <main class="main">
+
+    @if(isset($slider))
     <div class="home-slider owl-carousel owl-theme">
+        @foreach ($slider as $sl)
         <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="public/portal/images/slider/slide1.jpg"></div><!-- End .slide-bg -->
+            <div class="slide-bg owl-lazy"  data-src="{{$sl->sfullimage}}"></div><!-- End .slide-bg -->
             <div class="home-slide-content">
-                <h2>Winter Sale <br>Get 30% OFF <br>On JACKETS.</h2>
+                <h2>{{$sl->smaintext}}</h2>
 
-                <span>It's time to start shopping porto's winter sale</span>
+                <span>{{$sl->ssecondarytext}}</span>
 
-                <a href="category.html" class="btn" role="button">Shop By Jackets</a>
+                <a href="category.html" class="btn" role="button">{{$sl->sbuttontext}}</a>
             </div><!-- End .home-slide-content -->
         </div><!-- End .home-slide -->
-
-        <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="public/portal/images/slider/slide2.jpg"></div><!-- End .slide-bg -->
-            <div class="home-slide-content">
-                <h2>New Campaign Sale <br>UP to 70% </h2>
-
-                <span>Fashion for Women | Spring/Summer Collection</span>
-
-                <a href="category.html" class="btn" role="button">Shop By Hats</a>
-            </div><!-- End .home-slide-content -->
-        </div><!-- End .home-slide -->
+        @endforeach
     </div>
 	<!-- End .home-slider -->
+    @endif
 	
 
     @if(isset($categorias))
