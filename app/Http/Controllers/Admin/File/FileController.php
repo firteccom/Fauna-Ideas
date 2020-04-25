@@ -188,7 +188,7 @@
                         $file->sshortdescription = $fileshortdescription;
                         $file->sdescription = $filedescription;
                         $file->spath = $route."/".$finalname;
-                        $file->ncreatedby = 1;
+				        $file->ncreatedby = Auth::user()->nuserid;
 
                         //echo "Tipo ID: ".$filetype;
                         
@@ -228,7 +228,9 @@
 								  'sname'=>$request->sname,
 								  'sshortdescription'=>$request->sshortdescription,
 								  'sdescription'=>$request->sdescription,
-								  'spath'=>$request->spath]);
+								  'spath'=>$request->spath,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
 								  
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El archivo se actualizó correctamente.';
@@ -245,7 +247,7 @@
 
         public function desactivateFile(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El archivo se desactivó correctamente.';
@@ -262,7 +264,7 @@
 
         public function activateFile(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El archivo se activó correctamente.';
@@ -286,7 +288,7 @@
 
 
 			 try {
-                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['shighlighted'=>$flag]);
+                $data = \DB::connection('mysql')->table('files')->where('nfileid',$request->id)->update(['shighlighted'=>$flag,'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = $msg;

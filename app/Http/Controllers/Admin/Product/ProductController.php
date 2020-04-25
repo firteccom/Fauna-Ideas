@@ -151,7 +151,7 @@
 				$product->sthumbnail = $request->productthumbnail;
 				$product->nmasterprice = $request->productmasterprice;
 				$product->nprice = $request->productprice;
-				$product->ncreatedby = 1;
+				$product->ncreatedby = Auth::user()->nuserid;
 				
                 $product->saveAsNew();
                 //var_dump($product);
@@ -184,7 +184,9 @@
 								  'sfullimage'=>$request->productfullimage,
 								  'sthumbnail'=>$request->productthumbnail,
 								  'nmasterprice'=>$request->productmasterprice,
-								  'nprice'=>$request->productprice]);
+								  'nprice'=>$request->productprice,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
 								  
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El producto se actualizó correctamente.';
@@ -201,7 +203,7 @@
 
         public function desactivateProduct(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['sstatus'=>'N']);
+                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['sstatus'=>'N','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El producto se desactivó correctamente.';
@@ -218,7 +220,7 @@
 
         public function activateProduct(Request $request){
             try {
-                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['sstatus'=>'A']);
+                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['sstatus'=>'A','nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El producto se activó correctamente.';
@@ -242,7 +244,7 @@
 
 
 			 try {
-                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['shighlighted'=>$flag]);
+                $data = \DB::connection('mysql')->table('products')->where('nproductid',$request->id)->update(['shighlighted'=>$flag,'nmodifiedby'=>Auth::user()->nuserid]);
 
                 $resp['status'] = 'success';
                 $resp['msg'] = $msg;

@@ -44,7 +44,7 @@ class ProductController extends Controller {
 
         if ($this->getProduct($id)['status'] == 'success' && $this->getProduct($id)['product'] != null)
         {
-            echo $this->getProduct($id)['status'];
+            //echo $this->getProduct($id)['status'];
             
             return view('portal.detail_product', $this->_view_data($data));
 

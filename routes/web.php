@@ -24,7 +24,7 @@ Route::post('send-email','Front\ContactController@sendEmail')->name('front.conta
 Route::get('about-us','Front\AboutController@showView')->name('front.about.page');
 //Blog
 Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
-
+Route::get('blog/{id}','Front\BlogController@postDetail')->name('front.blog.detail/{id}');
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
 	setlocale(LC_ALL, "es_PE");
@@ -35,8 +35,6 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 		Route::post('login', 'LoginController@login');
 		Route::get('logout', 'LoginController@destroy')->name('admin.logout');
 	});
-
-
 
 	Route::middleware(['auth:admin'])->group(function () {
 
