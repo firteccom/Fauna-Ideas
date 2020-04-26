@@ -3,6 +3,7 @@
     namespace App\Http\Controllers\Admin\Catalog;
 
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
     use App\Http\Controllers\Controller;
     use App\Model\Catalog;
     use App\Model\Product;
@@ -60,6 +61,7 @@
                 $catalog->sname = $request->catalogname;
                 $catalog->sdescription = $request->catalogdescription;
                 $catalog->sfullimage = $request->catalogfullimage;
+                $catalog->dcreatedon = @date('Y-m-d H:i:s');
 				$catalog->ncreatedby = Auth::user()->nuserid;
                 
                 $catalog->saveAsNew();
@@ -150,6 +152,8 @@
                     $catprd = new CatalogProduct();
                     $catprd->ncatalogid = $request->catalogid;
                     $catprd->nproductid = $request->prdid;
+                    $catprd->dcreatedon = @date('Y-m-d H:i:s');
+                    $catprd->ncreatedby = Auth::user()->nuserid;
                     
                     $catprd->saveAsNew();
 

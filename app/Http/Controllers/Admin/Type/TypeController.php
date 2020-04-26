@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\Type;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\User;
 	use App\Model\Type;	
@@ -158,6 +159,7 @@
                 $type->sname = $request->typename;
                 $type->sextension = $request->typeextension;
                 $type->sdescription = $request->typedescription;
+                $type->dcreatedon = @date('Y-m-d H:i:s');
 				$type->ncreatedby = Auth::user()->nuserid;
 
                 $type->saveAsNew();

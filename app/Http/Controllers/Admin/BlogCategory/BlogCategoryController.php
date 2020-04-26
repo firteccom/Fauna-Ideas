@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\BlogCategory;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\User;
 	use App\Model\BlogCategory;	
@@ -152,6 +153,7 @@
                 $blogcategory->sshortdescription = $request->blogcategoryshortdescription;
                 $blogcategory->sdescription = $request->blogcategorydescription;
                 $blogcategory->sfullimage = $request->blogcategoryfullimage;
+                $blogcategory->dcreatedon = @date('Y-m-d H:i:s');
 				$blogcategory->ncreatedby = Auth::user()->nuserid;
 
                 $blogcategory->saveAsNew();

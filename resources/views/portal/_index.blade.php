@@ -7,7 +7,7 @@
     <div class="home-slider owl-carousel owl-theme">
         @foreach ($slider as $sl)
         <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="{{$sl->sfullimage}}"></div><!-- End .slide-bg -->
+            <div class="slide-bg owl-lazy"  data-src="{{'./storage/app/'.$sl->sfullimage}}"></div><!-- End .slide-bg -->
             <div class="home-slide-content">
                 <h2>{{$sl->smaintext}}</h2>
 
@@ -36,7 +36,7 @@
                 <div class="product-category">
                     <a href="categorias/{{$cat->sname}}">
                         <figure>
-                            <img src="{{$cat->sfullimage}}">
+                            <img src="{{'./storage/app/'.$cat->sfullimage}}">
                         </figure>
                         <div class="category-content">
                             <h3>{{$cat->sname}}</h3>
@@ -51,7 +51,6 @@
     </section>
     @endif
 
-
 <!-- CATALOGOS -->
     @if(isset($catalogos)) 
     <section class="bg-grey pt-3 pb-3">
@@ -60,7 +59,7 @@
                 @foreach ($catalogos as $cata)
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="{{$cata->sfullimage}}">
+                        <img src="{{'./storage/app/'.$cata->sfullimage}}">
                         <div class="home-banner-content content-left-bottom">
                             <h3>{{$cata->sname}}</h3>
                             <h4>{{$cata->sdecription}}</h4>
@@ -89,7 +88,7 @@
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="product/{{$pop->nproductid}}">
-                            <img src="{{$pop->sfullimage}}">
+                            <img src="{{'./storage/app/'.$pop->sfullimage}}">
                         </a>
                         <div class="label-group">
                             <!--<span class="product-label label-cut">27% OFF</span>-->

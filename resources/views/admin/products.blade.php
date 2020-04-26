@@ -296,7 +296,7 @@
                 {sTitle : "Precio master (S/)", mData: "nmasterprice"},
                 {sTitle : "Precio oferta (S/)", mData: "nprice"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nproductid+'" data-title="'+row.sname+'" data-file="'+row.sthumbnailimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sthumbnailimage+'" width="30" height="30" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.nproductid+'" data-title="'+row.sname+'" data-file="'+row.sthumbnailimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sthumbnailimage+'" width="30" height="30" /></a>';
                 }}, 
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){

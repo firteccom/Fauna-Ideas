@@ -221,7 +221,7 @@
                 {sTitle : "Texto secundario", mData: "ssecondarytext"},
                 {sTitle : "Texto de botón", mData: "sbuttontext"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.nslideid+'" data-title="'+row.smaintext+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sfullimage+'"  height="100" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.nslideid+'" data-title="'+row.smaintext+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sfullimage+'" height="100" /></a>';
                 }},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
