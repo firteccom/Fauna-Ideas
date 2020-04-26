@@ -25,6 +25,7 @@ Route::get('about-us','Front\AboutController@showView')->name('front.about.page'
 //Blog
 Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 Route::get('blog/{id}','Front\BlogController@postDetail')->name('front.blog.detail/{id}');
+Route::post('send-comment','Front\BlogController@sendComment')->name('front.blog.sendcomment');
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
 	setlocale(LC_ALL, "es_PE");
