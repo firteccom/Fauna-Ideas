@@ -180,7 +180,7 @@
                 $finalname = $name.'_'.uniqid().'.'.$ext;
 
                 if(isset($archivo)){
-                    if($archivo->storeAs('',$finalname.'.'.$ext,$route)){
+                    if($archivo->storeAs('',$finalname,$route)){
 
                         $file = new File();
                         $file->ntypeid = $filetype;
