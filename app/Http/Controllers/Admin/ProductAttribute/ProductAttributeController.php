@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\ProductAttribute;
 
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\ProductAttribute;
 	use App\Model\Product;
@@ -179,6 +180,7 @@
 				$productattribute->ntypeid = $request->productattributetype;
 				$productattribute->stypename = $request->productattributetypename;
 				$productattribute->sflagdescriptive = 0;
+				$productattribute->dcreatedon = @date('Y-m-d H:i:s');
 				$productattribute->ncreatedby = Auth::user()->nuserid;
 				
                 $productattribute->saveAsNew();

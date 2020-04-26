@@ -3,9 +3,10 @@
 	namespace App\Http\Controllers\Admin\Category;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\User;
-	use App\Model\Category;	
+	use App\Model\Category;
 
 
 	class CategoryController extends Controller {
@@ -152,6 +153,7 @@
                 $category->sshortdescription = $request->categoryshortdescription;
                 $category->sdescription = $request->categorydescription;
                 $category->sfullimage = $request->categoryfullimage;
+                $category->dcreatedon = @date('Y-m-d H:i:s');
 				$category->ncreatedby = Auth::user()->nuserid;
 
                 $category->saveAsNew();

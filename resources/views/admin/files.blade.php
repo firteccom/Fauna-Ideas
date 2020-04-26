@@ -244,6 +244,7 @@
     var table;
     var fileid = 0;
 
+
     $(function () {
     //Initialize Select2 Elements
         $('.select2').select2();
@@ -270,7 +271,8 @@
                 {sTitle : "Descripción", mData: "sdescription"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
                     return '<a href="#" class="img" data-id="'+row.nfileid+'" data-title="'+row.sname+'" data-file="../storage/app/'+row.spath+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.spath+'" width="30" height="30" /></a>';
-                }}, 
+                }},
+                {sTitle : "Ruta", mData: "spath"}, 
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
                         case 'A':

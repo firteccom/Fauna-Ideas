@@ -125,6 +125,41 @@
         </div>
         <!-- /.modal -->
 
+
+        <div class="modal fade" id="modalPrdList">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <input type="hidden" id="txtcatalogid" value="0"/>
+                    <form id="frmPrdList" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title title-catalog">Asignar Productos</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="selproduct">Producto <span class="required">*</span></label>
+                                <select id="selproduct" name="selproduct" class="form-control select2" style="width: 100%;" required>
+                                    <option value="" selected="selected">- No asignado -</option>
+                                </select>                            
+                            </div>
+
+                            <table id="tblprdlist" class="table table-bordered table-striped">
+                                    
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
+                            <button type="button" id="btnSavePrdList" class="btn btn-primary">Agregar Producto</button>
+                            <button type="button" id="btnUpdatePrdList" style="display:none;" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+          <!-- /.modal-dialog -->
+        </div>
+
         <div class="modal modal-danger fade" id="modalDesactivate">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -169,6 +204,29 @@
         </div>
         <!-- /.modal -->
 
+        <div class="modal modal-danger fade" id="modalDesactivatePrd">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Quitar producto del catálogo</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Desea quitar el producto para el catálogo seleccionado?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnDesactivatePrd" class="btn btn-outline">Confirmar</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+
+
     <!-- /.content -->
     </div>
   <!-- /.content-wrapper -->
@@ -179,6 +237,7 @@
 
     var table;
     var catalogid = 0;
+    var prdid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -203,7 +262,7 @@
                 {sTitle : "Nombre", mData: "sname"},
                 {sTitle : "Descripción", mData: "sdescription"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.ncatalogid+'" data-title="'+row.sname+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="'+row.sfullimage+'"  height="100" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.ncatalogid+'" data-title="'+row.sname+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sfullimage+'"  height="100" /></a>';
                 }},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
@@ -225,7 +284,8 @@
                 }}, 
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.ncatalogid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalCatalog" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                        return 	'<a data-id="'+row.ncatalogid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalCatalog" data-placement="top" title="Editar" data-original-title="Editar"></a>'+
+                            '<a data-id="'+row.ncatalogid+'" class="btn btn-default fa fa-list btn-asign tooltips" data-toggle="modal" data-target="#modalPrdList" data-placement="top" title="Asignar productos" data-original-title="Asignar productos"></a>'+ 
                             ' <i data-id="'+row.ncatalogid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
                         return 	'<i data-id="'+row.ncatalogid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
@@ -281,10 +341,78 @@
                 }	        
             },
 
-        
-        
-        
         });
+
+        
+        $('#tblprdlist').DataTable({
+
+            "pageLength"  : 20,
+            'paging'      : true,
+            "bLengthChange":false, 
+            "bServerSide" : true,
+            'lengthChange': true,
+            'searching'   : false,
+            "bSort"       : false,
+            "bFilter"     : false,
+            'ordering'    : false,
+            'info'        : true,
+            'autoWidth'   : false,
+            "aoColumns"   : [
+                {sTitle : "#", responsivePriority: 1, targets: 0, mRender: function(data, type, row, meta) {
+                    return (meta.row+1) + (meta.settings._iDisplayStart);
+                }},           
+                {sTitle : "Nombre", mData: "sname"},
+                {sTitle : "Descripción", mData: "sdescription"},
+                {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
+                    if(row.sstatus != 'N'){
+                        return '<i data-id="'+row.nproductid+'" class="btn btn-danger fa fa-remove desactivatePrd tooltips" data-toggle="modal" data-target="#modalDesactivatePrd" data-toggle="tooltip" data-placement="top" title="Quitar Producto" data-original-title="Quitar Producto"></i>';
+                    }
+                }}
+            ],
+            "ajax": {
+                    "url": "{{ route('admin.catalog.getallproducts') }}",
+                    "type": "POST",
+                    "data": {asigned: 1, catalogid: function() { return $('#txtcatalogid').val() }, _token:'{{ csrf_token() }}' }
+            },
+
+            "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron datos",
+                    "info": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                    "search":"Buscar",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado desde _MAX_ registros totales)",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    }
+            },
+
+            "drawCallback": function( settings ) {
+                $('.tooltips').tooltip();
+                var minPag = 0;
+                var maxPag = 0;
+
+                if($('.paginate_button').length > 2){
+                    minPag = parseInt($($('.paginate_button')[1]).text());
+                    maxPag = parseInt($($('.paginate_button')[$('.paginate_button').length-2]).text());
+
+                    var inputPag = $('<div class="dt-input-page"></div>');
+
+                    $(inputPag).find('input').change(function(ev){
+                        var ipag = parseInt($(this).val()!=''?$(this).val():'0');
+                        if(ipag>=minPag && ipag<=maxPag){
+                            ipag = parseInt($(this).val())-1;
+                            table.fnPageChange(ipag);
+                        }
+                    });
+
+                    $('#listado_paginate').prepend(inputPag);
+                }           
+            },
+
+        });
+
 
         $('#btnSearchCatalog').click(function(ev){
             ev.preventDefault();
@@ -317,6 +445,83 @@
             $('.title-catalog').text('Nuevo catálogo');
             $('#btnSaveCatalog').show();
             $('#btnUpdateCatalog').hide();
+
+        });
+
+
+        $(document).on('click', '#btnSavePrdList', function(event) {
+            var prdid = $('#selproduct').val();
+
+            id = $('#txtcatalogid').val();
+
+            if(prdid!=null && prdid!=''){
+
+                $.ajax({
+                    url: '{{ route('admin.catalog.saveproduct') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { catalogid: id, prdid: prdid, _token:'{{ csrf_token() }}'},
+                })
+                .done(function(data) {
+                    
+                    //Llenar select productos
+                    $.ajax({
+                        url: '{{ route('admin.catalog.getallproducts') }}',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { asigned: 0, catalogid: id,  _token:'{{ csrf_token() }}'},
+                    })
+                    .done(function(data) {
+                        $('#selproduct').html('<option value selected="selected">- No asignado -</option>');
+                        $( data.products ).each(function( index ) {
+                            $('#selproduct').append('<option value="'+data.products[index].nproductid+'">'+data.products[index].sname+'</option>');
+                        });
+                        $('#selproduct').select2();
+                    });
+
+                    //Cargar tabla de productos asignados
+                    reloadPrdList();
+
+                });
+
+
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'error',
+                    title: 'Debe seleccionar un producto',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+
+        });
+
+
+        $(document).on('click', '.btn-asign ', function(event) {
+
+            var id = $(this).data('id');
+            catalogid = id;
+
+            $('#txtcatalogid').val(catalogid);
+
+            //Llenar select productos
+            $.ajax({
+                url: '{{ route('admin.catalog.getallproducts') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: { asigned: 0, catalogid: id,  _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+                $('#selproduct').html('<option value selected="selected">- No asignado -</option>');
+                $( data.products ).each(function( index ) {
+                    $('#selproduct').append('<option value="'+data.products[index].nproductid+'">'+data.products[index].sname+'</option>');
+                });
+                $('#selproduct').select2();
+            });
+
+            //Cargar tabla de productos asignados
+            reloadPrdList();
 
         });
 
@@ -366,6 +571,8 @@
             catalogid = $(this).data('id');
             //alert('ID: ' + catalogid);
         });
+
+
 
         $(document).on('click', '#btnDesactivate', function(event) {
             event.preventDefault();
@@ -457,8 +664,65 @@
             });
         });
 
+
+        $(document).on('click', '.desactivatePrd', function(event) {
+            prdid = $(this).data('id');
+        });
+        
+
+        $(document).on('click', '#btnDesactivatePrd', function(event) {
+            event.preventDefault();
+            catalogid = $('#txtcatalogid').val();
+
+            $("#btnDesactivatePrd").html('Desactivando...');
+            $("#btnDesactivatePrd").attr('disabled', 'disabled');
+
+            $.ajax({
+                url: '{{ route('admin.catalog.desactivateproduct') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {catalogid:catalogid, prdid:prdid, _token:'{{ csrf_token() }}'},
+            })
+            .done(function(data) {
+
+                $("#btnDesactivatePrd").html('Confirmar');
+                $("#btnDesactivatePrd").removeAttr('disabled');
+
+                if (data.status == 'success') {
+
+                    $('#modalDesactivatePrd').modal('hide');
+                    reloadPrdList();
+                    catalogid = null;
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+
+                }else{
+
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                }
+            });
+        });
+
         function reloadTable(){
             $("#listado").DataTable().ajax.reload();
+        }
+
+        function reloadPrdList(){
+            $("#tblprdlist").DataTable().ajax.reload();
         }
 
         function saveCatalog(){

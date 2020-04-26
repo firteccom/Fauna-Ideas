@@ -231,7 +231,11 @@ INSERT INTO `types` (`ntypeid`, `ntypeparentid`, `sname`, `sdescription`, `sexte
 (16, 2, 'PNG', 'Archivo de tipo PNG', '.png', 'A', '2020-03-24 13:08:14', NULL, 1, NULL),
 (17, 0, 'Videos', 'Archivos de video', '-', 'A', '2020-03-24 13:10:28', NULL, 1, NULL),
 (18, 4, 'Descriptivo', 'Tipo de valor descriptivo', '-', 'A', '2020-03-24 13:12:13', NULL, 1, NULL),
-(19, 4, 'Definición', 'Tipo de valor de definición', '-', 'A', '2020-03-24 13:12:38', NULL, 1, NULL);
+(19, 4, 'Definición', 'Tipo de valor de definición', '-', 'A', '2020-03-24 13:12:38', NULL, 1, NULL),
+(20, 0, 'Objetos Slider', 'Objetos que pueden aparecer en el slider principal', '-', 'A', now(), NULL, 1, NULL),
+(21, 20, 'Producto', 'Producto', '-', 'A', now(), NULL, 1, NULL),
+(22, 20, 'Categoría', 'Categoría', '-', 'A', now(), NULL, 1, NULL),
+(23, 20, 'Catálogo', 'Catálogo', '-', 'A', now(), NULL, 1, NULL);
 
 
 --
@@ -263,27 +267,126 @@ INSERT INTO `catalog` (`ncatalogid`, `sname`, `sdescription`, `sfullimage`, `sst
 
 
 
+
+CREATE TABLE `catalog_product` (
+  `ncatalogproductid` int(11) NOT NULL COMMENT 'PK of “Catalog product” Table.',
+  `ncatalogid` int(11) NOT NULL COMMENT 'FK of “Catalog” Table.',
+  `nproductid` int(11) NOT NULL COMMENT 'FK of “Product” Table.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Product status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Category create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Category modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the category',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the category'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 --
 -- Estructura de tabla para la tabla `slides`
 --
 
 CREATE TABLE `slides` (
   `nslideid` int(11) NOT NULL COMMENT 'PK of Slides Table.',
-  `nobjecttype` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog, 3=Product',
-  `nobjectid` int(11) NOT NULL DEFAULT '0' COMMENT 'Object Type. 1=Category, 2=Catalog',
+  `nobjecttype` int(11) NOT NULL DEFAULT '0' COMMENT 'Type ID. FK of Types table.',
+  `nobjectid` int(11) NOT NULL DEFAULT '0' COMMENT 'Object ID',
   `smaintext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide main text.',
   `ssecondarytext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide secondary text.',
   `sbuttontext` varchar(50) NOT NULL DEFAULT '-' COMMENT 'Slide button text.',
   `sfullimage` varchar(256) NOT NULL COMMENT 'Slide full image.',
-  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Catalog status. A=Active, N=Inactive, M=Modified, E=Exported',
-  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Catalog create date.',
-  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Catalog modify date.',
-  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the catalog',
-  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the catalog'
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Slide status. A=Active, N=Inactive',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Slide create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Slide modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the slide',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the slide'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
- 
+--
+-- Estructura de tabla para la tabla `blog_categories`
+--
+
+CREATE TABLE `blog_categories` (
+  nblogcategoryid INT NOT NULL AUTO_INCREMENT COMMENT 'PK of Blog categories table.',
+  nblogcategoryparentid INT(11) NOT NULL DEFAULT '0' COMMENT 'Blog category parent id, in case exists.',
+  sname VARCHAR(100) NOT NULL COMMENT 'Blog category name.',
+  sshortdescription VARCHAR(20) NOT NULL COMMENT 'Blog category short description.',
+  sdescription VARCHAR(100) NULL DEFAULT NULL COMMENT 'Blog category description.',
+  sfullimage VARCHAR(400) NOT NULL COMMENT 'Blog category full image.',
+  sstatus CHAR(1) NOT NULL DEFAULT 'A' COMMENT 'Blog category status. A=Active, N=Inactive, M=Modified, E=Exported.',
+  dcreatedon DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Blog category create date.',
+  dmodifiedon DATETIME NULL DEFAULT NULL COMMENT 'Blog category modify date.',
+  ncreatedby INT(11) NULL DEFAULT NULL COMMENT 'User who creates the blog category.',
+  nmodifiedby INT(11) NULL DEFAULT NULL COMMENT 'User who modifies the blog category.',
+  PRIMARY KEY (nblogcategoryid));
+
+--
+-- Volcado de datos para la tabla `blog_categories`
+--
+
+INSERT INTO `blog_categories` (`nblogcategoryid`, `nblogcategoryparentid`, `sname`, `sshortdescription`, `sdescription`, `sfullimage`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 0, 'Categoria Prueba Nivel 1', 'CAT-PRB-1', 'Categoria Prueba Nivel 1', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-04-21 20:50:16', NULL, 1, NULL),
+(2, 1, 'Categoria Prueba Nivel 2', 'CAT-PRB-2', 'Categoria Prueba Nivel 2', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-04-21 20:50:16', NULL, 1, NULL),
+(3, 2, 'Categoria Prueba Nivel 3', 'CAT-PRB-3', 'Categoria Prueba Nivel 3', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-04-21 20:50:16', NULL, 1, NULL);
+
+
+
+
+--
+-- Estructura de tabla para la tabla `posts`
+--
+
+CREATE TABLE `posts` (
+  `npostid` int(11) NOT NULL COMMENT 'PK of Post table.',
+  `stitle` varchar(100) NOT NULL COMMENT 'Post title.',
+  `nblogcategoryid` int(11) NOT NULL COMMENT 'FK of Blog Category table.',
+  `stags` varchar(400) DEFAULT NULL COMMENT 'Post tags.',
+  `sauthor` varchar(200) DEFAULT NULL COMMENT 'Post author.',
+  `scontent` text NOT NULL COMMENT 'Post content.',
+  `simage1` varchar(400) DEFAULT NULL COMMENT 'Post image 1.',
+  `simage2` varchar(400) DEFAULT NULL COMMENT 'Post image 2.',
+  `simage3` varchar(400) DEFAULT NULL COMMENT 'Post image 3.',
+  `sstatus` char(1) NOT NULL DEFAULT 'A' COMMENT 'Post status. A=Active, N=Inactive.',
+  `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Post create date.',
+  `dmodifiedon` datetime DEFAULT NULL COMMENT 'Post modify date.',
+  `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the post.',
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the post.',
+  `sdescription` varchar(300) NOT NULL DEFAULT 'Sin descripción' COMMENT 'Post description'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Volcado de datos para la tabla `posts`
+--
+
+INSERT INTO `posts` (`npostid`, `stitle`, `nblogcategoryid`, `stags`, `sauthor`, `scontent`, `simage1`, `simage2`, `simage3`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`, `sdescription`) VALUES
+(1, 'Título Prueba 1', 1, 'test', 'Edgar Amado', '<p>Prueba:</p>  <ol>  <li>One</li>  <li>Two</li>  <li>Three</li> </ol>', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-02-21 23:13:20', NULL, 1, NULL, 'Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.'),
+(2, 'Título Prueba 2', 2, 'test', 'Angello Del Carpio', '<p>Prueba:</p>\n\n<ol>\n <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</ol>', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-04-15 00:03:01', NULL, 1, NULL, 'Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.'),
+(3, 'Titulo Prueba 3', 3, 'test', 'Edgar Amado', '<p>Prueba:</p>  <ol>  <li>One</li>  <li>Two</li>  <li>Three</li> </ol>', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', 'A', '2020-04-04 00:03:01', NULL, 1, NULL, 'Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.'),
+(4, 'Titulo Prueba 4', 1, 'test', 'Bryan Amado', '<p><strong>Plan de Pase a Producci&oacute;n:</strong></p>\n\n<p>Motivo:</p>\n\n<p>Habilitar opci&oacute;n de tipo de despacho &ldquo;Retiro cercano&rdquo; en los correos del Servicio de Pago Efectivo.</p>\n\n<p><strong>DBA:</strong></p>\n\n<p><strong>Ejecuci&oacute;n de Scripts</strong></p>\n\n<p>Los datos asociados a los scripts a ejecutar</p>\n\n<ul>\n  <li>\n  <p>Endpoint: <a href=\"http://dbcorpsgoprd.cxcwstwehnpi.ca-central-1.rds.amazonaws.com\"><strong>dbcorpsgoprd.cxcwstwehnpi.ca-central-1.rds.amazonaws.com</strong></a></p>\n  </li>\n <li>\n  <p>Schema: <strong>CORP_RDSADMSGO</strong></p>\n  </li>\n <li>\n  <p>Scripts se encuentran adjuntos en el presente RDC</p>\n  </li>\n</ul>\n\n<p>Los pasos a ejecutar son:</p>\n\n<ol>\n  <li>\n  <p>Actualizar el Package &quot;<strong>PKG_PAGO_EFECTIVO</strong>&quot; con los scripts cuyo owner debe ser: &quot;<strong>CORP_RDSADMSGO</strong>&quot;.</p>\n </li>\n <li>\n  <p>Brindar, o validar si existen, permisos de ejecuci&oacute;n del Package &ldquo;<strong>PKG_PAGO_EFECTIVO</strong>&rdquo; al usuario &ldquo;<strong>CORP_RDSUSERSGO</strong>&rdquo;.</p>\n  </li>\n <li>\n  <p>Crear, o validar si existen, sin&oacute;nimos de los siguientes objetos:</p>\n\n <ol>\n    <li>\n    <p>Package &ldquo;<strong>PKG_PAGO_EFECTIVO</strong>&ldquo; &rarr; actualizada en el punto 1.</p>\n   </li>\n </ol>\n </li>\n</ol>', 'https://www.portotheme.com/wordpress/porto/shop3/wp-content/uploads/sites/22/2019/03/product-89-2-300x300.jpg', NULL, NULL, 'A', '2020-04-23 12:46:00', '2020-04-23 17:58:40', 1, 1, 'Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula.');
+
+
+--
+-- Estructura de tabla para la tabla `post_comments`
+--
+
+CREATE TABLE faunaideas.post_comments (
+  nposcommenttid INT NOT NULL AUTO_INCREMENT COMMENT 'PK of Post Comments table.',
+  npostid INT NOT NULL COMMENT 'FK of Post table.',
+  sname VARCHAR(100) NOT NULL COMMENT 'Name of person who commented.',
+  semail VARCHAR(100) NULL COMMENT 'Email of person who commenteds.',
+  smobile VARCHAR(20) NULL COMMENT 'Mobile of person who commented.',
+  scomment VARCHAR(2000) NULL COMMENT 'Comment of person who commented.',
+  smac VARCHAR(20) NULL COMMENT 'MAC computer of person who commented.',
+  saddresspublic VARCHAR(15) NULL COMMENT 'Address public of person who commented.',
+  sreviewstatus CHAR(1) NOT NULL DEFAULT 'P' COMMENT 'Post comment review status. P=Pending, A=Approved. R=Rejected.',
+  sstatus CHAR(1) NOT NULL DEFAULT 'A' COMMENT 'Post comment registerstatus. A=Active, N=Inactive.',
+  dcreatedon DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Post comment create date.',
+  dmodifiedon DATETIME NULL DEFAULT NULL COMMENT 'Post comment modify date.',
+  ncreatedby INT(11) NULL DEFAULT NULL COMMENT 'User who creates the comment.',
+  nmodifiedby INT(11) NULL DEFAULT NULL COMMENT 'User who modifies the comment.',
+  PRIMARY KEY (nposcommenttid));
+
+
+
 --
 -- Índices para tablas volcadas
 --
@@ -293,6 +396,12 @@ CREATE TABLE `slides` (
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`nuserid`);
+
+--
+-- Indices de la tabla `slides`
+--
+ALTER TABLE `slides`
+  ADD PRIMARY KEY (`nslideid`);
 
 --
 -- Indices de la tabla `parameters`
@@ -320,17 +429,6 @@ ALTER TABLE `product_attribute`
   ADD KEY `dsd_idx` (`nproductid`);
 
 
--- AUTO_INCREMENT de la tabla `user`
---
-ALTER TABLE `user`
-  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
-
---
--- AUTO_INCREMENT de la tabla `parameters`
---
-ALTER TABLE `parameters`
-  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
-
 
 -- Indices de la tabla `types`
 --
@@ -345,8 +443,34 @@ ALTER TABLE `catalog`
 
 
 --
+-- Indices de la tabla `catalog_product`
+--
+ALTER TABLE `catalog_product`
+  ADD PRIMARY KEY (`ncatalogproductid`),
+  ADD KEY `dcp_idx` (`ncatalogid`);
+
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `nuserid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “User” Table.';
+
+
+-- AUTO_INCREMENT de la tabla `slides`
+--
+ALTER TABLE `slides`
+  MODIFY `nslideid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Slides” Table.';
+
+--
+-- AUTO_INCREMENT de la tabla `parameters`
+--
+ALTER TABLE `parameters`
+  MODIFY `nparameterid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Parameter” Table.';
+
 
 --
 -- AUTO_INCREMENT de la tabla `categories`
@@ -380,6 +504,12 @@ ALTER TABLE `catalog`
 
 
 --
+-- AUTO_INCREMENT de la tabla `catalog_product`
+--
+ALTER TABLE `catalog_product`
+  MODIFY `ncatalogproductid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK of “Catalog product” Table.', AUTO_INCREMENT=1;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -388,6 +518,13 @@ ALTER TABLE `catalog`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `nproductid_fk` FOREIGN KEY (`nproductid`) REFERENCES `products` (`nproductid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+--
+-- Filtros para la tabla `product_attribute`
+--
+ALTER TABLE `catalog_product`
+  ADD CONSTRAINT `ncatalogid_fk` FOREIGN KEY (`ncatalogid`) REFERENCES `catalog` (`ncatalogid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Indices de la tabla `product_attribute`

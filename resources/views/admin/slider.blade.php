@@ -17,13 +17,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Categorías
+            Slider
             <small>Mantenimiento</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
             <li><a href="#">Tienda</a></li>
-            <li class="active">Categorías</li>
+            <li class="active">Slider</li>
         </ol>
         </section>
 
@@ -38,28 +38,22 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="frmListCategories">
+                        <form role="form" id="frmListCatalog">
                         <div class="box-body">
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filtercategoryname">Nombre</label>
-                                <input type="text" class="form-control" id="filtercategoryname" name="filtercategoryname" placeholder="Ingrese un nombre">
+                                <label for="filterslidemaintext">Texto principal</label>
+                                <input type="text" class="form-control" id="filterslidemaintext" name="filterslidemaintext" placeholder="Ingrese texto principal">
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filtercategoryshortdescription">Abreviatura</label>
-                                <input type="text" class="form-control" id="filtercategoryshortdescription" name="filtercategoryshortdescription" placeholder="Ingrese una abreviatura">
+                                <label for="filterslidesecondarytext">Texto secundario</label>
+                                <input type="text" class="form-control" id="filterslidesecondarytext" name="filterslidesecondarytext" placeholder="Ingrese texto secundario">
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filtercategorydescription">Descripción</label>
-                                <input type="text" class="form-control" id="filtercategorydescription" name="filtercategorydescription" placeholder="Ingrese una descripción">
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4 form-group">
-                                <label for="filtercategorystatus">Estado</label>
-                                <select id="filtercategorystatus" name="filtercategorystatus" class="form-control select2" style="width: 100%;">
+                                <label for="filterslidestatus">Estado</label>
+                                <select id="filterslidestatus" name="filterslidestatus" class="form-control select2" style="width: 100%;">
                                     <option value="" selected="selected">- Seleccione una opción -</option>
                                     <option value="A">Activo</option>
                                     <option value="N">Inactivo</option>
-                                    <option value="E">Exportado</option>
-                                    <option value="M">Modificado</option>
                                 </select>
                             </div>
                             
@@ -67,8 +61,8 @@
                         <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="button" class="btn btn-success btn-new-category pull-left" data-toggle="modal" data-target="#modalCategory">Nuevo</button>
-                                <button type="submit" id="btnSearchCategories" name="btnSearchCategories" class="btn btn-primary pull-right">Buscar</button>
+                                <button type="button" class="btn btn-success btn-new-slide pull-left" data-toggle="modal" data-target="#modalSlide">Nuevo</button>
+                                <button type="submit" id="btnSearchSlide" name="btnSearchSlide" class="btn btn-primary pull-right">Buscar</button>
                             </div>  
 
                             <div class="clearfix"></div>
@@ -76,7 +70,7 @@
 
                         <div class="box  box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Lista de categorías</h3>
+                                <h3 class="box-title">Lista de slides</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -93,46 +87,52 @@
             </div>
         </section>
         
-        <div class="modal fade" id="modalCategory">
+        <div class="modal fade" id="modalSlide">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="frmCategory" method="post" enctype="multipart/form-data">
+                    <form id="frmSlide" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title title-category">Nueva categoría</h4>
+                            <h4 class="modal-title title-slide">Nuevo slide</h4>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="categoryparent">Categoría padre</label>
-                                <select id="categoryparent" name="categoryparent" class="form-control select2" style="width: 100%;">
+                                <label for="objecttype">Tipo de objeto <span class="required">*</span></label>
+                                <select id="objecttype" name="objecttype" class="form-control select2" style="width: 100%;" required>
                                     <option value="" selected="selected">- No asignado -</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->ncategoryid}}">{{$category->sname}}</option>
+                                    @foreach ($tiposobj as $tip)
+                                        <option value="{{$tip->ntypeid}}">{{$tip->sname}}</option>
                                     @endforeach
+                                </select>                         
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="objectid">Objeto <span class="required">*</span></label>
+                                <select id="objectid" name="objectid" class="form-control select2" style="width: 100%;" required>
+                                    <option value="" selected="selected">- No asignado -</option>
                                 </select>                            
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="categoryname">Nombre</label>
-                                <input type="text" class="form-control filter" id="categoryname" name="categoryname" placeholder="Ingrese un nombre">
+                                <label for="smaintext">Texto principal</label>
+                                <input type="text" class="form-control filter" id="smaintext" name="smaintext" placeholder="Ingrese el texto principal">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="categoryshortdescription">Abreviatura</label>
-                                <input type="text" class="form-control filter" id="categoryshortdescription" name="categoryshortdescription" placeholder="Ingrese una abreviatura">
+                                <label for="ssecondarytext">Texto secundario</label>
+                                <input type="text" class="form-control filter" id="ssecondarytext" name="ssecondarytext" placeholder="Ingrese el texto secundario">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="categorydescription">Descripción</label>
-                                <input type="text" class="form-control filter" id="categorydescription" name="categorydescription" placeholder="Ingrese una descripción">
+                                <label for="sbuttontext">Texto de botón</label>
+                                <input type="text" class="form-control filter" id="sbuttontext" name="sbuttontext" placeholder="Ingrese el texto para el botón">
                             </div>
-                            <div class="col-sm-12 form-group">
-                                <label for="categoryfullimage">Imagen</label>
-                                <input type="url" class="form-control filter" id="categoryfullimage" name="categoryfullimage" placeholder="URL de imagen">
+                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="slidefullimage">Imagen</label>
+                                <input type="url" class="form-control filter" id="slidefullimage" name="slidefullimage" placeholder="URL de imagen">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left filter" data-dismiss="modal">Cerrar</button>
-                            <button type="button" id="btnSaveCategory" class="btn btn-primary">Registrar</button>
-                            <button type="button" id="btnUpdateCategory" style="display:none;" class="btn btn-primary">Actualizar</button>
+                            <button type="button" id="btnSaveSlide" class="btn btn-primary">Registrar</button>
+                            <button type="button" id="btnUpdateSlide" style="display:none;" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -148,10 +148,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Desactivar categoría</h4>
+                <h4 class="modal-title">Desactivar slide</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea desactivar la categoría seleccionada?</p>
+                <p>¿Desea desactivar el slide seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -170,10 +170,10 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Activar categoría</h4>
+                <h4 class="modal-title">Activar slide</h4>
               </div>
               <div class="modal-body">
-                <p>¿Desea activar la categoría seleccionada?</p>
+                <p>¿Desea activar el slide seleccionado?</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -195,7 +195,7 @@
 <script>
 
     var table;
-    var categoryid = 0;
+    var nslideid = 0;
 
     $(function () {
     //Initialize Select2 Elements
@@ -216,19 +216,12 @@
             "aoColumns"   : [
                 {sTitle : "#", responsivePriority: 1, targets: 0, mRender: function(data, type, row, meta) {
                     return (meta.row+1) + (meta.settings._iDisplayStart);
-                }},
-                {sTitle : "Categoría padre", mRender: function(data, type, row) {
-                    if(row.categoryparent != null){
-                        return ($.trim(row.categoryparent) != '') ? row.categoryparent : 'No asignado';
-                    }else{
-                        return 'No asignado';
-                    }
                 }},           
-                {sTitle : "Nombre", mData: "sname"},
-                {sTitle : "Abreviatura", mData: "sshortdescription"},
-                {sTitle : "Descripción", mData: "sdescription"},
+                {sTitle : "Texto principal", mData: "smaintext"},
+                {sTitle : "Texto secundario", mData: "ssecondarytext"},
+                {sTitle : "Texto de botón", mData: "sbuttontext"},
                 {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
-                    return '<a href="#" class="img" data-id="'+row.ncategoryid+'" data-title="'+row.sname+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sfullimage+'" height="100" /></a>';
+                    return '<a href="#" class="img" data-id="'+row.nslideid+'" data-title="'+row.smaintext+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sfullimage+'" height="100" /></a>';
                 }},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
@@ -238,27 +231,21 @@
                         case 'N':
                             return 'Inactivo';
                             break;
-                        case 'E':
-                            return 'Exportado';
-                            break;
-                        case 'M':
-                            return 'Modificado';
-                            break;
                         default:
                             return 'No asignado';
                     }
                 }}, 
                 {sTitle : "Acciones", mData: "Acciones", sClass:"col_center", sWidth:"80px", mRender: function(data, type, row) {
                     if(row.sstatus != 'N'){
-                        return 	'<a data-id="'+row.ncategoryid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalCategory" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
-                            ' <i data-id="'+row.ncategoryid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
+                        return 	'<a data-id="'+row.nslideid+'" class="btn btn-default fa fa-pencil btn-edit tooltips" data-toggle="modal" data-target="#modalSlide" data-placement="top" title="Editar" data-original-title="Editar"></a>'+ 
+                            ' <i data-id="'+row.nslideid+'" class="btn btn-danger fa fa-thumbs-down desactivate tooltips" data-toggle="modal" data-target="#modalDesactivate" data-toggle="tooltip" data-placement="top" title="Desactivar" data-original-title="Desactivar"></i>';
                     } else{
-                        return 	'<i data-id="'+row.ncategoryid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
+                        return 	'<i data-id="'+row.nslideid+'" class="btn btn-success fa fa-thumbs-up activate tooltips" data-toggle="modal" data-target="#modalActivate"  data-toggle="tooltip" data-placement="top" title="Activar" data-original-title="Activar"></i>';
                     }
                 }}
             ],
             "ajax": {
-                    "url": "{{ route('admin.category.getall') }}",
+                    "url": "{{ route('admin.slider.getall') }}",
                     "type": "POST"
             },
 
@@ -277,13 +264,11 @@
 
             "fnServerParams": function ( aoData ) {
                 aoData._token = "{{ csrf_token() }}";
-                aoData.categoryname = $('#filtercategoryname').val();
-                aoData.categoryshortdescription = $('#filtercategoryshortdescription').val();
-                aoData.categorydescription = $('#filtercategorydescription').val();
-                aoData.categorystatus = $('#filtercategorystatus').val();
-
-
+                aoData.slidemaintext = $('#filterslidemaintext').val();
+                aoData.slidesecondarytext = $('#filterslidesecondarytext').val();
+                aoData.slidestatus = $('#filterslidestatus').val();
             },
+
             "drawCallback": function( settings ) {
                 $('.tooltips').tooltip();
                 var minPag = 0;
@@ -312,7 +297,7 @@
         
         });
 
-        $('#btnSearchCategories').click(function(ev){
+        $('#btnSearchSlide').click(function(ev){
             ev.preventDefault();
             reloadTable();
         });
@@ -322,58 +307,62 @@
             reloadTable();
         });
 
-        $('#filtercategorystatus').change(function(ev){
+        $('#filterslidestatus').change(function(ev){
             ev.preventDefault();
             reloadTable();
         });
 
-        $('#btnSaveCategory').click(function(ev){
+        $('#btnSaveSlide').click(function(ev){
             ev.preventDefault();
-            saveCategory();
+            saveSlide();
         });
 
-        $('#btnUpdateCategory').click(function(ev){
+        $('#btnUpdateSlide').click(function(ev){
             ev.preventDefault();
-            updateCategory();
+            updateSlide();
         });
 
-        $(document).on('click', '.btn-new-category', function(event) {
+        $(document).on('click', '.btn-new-slide', function(event) {
             
-            $("#frmCategory")[0].reset();
-            $('.title-category').text('Nueva categoría');
-            loadModalCategories(0);
-            $('#btnSaveCategory').show();
-            $('#btnUpdateCategory').hide();
+            $("#frmSlide")[0].reset();
+            $('.title-slide').text('Nuevo slide');
+            $('#btnSaveSlide').show();
+            $('#btnUpdateSlide').hide();
 
         });
 
         $(document).on('click', '.btn-edit', function(event) {
 
             var id = $(this).data('id');
-            $('.title-category').text('Actualizar categoría');
-            $('#btnSaveCategory').hide();
-            $('#btnUpdateCategory').show();
-            //alert(id);
-            loadModalCategories(id);
+            $('.title-slide').text('Actualizar slide');
+            $('#btnSaveSlide').hide();
+            $('#btnUpdateSlide').show();
 
             $.ajax({
-                url: '{{ route('admin.category.get') }}',
+                url: '{{ route('admin.slider.get') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {ncategoryid:id, _token:'{{ csrf_token() }}'},
+                data: {nslideid:id, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
                 
-                categoryid = id;
+                nslideid = id;
 
                 if (data.status == 'success') {
 
-                    $('#categoryparent').val(data.category.ncategoryparent);
-                    $('#categoryparent').select2().trigger('change');
-                    $('#categoryname').val(data.category.sname);
-                    $('#categoryshortdescription').val(data.category.sshortdescription);
-                    $('#categorydescription').val(data.category.sdescription);
-                    $('#categoryfullimage').val(data.category.sfullimage);
+                    $('#objecttype').val(data.slide.nobjecttype);
+                    $('#objecttype').select2().trigger('change');
+
+                    setTimeout(function(){ 
+                        $('#objectid').val(data.slide.nobjectid);
+                        $('#objectid').select2().trigger('change');
+                    }, 400);
+
+
+                    $('#smaintext').val(data.slide.smaintext);
+                    $('#ssecondarytext').val(data.slide.ssecondarytext);
+                    $('#sbuttontext').val(data.slide.sbuttontext);
+                    $('#slidefullimage').val(data.slide.sfullimage);
 
                 }else{
                     Swal.fire({
@@ -386,17 +375,63 @@
                 }
             });
 
+        });
+
+        $(document).on('change','#objecttype',function(event){
+            var tipo = $(this).val();
+
+            if(tipo==null || tipo == ''){
+
+                $('#objectid').html('<option value selected="selected">- No asignado -</option>');
+                $('#objectid').select2();
+               
+            }else{
+
+                $.ajax({
+                    url: '{{ route('admin.slider.getobjects') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {tipo: tipo, _token:'{{ csrf_token() }}'},
+                })
+                .done(function(data) {
+
+                    if (data.status == 'success') {
+
+                        //data.objects
+                        $('#objectid').html('<option value selected="selected">- No asignado -</option>');
+
+                        $( data.objects ).each(function( index ) {
+                            $('#objectid').append('<option value="'+data.objects[index].id+'">'+data.objects[index].sname+'</option>');
+                        });
+
+                        
+                        $('#objectid').select2();
+
+                    }else{
+
+                        Swal.fire({
+                            position: 'top-end',
+                            type: 'error',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+
+                    }
+                });
+
+            }
 
         });
 
         $(document).on('click', '.desactivate', function(event) {
-            categoryid = $(this).data('id');
-            //alert('ID: ' + categoryid);
+            nslideid = $(this).data('id');
+            //alert('ID: ' + catalogid);
         });
 
         $(document).on('click', '.activate', function(event) {
-            categoryid = $(this).data('id');
-            //alert('ID: ' + categoryid);
+            nslideid = $(this).data('id');
+            //alert('ID: ' + catalogid);
         });
 
         $(document).on('click', '#btnDesactivate', function(event) {
@@ -405,10 +440,10 @@
             $("#btnDesactivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.category.desactivate') }}',
+                url: '{{ route('admin.slider.desactivate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id:categoryid, _token:'{{ csrf_token() }}'},
+                data: {id:nslideid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -419,7 +454,7 @@
 
                     $('#modalDesactivate').modal('hide');
                     reloadTable();
-                    categoryid = null;
+                    nslideid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -450,10 +485,10 @@
             $("#btnActivate").attr('disabled', 'disabled');
 
             $.ajax({
-                url: '{{ route('admin.category.activate') }}',
+                url: '{{ route('admin.slider.activate') }}',
                 type: 'POST',
                 dataType: 'json',
-                data: {id: categoryid, _token:'{{ csrf_token() }}'},
+                data: {id: nslideid, _token:'{{ csrf_token() }}'},
             })
             .done(function(data) {
 
@@ -464,7 +499,7 @@
 
                     $('#modalActivate').modal('hide');
                     reloadTable();
-                    categoryid = null;
+                    nslideid = null;
 
                     Swal.fire({
                         position: 'top-end',
@@ -493,32 +528,34 @@
             $("#listado").DataTable().ajax.reload();
         }
 
-        function saveCategory(){
+        function saveSlide(){
             
-            categoryparent = $('#categoryparent').val();
-            categoryname = $('#categoryname').val();
-            categoryshortdescription = $('#categoryshortdescription').val();
-            categorydescription = $('#categorydescription').val();
-            categoryfullimage = $('#categoryfullimage').val();
+            objecttype = $('#objecttype').val();
+            objectid = $('#objectid').val();
+            slidemaintext =  $('#smaintext').val();
+            slidesecondarytext = $('#ssecondarytext').val();
+            slidebuttontext = $('#sbuttontext').val();
+            slidefullimage = $('#slidefullimage').val();
 
-            if(confirm('¿Está seguro de registrar la categoría?')==true){
-                $("#btnSaveCategory").html('Guardando...');
-                $("#btnSaveCategory").attr('disabled', 'disabled');
+        
+            if(confirm('¿Está seguro de registrar el slide?')==true){
+                $("#btnSaveSlide").html('Guardando...');
+                $("#btnSaveSlide").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.category.save') }}',
+                    url: '{{ route('admin.slider.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, categoryfullimage:categoryfullimage, _token:'{{ csrf_token() }}'},
+                    data: {objecttype:objecttype, objectid:objectid, slidemaintext:slidemaintext, slidesecondarytext:slidesecondarytext, slidebuttontext:slidebuttontext, slidefullimage:slidefullimage, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnSaveCategory").html('Guardar');
-                    $("#btnSaveCategory").removeAttr('disabled');
+                    $("#btnSaveSlide").html('Guardar');
+                    $("#btnSaveSlide").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalCategory').modal('hide');
-                        $("#frmCategory")[0].reset();
+                        $('#modalSlide').modal('hide');
+                        $("#frmSlide")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -541,32 +578,33 @@
             }
         }
 
-        function updateCategory(){
+        function updateSlide(){
             
-            categoryparent = $('#categoryparent').val();
-            categoryname = $('#categoryname').val();
-            categoryshortdescription = $('#categoryshortdescription').val();
-            categorydescription = $('#categorydescription').val();
-            categoryfullimage = $('#categoryfullimage').val();
+            objecttype = $('#objecttype').val();
+            objectid = $('#objectid').val();
+            slidemaintext =  $('#smaintext').val();
+            slidesecondarytext = $('#ssecondarytext').val();
+            slidebuttontext = $('#sbuttontext').val();
+            slidefullimage = $('#slidefullimage').val();
 
-            if(confirm('¿Está seguro de actualizar la categoría?')==true){
-                $("#btnUpdateCategory").html('Actualizando...');
-                $("#btnUpdateCategory").attr('disabled', 'disabled');
+            if(confirm('¿Está seguro de actualizar el slide?')==true){
+                $("#btnUpdateSlide").html('Actualizando...');
+                $("#btnUpdateSlide").attr('disabled', 'disabled');
 
                 $.ajax({
-                    url: '{{ route('admin.category.update') }}',
+                    url: '{{ route('admin.slider.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {categoryid:categoryid, categoryparent:categoryparent, categoryname:categoryname, categoryshortdescription:categoryshortdescription, categorydescription:categorydescription, categoryfullimage:categoryfullimage, _token:'{{ csrf_token() }}'},
+                    data: {nslideid:nslideid, objecttype:objecttype, objectid:objectid, slidemaintext:slidemaintext, slidesecondarytext:slidesecondarytext, slidebuttontext:slidebuttontext, slidefullimage:slidefullimage, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
-                    $("#btnUpdateCategory").html('Actualizar');
-                    $("#btnUpdateCategory").removeAttr('disabled');
+                    $("#btnUpdateSlide").html('Actualizar');
+                    $("#btnUpdateSlide").removeAttr('disabled');
 
                     if (data.status == 'success') {
-                        $('#modalCategory').modal('hide');
-                        $("#frmCategory")[0].reset();
+                        $('#modalSlide').modal('hide');
+                        $("#frmSlide")[0].reset();
                         reloadTable();
                         Swal.fire({
                             position: 'top-end',
@@ -589,22 +627,7 @@
             }
         }
 
-        function loadModalCategories(id){
-
-            $.ajax({
-                url: '{{ route('admin.category.getlist') }}',
-                type: 'POST',
-                dataType: 'json',
-                data: {id:id, _token:'{{ csrf_token() }}'},
-            })
-            .done(function(data) {
-                $('#categoryparent').html('');
-                $('#categoryparent').append($("<option></option>").attr("value", "0").text("- No asignado -"));
-                $.each(data, function(i, item) {
-                    $('#categoryparent').append($("<option></option>").attr("value", data[i].ncategoryid).text(data[i].sname));
-                });
-            });
-        }
+       
         
     });
 </script>
