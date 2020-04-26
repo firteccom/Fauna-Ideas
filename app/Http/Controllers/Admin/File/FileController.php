@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\File;
 
 	use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Storage;
 	use App\Http\Controllers\Controller;
 	use App\Model\Type;
@@ -180,7 +181,7 @@
                 $finalname = $name.'_'.uniqid().'.'.$ext;
 
                 if(isset($archivo)){
-                    if($archivo->storeAs('',$finalname.'.'.$ext,$route)){
+                    if($archivo->storeAs('',$finalname,$route)){
 
                         $file = new File();
                         $file->ntypeid = $filetype;
@@ -188,6 +189,7 @@
                         $file->sshortdescription = $fileshortdescription;
                         $file->sdescription = $filedescription;
                         $file->spath = $route."/".$finalname;
+                        $file->dcreatedon = @date('Y-m-d H:i:s');
 				        $file->ncreatedby = Auth::user()->nuserid;
 
                         //echo "Tipo ID: ".$filetype;

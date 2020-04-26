@@ -227,6 +227,9 @@
                 {sTitle : "Nombre", mData: "sname"},
                 {sTitle : "Abreviatura", mData: "sshortdescription"},
                 {sTitle : "Descripción", mData: "sdescription"},
+                {sTitle : "Imagen", responsivePriority: 1, targets: 0, mRender: function(data, type, row) {
+                    return '<a href="#" class="img" data-id="'+row.ncategoryid+'" data-title="'+row.sname+'" data-file="'+row.sfullimage+'" data-toggle="modal" data-target=".bs-imagen"><img src="../storage/app/'+row.sfullimage+'" height="100" /></a>';
+                }},
                 {sTitle : "Estado", mRender: function(data, type, row) {
                     switch (row.sstatus){
                         case 'A':

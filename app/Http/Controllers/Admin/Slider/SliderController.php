@@ -3,6 +3,7 @@
     namespace App\Http\Controllers\Admin\Slider;
 
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
     use App\Http\Controllers\Controller;
     use App\Model\Slider;
     use App\Model\Product;
@@ -124,7 +125,8 @@
                 $slider->ssecondarytext = $request->slidesecondarytext;
                 $slider->sbuttontext = $request->slidebuttontext;
                 $slider->sfullimage = $request->slidefullimage;
-                $slider->ncreatedby = 1;
+                $slider->dcreatedon = @date('Y-m-d H:i:s');
+                $slider->ncreatedby = Auth::user()->nuserid;
                 
                 $slider->saveAsNew();
 
@@ -151,7 +153,9 @@
                                   'smaintext'=>$request->slidemaintext,
                                   'ssecondarytext'=>$request->slidesecondarytext,
                                   'sbuttontext'=>$request->slidebuttontext,
-                                  'sfullimage'=>$request->slidefullimage]);
+                                  'sfullimage'=>$request->slidefullimage,
+                                  'dmodifiedon'=>@date('Y-m-d H:i:s'),
+                                  'nmodifiedby'=>Auth::user()->nuserid]);
                                   
                 $resp['status'] = 'success';
                 $resp['msg'] = 'El slide se actualizó correctamente.';

@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class ContactController extends Controller {
 
+    public function __construct(){
+        parent::__construct(); 
+    }
+
     private function _view_data($data = array()){
         $data_view = [];
 
@@ -22,7 +26,8 @@ class ContactController extends Controller {
             'categories' => $categories
         ];*/
 
-        return view('portal.contact_us');//, $this->_view_data($data));
+        return view('portal.contact_us')->with($this->data_general);
+
     }
 
     public function sendEmail(Request $request){

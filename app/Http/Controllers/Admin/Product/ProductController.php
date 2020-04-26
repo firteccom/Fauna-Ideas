@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers\Admin\Product;
 
 	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
 	use App\Http\Controllers\Controller;
 	use App\Model\Product;
 	use App\Model\Category;
@@ -151,6 +152,7 @@
 				$product->sthumbnail = $request->productthumbnail;
 				$product->nmasterprice = $request->productmasterprice;
 				$product->nprice = $request->productprice;
+				$product->dcreatedon = @date('Y-m-d H:i:s');
 				$product->ncreatedby = Auth::user()->nuserid;
 				
                 $product->saveAsNew();
