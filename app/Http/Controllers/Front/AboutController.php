@@ -12,15 +12,9 @@ class AboutController extends Controller {
         parent::__construct(); 
     }
 
-    private function _view_data($data = array()){
-        $data_view = [];
-
-        return array_merge($data_view, $data);
-    }
-
     public function showView(){
-        
-        return view('portal.about_us')->with($this->data_general);
+        $data = [];
+        return view('portal.about_us', parent::_view_data($data));
     }
 
 }

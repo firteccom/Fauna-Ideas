@@ -11,11 +11,9 @@
 
 	class CategoryController extends Controller {
 
-		private function _view_data($data = array()){
-		  $data_view = [];
-	
-		  return array_merge($data_view, $data);
-		}
+		public function __construct(){
+            parent::__construct(); 
+        }
 
         public function showView(){
 
@@ -27,7 +25,7 @@
 				'categories' => $categories
             ];
             
-            return view('admin.categories', $this->_view_data($data));
+            return view('admin.categories', parent::_view_data($data));
 		}
 		
 		public function getCategory(Request $request){

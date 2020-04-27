@@ -215,17 +215,17 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('public/img/profile/nadia_ferrari.jpg') }}" class="user-image" alt="Imagen de perfil" >
-              <span class="hidden-xs">Nadia Ferrari</span>
+              <img src="{{'../storage/app/'.$user->sprofilepicture}}" class="user-image" alt="Imagen de perfil" >
+              <span class="hidden-xs">{{$user->getFullName()}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('public/img/profile/nadia_ferrari.jpg') }}" class="img-circle" alt="Imagen de perfil">
+                <img src="{{'../storage/app/'.$user->sprofilepicture}}" class="img-circle" alt="Imagen de perfil">
 
                 <p>
-                  Nadia Ferrari - Administradora
-                  <small>CEO - Fundadora</small>
+                  {{$user->getFullName()}} - Admin
+                  <small>CEO - Fundador</small>
                 </p>
               </li>
               <!-- Menu Body -->

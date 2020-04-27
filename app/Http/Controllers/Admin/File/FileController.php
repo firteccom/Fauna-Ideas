@@ -11,21 +11,18 @@
 
 	class FileController extends Controller {
 
-		private function _view_data($data = array()){
-		  $data_view = [];
-	
-		  return array_merge($data_view, $data);
-		}
+        public function __construct(){
+            parent::__construct(); 
+        }
 
         public function showView(){
-
 			$types = $this->getListTypes();
 
 			$data = [
 				'types' => $types
 			];
 
-            return view('admin.files', $this->_view_data($data));
+            return view('admin.files', parent::_view_data($data));
 		}
 		
 		public function getFile(Request $request){

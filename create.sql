@@ -24,6 +24,8 @@ CREATE TABLE `user` (
   `sname` varchar(100) NOT NULL COMMENT 'User name.',
   `sfatherlastname` varchar(50) NOT NULL COMMENT 'Fathers lastname.',
   `smotherlastname` varchar(50) DEFAULT NULL COMMENT 'Mothers lastname.',
+  `sprofilepicture` varchar(400) NULL COMMENT 'User profile picture',
+  `sbiography` varchar(4000) NULL COMMENT 'User biography',
   `semail` varchar(50) DEFAULT NULL COMMENT 'User email.',
   `spassword` varchar(100) DEFAULT NULL COMMENT 'User password.',
   `remember_token` varchar(100) NULL COMMENT 'Token remember session',
@@ -39,9 +41,9 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`nuserid`, `sname`, `sfatherlastname`, `smotherlastname`, `semail`, `spassword`, `remember_token`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
-(1, 'Bryan', 'Amado', 'Miranda', 'eamadom2@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL),
-(2, 'Angello', 'Del Carpio', 'Bravo', 'angellomijail10@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL);
+INSERT INTO `user` (`nuserid`, `sname`, `sfatherlastname`, `smotherlastname`,`sprofilepicture`,`sbiography`, `semail`, `spassword`, `remember_token`, `sstatus`, `dcreatedon`, `dmodifiedon`, `ncreatedby`, `nmodifiedby`) VALUES
+(1, 'Bryan', 'Amado', 'Miranda', null,null, 'eamadom2@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL),
+(2, 'Angello', 'Del Carpio', 'Bravo', null, null, 'angellomijail10@gmail.com', '$2y$10$Xxu9VrbcXuyu0xjc8SPx4evaT/MRmjhnnlMlLuA1IoerXo4iMnFq2', NULL, 'A', now(), NULL, 1, NULL);
 
 
 
