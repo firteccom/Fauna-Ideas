@@ -108,6 +108,22 @@ class BlogController extends Controller {
 
     }
 
+    public function getPostComments($id){
+
+        $data = Post::from('post_comments as p');
+        
+        $data = $data->where('p.npostid',$id);
+
+        $select[] = 'p.*';
+        $select[] = \DB::raw('DATE_FORMAT(p.dcreatedon,"%d/%m/%Y") as date');
+		$select[] = \DB::raw('CONCAT(SUBSTRING(p.scomment, 1, 420),"...") AS sshortcomment');
+        
+        $data = $data->select($select)->get();
+
+        return $data;
+
+    }
+
     public function postDetail($id){
 
         $post = $this->getPost($id)['post'];
@@ -115,13 +131,15 @@ class BlogController extends Controller {
         $relatedposts = $this->getRecentPosts();
         $recentposts = $this->getRecentPosts();
         $archivedposts = $this->getArchivedPosts();
+        $postcomments = $this->getPostComments($id);
 
         $data = [
             'post' => $post,
             'relatedposts' => $relatedposts,
             'recentposts' => $recentposts,
             'blogcategorieslist' => $blogcategorieslist,
-            'archivedposts' => $archivedposts
+            'archivedposts' => $archivedposts,
+            'postcomments' => $postcomments 
         ];
 
         //echo $product->nproductid;
