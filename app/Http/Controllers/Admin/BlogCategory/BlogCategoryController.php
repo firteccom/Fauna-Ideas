@@ -11,14 +11,13 @@
 
 	class BlogCategoryController extends Controller {
 
-		private function _view_data($data = array()){
-		  $data_view = [];
-	
-		  return array_merge($data_view, $data);
-		}
+		public function __construct(){
+            parent::__construct();
+
+        }
 
         public function showView(){
-
+        
             $request = new Request();
 
             $blogcategories = $this->getListBlogCategories($request);
@@ -27,7 +26,7 @@
 				'blogcategories' => $blogcategories
             ];
             
-            return view('admin.blog_categories', $this->_view_data($data));
+            return view('admin.blog_categories', parent::_view_data($data));
 		}
 		
 		public function getBlogCategory(Request $request){

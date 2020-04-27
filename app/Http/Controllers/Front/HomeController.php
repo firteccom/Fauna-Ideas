@@ -2,7 +2,6 @@
 
 	namespace App\Http\Controllers\Front;
 
-	
 	use Exception;
 	use Illuminate\Http\Request;
 	use App\Http\Controllers\Controller;
@@ -15,8 +14,7 @@
         }
 
 		public function _index(){
-
-			return view('portal._index')->with($this->data_general);
-												
+			$data = [];
+			return view('portal._index', parent::_view_data($data));									
 		}
 	}

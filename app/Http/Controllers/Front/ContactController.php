@@ -12,22 +12,9 @@ class ContactController extends Controller {
         parent::__construct(); 
     }
 
-    private function _view_data($data = array()){
-        $data_view = [];
-
-        return array_merge($data_view, $data);
-    }
-
     public function showView(){
-
-        /*$categories = $this->getListCategories();
-
-        $data = [
-            'categories' => $categories
-        ];*/
-
-        return view('portal.contact_us')->with($this->data_general);
-
+        $data = [];
+        return view('portal.contact_us', parent::_view_data($data));
     }
 
     public function sendEmail(Request $request){

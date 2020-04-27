@@ -10,11 +10,9 @@
 
 	class UserController extends Controller {
 
-		private function _view_data($data = array()){
-		  $data_view = [];
-	
-		  return array_merge($data_view, $data);
-		}
+		public function __construct(){
+            parent::__construct(); 
+        }
 
         public function showView(){
 
@@ -22,7 +20,7 @@
 
 			$data = [];
             
-            return view('admin.users', $this->_view_data($data));
+            return view('admin.users', parent::_view_data($data));
 		}
 
 		public function getUser(Request $request){
@@ -113,6 +111,8 @@
                 $user->sname = $request->username;
                 $user->sfatherlastname = $request->userfatherlastname;
                 $user->smotherlastname = $request->usermotherlastname;
+                $user->sprofilepicture = $request->userprofilepicture;
+                $user->sbiography = $request->userbiography;
                 $user->semail = $request->useremail;
                 $user->spassword = Hash::make($request->userpassword);
                 $user->dcreatedon = @date('Y-m-d H:i:s');
@@ -141,6 +141,8 @@
                         ->update(['sname'=>$request->username,
                         			'sfatherlastname'=>$request->userfatherlastname,
                         			'smotherlastname'=>$request->usermotherlastname,
+                                    'sprofilepicture'=> $request->userprofilepicture,
+                                    'sbiography'=> $request->userbiography,
                                 	'semail'=>$request->useremail,
                                     'spassword'=>Hash::make($request->userpassword),
                                     'dmodifiedon'=>@date('Y-m-d H:i:s'),

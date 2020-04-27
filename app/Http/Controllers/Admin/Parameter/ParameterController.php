@@ -9,11 +9,9 @@
 
 	class ParameterController extends Controller {
 
-		private function _view_data($data = array()){
-		  $data_view = [];
-	
-		  return array_merge($data_view, $data);
-		}
+		public function __construct(){
+            parent::__construct(); 
+        }
 
         public function showView(){
 
@@ -21,7 +19,7 @@
 
 			$data = [];
             
-            return view('admin.parameters', $this->_view_data($data));
+            return view('admin.parameters', parent::_view_data($data));
 		}
 
 		public function getParameter(Request $request){
