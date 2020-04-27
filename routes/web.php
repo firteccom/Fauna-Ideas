@@ -27,6 +27,8 @@ Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 Route::get('blog/{id}','Front\BlogController@postDetail')->name('front.blog.detail/{id}');
 Route::post('send-comment','Front\BlogController@sendComment')->name('front.blog.sendcomment');
 
+Route::post('getPostComments2', 'Admin\PostComment\PostCommentController@getPostComments')->name('admin.postcomment.getalltwo');
+
 Route::namespace('Admin')->prefix('admin')->group(function () {
 	setlocale(LC_ALL, "es_PE");
 
@@ -182,6 +184,18 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('desactivatePost', 'PostController@desactivatePost')->name('admin.post.desactivate');
 			Route::post('activatePost', 'PostController@activatePost')->name('admin.post.activate');
 			Route::post('highlightPost', 'PostController@highlightPost')->name('admin.post.highlight');
+		});
+
+		//PostComments
+		Route::namespace('PostComment')->prefix('postcomment')->group(function () {
+			Route::get('/', 'PostCommentController@showView')->name('admin.postcomment.form');
+			Route::post('getListBlogCategories', 'PostCommentController@getListBlogCategories')->name('admin.postcomment.getlistblogcategories');
+			Route::post('getListPosts', 'PostCommentController@getListPosts')->name('admin.postcomment.getlistposts');
+			Route::post('getPostComments', 'PostCommentController@getPostComments')->name('admin.postcomment.getall');
+			Route::post('desactivatePostComment', 'PostCommentController@desactivatePostComment')->name('admin.postcomment.desactivate');
+			Route::post('activatePostComment', 'PostCommentController@activatePostComment')->name('admin.postcomment.activate');
+			Route::post('rejectPostComment', 'PostCommentController@rejectPostComment')->name('admin.postcomment.reject');
+			Route::post('approvePostComment', 'PostCommentController@approvePostComment')->name('admin.postcomment.approve');
 		});
 
 	});
