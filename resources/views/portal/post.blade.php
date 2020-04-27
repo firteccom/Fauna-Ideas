@@ -117,25 +117,27 @@
                             <h3>Dejar un comentario</h3>
                             <p>Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados *</p>
 
-                            <form action="#">
+                            <form id="frmSendPostComment">
+                                {!! csrf_field() !!}
+                                <input type="text" id="postid" name="postid" value="{{ $post->npostid }}" style="display:none;"></input>
                                 <div class="form-group required-field">
                                     <label>Comentario</label> (Máx. 500 caracteres)
-                                    <textarea cols="30" rows="1" class="form-control" required></textarea>
+                                    <textarea cols="30" rows="1" id="comment" name="comment" class="form-control" required></textarea>
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group required-field">
                                     <label>Nombre</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" id="name" name="name" class="form-control" required>
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group required-field">
                                     <label>Correo electrónico</label>
-                                    <input type="email" class="form-control" required>
+                                    <input type="email" id="email" name="email" class="form-control" required>
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
                                     <label>Celular</label>
-                                    <input type="cel" class="form-control">
+                                    <input type="cel" id="mobile" name="mobile" class="form-control">
                                 </div><!-- End .form-group -->
                                 
                                 <div class="form-group-custom-control mb-3">
@@ -146,7 +148,7 @@
                                 </div><!-- End .form-group-custom-control -->
 
                                 <div class="form-footer">
-                                    <button type="submit" class="btn btn-primary">Publicar comentario</button>
+                                    <button type="button" id="btnSendComment" name="btnSendComment" class="btn btn-primary">Publicar comentario</button>
                                 </div><!-- End .form-footer -->
                             </form>
                         </div><!-- End .comment-respond -->
@@ -274,7 +276,60 @@
 
     $(function() {
 
+        $(document).on('click', '#btnSendComment', function(event) {
+            $("#btnSendComment").html('Comentando...');
+            $("#btnSendComment").attr('disabled', 'disabled');
 
+            var frm = $('#frmSendPostComment');
+            var formData = new FormData($(frm)[0]);
+
+            $.ajax({
+                url: '{{ route('front.blog.sendcomment') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+            .done(function(data) {
+
+                $("#btnSendComment").html('Publicar comentario');
+                $("#btnSendComment").removeAttr('disabled');
+
+                if (data.status == 'success') {
+                    $("#frmSendPostComment")[0].reset();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 6000
+                    });
+
+                } else if (data.status == 'warning') {
+                    reloadTable();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'warning',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                } else if (data.status == 'error') {
+                    reloadTable();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+
+        });
         
     });
 </script>
