@@ -114,7 +114,7 @@
                 $user->sprofilepicture = $request->userprofilepicture;
                 $user->sbiography = $request->userbiography;
                 $user->semail = $request->useremail;
-                $user->spassword = Hash::make($request->userpassword);
+                $user->spassword = Hash::make($request->userpass);
                 $user->dcreatedon = @date('Y-m-d H:i:s');
                 $user->ncreatedby = Auth::user()->nuserid;
 
@@ -134,22 +134,47 @@
         }
 
         public function updateUser(Request $request){
+
             try {
-                $data = \DB::connection('mysql')
-                        ->table('user')
-                        ->where('nuserid',$request->userid)
-                        ->update(['sname'=>$request->username,
-                        			'sfatherlastname'=>$request->userfatherlastname,
-                        			'smotherlastname'=>$request->usermotherlastname,
+
+                $upd = ['sname'=>$request->username,
+                                    'sfatherlastname'=>$request->userfatherlastname,
+                                    'smotherlastname'=>$request->usermotherlastname,
                                     'sprofilepicture'=> $request->userprofilepicture,
                                     'sbiography'=> $request->userbiography,
-                                	'semail'=>$request->useremail,
-                                    'spassword'=>Hash::make($request->userpassword),
+                                    'semail'=>$request->useremail,
                                     'dmodifiedon'=>@date('Y-m-d H:i:s'),
-                                    'nmodifiedby'=>Auth::user()->nuserid]);
+                                    'nmodifiedby'=>Auth::user()->nuserid];
+                
 
-                $resp['status'] = 'success';
-                $resp['msg'] = 'El usuario se actualizó correctamente.';
+                //Si escribe algo en la validación de password:
+                if($request->userpass2 != null && $request->userpass2 !='' ){
+
+                    if($request->userpass != $request->userpass2){
+                        $resp['status'] = 'error';
+                        $resp['msg'] = 'El password no coincide';
+                    }else{
+                        $upd['spassword'] = Hash::make($request->userpass);    
+
+                        $data = \DB::connection('mysql')
+                        ->table('user')
+                        ->where('nuserid',$request->userid)
+                        ->update($upd);
+
+                        $resp['status'] = 'success';
+                        $resp['msg'] = 'El usuario se actualizó correctamente.';
+                    }
+
+                }else{
+                    $data = \DB::connection('mysql')
+                        ->table('user')
+                        ->where('nuserid',$request->userid)
+                        ->update($upd);
+
+                    $resp['status'] = 'success';
+                    $resp['msg'] = 'El usuario se actualizó correctamente.';
+                }
+
 
             } catch (\Exception $ex) {
 

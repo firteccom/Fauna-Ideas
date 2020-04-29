@@ -23,7 +23,6 @@
 			if ($user):
 
 				$passexists = Hash::check($request->spassword, $user->spassword);
-				//$passexists = $request->password == $user->password;
 
 				if($passexists):
 
@@ -31,6 +30,7 @@
 					$message = 'Login exitoso';
 					$array = (object)['request' => $request, 'array' => ['resp' => true, 'message' => $message, 'url' => route('admin.product.form'), 'errors' => null], 'status' => 200, 'route' => route('admin.product.form'), 'message' => null, 'type' => 'success'];
 					$data = $this->optimize($array);
+
 
 				else:
 					$message = 'Contraseña incorrecta';
