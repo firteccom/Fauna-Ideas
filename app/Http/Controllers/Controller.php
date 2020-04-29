@@ -50,7 +50,8 @@ class Controller extends BaseController
 		$this->facebook = Parameter::where('sstatus', 'A')->where('scode','FACEBOOK')->pluck('svalue')->first();
 		$this->slider = Slider::where('sstatus', 'A')->get();
 		$this->categorias = Category::where('sstatus', 'A')->get();
-		$this->populares = Product::where('sstatus', 'A')->where('shighlighted','Y')->get();
+		$this->populares = Product::from('products as prd')->where('prd.sstatus', 'A')->join('categories as cat','cat.ncategoryid','=','prd.ncategoryid')->where('prd.shighlighted','Y')->select('prd.*','cat.ncategoryid as categoryid','cat.sname as category')->get();
+
 		$this->catalogos = Catalog::where('sstatus', 'A')->get();
 
 	
