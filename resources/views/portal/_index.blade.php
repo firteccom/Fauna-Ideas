@@ -78,8 +78,8 @@
     @if(isset($populares)) 
     <section class="container-fluid">
         <div class="section-header mt-6">
-            <h2 class="section-title">Popular Products</h2>
-            <h3 class="section-subtitle">Check all our popular products</h3>
+            <h2 class="section-title">Productos Destacados</h2>
+            <h3 class="section-subtitle">Mira nuestros productos destacados</h3>
         </div>
 
         <div class="row row-sm mb-10">
@@ -93,28 +93,22 @@
                         <div class="label-group">
                             <!--<span class="product-label label-cut">27% OFF</span>-->
                         </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Vista rápida">Vista rápida</a> 
                     </figure>
+
                     <div class="product-details">
-                        <div class="category-wrap">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">category</a>
-                            </div>
-                        </div>
-                        <h2 class="product-title">
-                            <a href="product.html">{{$pop->sname}}</a>
-                        </h2>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            <span class="old-price">S/ {{$pop->nmasterprice}}</span>
-                            <span class="product-price">S/ {{$pop->nprice}}</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
+                                <div class="category-wrap">
+                                    <div class="category-list">
+                                        <a href="category.html" class="product-category">category</a>
+                                    </div>
+                                </div>
+                                <h2 class="product-title">
+                                    <a href="product/{{$pop->nproductid}}">{{$pop->sname}}</a>
+                                </h2>
+                                <div class="price-box">
+                                    <span class="old-price">S/ {{$pop->nmasterprice}}</span>
+                                    <span class="product-price">S/ {{$pop->nprice}}</span>
+                                </div><!-- End .price-box -->
+                            </div>                    
                 </div>
             </div>
             @endforeach

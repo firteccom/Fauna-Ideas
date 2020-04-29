@@ -114,16 +114,24 @@
                                 <input type="text" class="form-control filter" id="usermotherlastname" name="usermotherlastname" placeholder="Ingrese ap. materno">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                <label for="userprofilepicture">Imagen de perfil</label>
+                                <input type="text" class="form-control filter" id="userprofilepicture" name="userprofilepicture" placeholder="Imagen de perfil">
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <label for="userbiography">Biografía</label>
+                                <textarea class="form-control" name="userbiography" id="userbiography"  rows="10"></textarea>
+                            </div>
+                            <div class="col-sm-12 form-group">
                                 <label for="useremail">Email</label>
                                 <input type="text" class="form-control filter" id="useremail" name="useremail" placeholder="Ingrese email">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="userpassword">Contraseña</label>
-                                <input type="password" class="form-control filter" id="userpassword" name="userpassword" placeholder="Ingrese contraseña">
+                                <label for="userpass">Contraseña</label>
+                                <input type="password" class="form-control filter" id="userpass" name="userpass" placeholder="Ingrese contraseña">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                <label for="userpassword2">Confirmar contraseña</label>
-                                <input type="password" class="form-control filter" id="userpassword2" name="userpassword2" placeholder="Confirmar contraseña">
+                                <label for="userpass2">Confirmar contraseña</label>
+                                <input type="password" class="form-control filter" id="userpass2" name="userpass2" placeholder="Confirmar contraseña">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -346,6 +354,8 @@
                     $('#username').val(data.user.sname);
                     $('#userfatherlastname').val(data.user.sfatherlastname);
                     $('#usermotherlastname').val(data.user.smotherlastname);
+                    $('#userprofilepicture').val(data.user.sprofilepicture);
+                    $('#userbiography').val(data.user.sbiography);
                     $('#useremail').val(data.user.semail);
 
                 }else{
@@ -469,9 +479,11 @@
             username = $('#username').val();
             userfatherlastname = $('#userfatherlastname').val();
             usermotherlastname = $('#usermotherlastname').val();
+            userprofilepicture = $('#userprofilepicture').val();
+            userbiography = $('#userbiography').val();
             useremail = $('#useremail').val();
-            userpassword = $('#userpassword').val();
-            userpassword2 = $('#userpassword2').val();
+            userpass = $('#userpass').val();
+            userpass2 = $('#userpass2').val();
 
             if(confirm('¿Está seguro de registrar el usuario?')==true){
                 $("#btnSaveUser").html('Guardando...');
@@ -481,7 +493,7 @@
                     url: '{{ route('admin.user.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname, useremail:useremail,userpassword:userpassword,userpassword2:userpassword2, _token:'{{ csrf_token() }}'},
+                    data: {username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname, userprofilepicture:userprofilepicture, userbiography:userbiography, useremail:useremail,userpass:userpass,userpass2:userpass2, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
@@ -518,9 +530,11 @@
             username = $('#username').val();
             userfatherlastname = $('#userfatherlastname').val();
             usermotherlastname = $('#usermotherlastname').val();
+            userprofilepicture = $('#userprofilepicture').val();
+            userbiography = $('#userbiography').val();
             useremail = $('#useremail').val();
-            userpassword = $('#userpassword').val();
-            userpassword2 = $('#userpassword2').val();
+            userpass = $('#userpass').val();
+            userpass2 = $('#userpass2').val();
 
             if(confirm('¿Está seguro de actualizar el usuario?')==true){
                 $("#btnUpdateUser").html('Actualizando...');
@@ -530,7 +544,7 @@
                     url: '{{ route('admin.user.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {userid:userid, username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname, useremail:useremail,userpassword:userpassword,userpassword2:userpassword2, _token:'{{ csrf_token() }}'},
+                    data: {userid:userid, username:username, userfatherlastname:userfatherlastname, usermotherlastname:usermotherlastname,userprofilepicture:userprofilepicture, userbiography:userbiography, useremail:useremail,userpass:userpass,userpass2:userpass2, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 

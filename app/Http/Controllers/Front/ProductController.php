@@ -9,21 +9,13 @@ use App\Model\Category;
 
 class ProductController extends Controller {
 
-    private function _view_data($data = array()){
-        $data_view = [];
-
-        return array_merge($data_view, $data);
+    public function __construct(){
+        parent::__construct(); 
     }
 
     public function showView(){
-
-        /*$categories = $this->getListCategories();
-
-        $data = [
-            'categories' => $categories
-        ];*/
-
-        return view('portal.detail_product');//, $this->_view_data($data));
+        $data = [];
+        return view('portal.detail_product', parent::_view_data($data));
     }
 
     public function productDetail($id){

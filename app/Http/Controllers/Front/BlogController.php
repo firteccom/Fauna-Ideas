@@ -11,31 +11,25 @@ use App\Model\PostComment;
 
 class BlogController extends Controller {
 
-    private function _view_data($data = array()){
-        $data_view = [];
-
-        return array_merge($data_view, $data);
+    public function __construct(){
+        parent::__construct(); 
     }
-
+    
     public function showView(){
-        
-        $categories = Category::where('sstatus', 'A')->get();
+        $data = [];
         $posts = $this->getPosts();
         $blogcategorieslist = $this->getListBlogCategories();
         $recentposts = $this->getRecentPosts();
         $archivedposts = $this->getArchivedPosts();
 
-        /*$categories = $this->getListCategories();
-        */
         $data = [
-            'categories' => $categories,
             'posts' => $posts,
             'recentposts' => $recentposts,
             'blogcategorieslist' => $blogcategorieslist,
             'archivedposts' => $archivedposts
         ];
 
-        return view('portal.blog', $this->_view_data($data));
+        return view('portal.blog', parent::_view_data($data));
     }
 
     public function getListBlogCategories(){

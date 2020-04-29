@@ -5,10 +5,10 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{ asset('public/img/profile/nadia_ferrari.jpg') }}" class="img-circle" alt="User Image">
+        <img src="{{'../storage/app/'.$user->sprofilepicture}}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Nadia Ferrari</p>
+        <p>{{$user->getFullName()}}</p>
         <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
       </div>
     </div>
