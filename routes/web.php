@@ -17,6 +17,9 @@ Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://loc
 //Products
 Route::get('products','Front\ProductController@showView');
 Route::get('product/{id}','Front\ProductController@productDetail');
+//Categories
+Route::get('categories','Front\categoryController@showView');
+Route::get('category/{id}','Front\categoryController@categoryDetail');
 //Contact Us
 Route::get('contact-us','Front\ContactController@showView')->name('front.contact.page');
 Route::post('send-email','Front\ContactController@sendEmail')->name('front.contact.sendemail');

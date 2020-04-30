@@ -12,7 +12,7 @@
 
 		public function rules() {
 			return [
-				'semail' => 'required|min:5|max:21',
+				'semail' => 'required|min:5',
 				'spassword' => 'required|min:3|max:255'
 			];
 		}
