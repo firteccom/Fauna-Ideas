@@ -24,7 +24,7 @@ CREATE TABLE `user` (
   `sname` varchar(100) NOT NULL COMMENT 'User name.',
   `sfatherlastname` varchar(50) NOT NULL COMMENT 'Fathers lastname.',
   `smotherlastname` varchar(50) DEFAULT NULL COMMENT 'Mothers lastname.',
-  `sprofilepicture` varchar(400) NULL COMMENT 'User profile picture',
+  `sprofilepicture` varchar(400) NULL DEFAULT 'images/img_5ea9e9ffdc7b1.png' COMMENT 'User profile picture',
   `sbiography` varchar(4000) NULL COMMENT 'User biography',
   `semail` varchar(50) DEFAULT NULL COMMENT 'User email.',
   `spassword` varchar(100) DEFAULT NULL COMMENT 'User password.',

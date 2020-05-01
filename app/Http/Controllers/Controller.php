@@ -51,10 +51,7 @@ class Controller extends BaseController
 		$this->slider = Slider::where('sstatus', 'A')->get();
 		$this->categorias = Category::where('sstatus', 'A')->get();
 		$this->populares = Product::from('products as prd')->where('prd.sstatus', 'A')->join('categories as cat','cat.ncategoryid','=','prd.ncategoryid')->where('prd.shighlighted','Y')->select('prd.*','cat.ncategoryid as categoryid','cat.sname as category')->get();
-
 		$this->catalogos = Catalog::where('sstatus', 'A')->get();
-
-	
 		$this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
