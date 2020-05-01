@@ -17,6 +17,10 @@ Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://loc
 //Products
 Route::get('products','Front\ProductController@showView');
 Route::get('product/{id}','Front\ProductController@productDetail');
+//Catalog
+Route::get('catalog','Front\CatalogController@index');
+Route::get('catalog/{id}','Front\CatalogController@showView');
+Route::post('catalog/listProducts','Front\CatalogController@listProducts')->name('front.catalog.listproducts');
 //Contact Us
 Route::get('contact-us','Front\ContactController@showView')->name('front.contact.page');
 Route::post('send-email','Front\ContactController@sendEmail')->name('front.contact.sendemail');
@@ -26,6 +30,8 @@ Route::get('about-us','Front\AboutController@showView')->name('front.about.page'
 Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 Route::get('blog/{id}','Front\BlogController@postDetail')->name('front.blog.detail/{id}');
 Route::post('send-comment','Front\BlogController@sendComment')->name('front.blog.sendcomment');
+
+
 
 Route::post('getPostComments2', 'Admin\PostComment\PostCommentController@getPostComments')->name('admin.postcomment.getalltwo');
 
