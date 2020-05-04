@@ -98,7 +98,7 @@
                     <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="category.html" class="product-category">category</a>
+                                        <a href="category/{{$pop->categoryid}}" class="product-category">{{$pop->category}}</a>
                                     </div>
                                 </div>
                                 <h2 class="product-title">

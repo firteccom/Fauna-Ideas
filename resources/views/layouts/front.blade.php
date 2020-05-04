@@ -15,6 +15,8 @@
     <meta name="description" content="Porto - Bootstrap eCommerce Template">
     <meta name="author" content="SW-THEMES">
         
+    @yield('css');
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('public/portal/images/icons/favicon.ico') }}">
 
