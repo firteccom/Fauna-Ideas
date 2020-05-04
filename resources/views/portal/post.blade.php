@@ -152,6 +152,36 @@
                                 </div><!-- End .form-footer -->
                             </form>
                         </div><!-- End .comment-respond -->
+
+
+
+                        <div class="comment-respond">
+                            <h3>Comentarios</h3>
+                            <p>A continuación se muestran los comentarios que fueron aprobados por los moderadores *</p>
+
+                            @foreach ($postcomments as $k=>$postcomment)
+                            <div class="entry-author">
+                                <figure>
+                                    <a href="#">
+                                        <img src="{{ asset('public/portal/images/blog/author.jpg') }}" alt="author">
+                                    </a>
+                                </figure>
+                                <div class="author-content">
+                                    <h4><a href="#">{{ $postcomment->sname }}</a></h4>
+                                    <text class="col-sm-12 col-md-12 col-lg-12" rows="1" id="shortcomment" name="shortcomment" disabled>{{ $postcomment->sshortcomment }}</text>
+                                    <textarea cols="30" rows="1" id="fullcomment" name="fullcomment" disabled>{{ $postcomment->scomment }}</textarea>
+                                </div><!-- End .author.content -->
+                                <br>
+                                <div class="entry-meta">
+                                    <span><i class="icon-calendar"></i>{{ $postcomment->date }}</span>
+                                    <span><i class="icon-user"></i>Correo: <a href="#">{{ $postcomment->semail }}</a></span>
+                                    <a href="" class="read-more">Leer más <i class="icon-angle-double-down"></i></a>
+                                </div><!-- End .entry-meta -->
+                            </div><!-- End .entry-author -->
+                            @endforeach
+
+                        </div>
+
                     </div><!-- End .entry-body -->
                 </article><!-- End .entry -->
 
@@ -276,6 +306,14 @@
 
     $(function() {
 
+        comment = $('#fullcomment').val();
+        //alert($('#fullcomment').val());
+
+        if (comment.length > 500){
+            $('#fullcomment').hide();
+            $('#shortcomment').show();
+        }
+
         $(document).on('click', '#btnSendComment', function(event) {
             $("#btnSendComment").html('Comentando...');
             $("#btnSendComment").attr('disabled', 'disabled');
@@ -308,7 +346,6 @@
                     });
 
                 } else if (data.status == 'warning') {
-                    reloadTable();
                     Swal.fire({
                         position: 'top-end',
                         type: 'warning',
@@ -318,7 +355,6 @@
                     });
 
                 } else if (data.status == 'error') {
-                    reloadTable();
                     Swal.fire({
                         position: 'top-end',
                         type: 'error',

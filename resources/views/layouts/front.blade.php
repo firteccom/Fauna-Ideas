@@ -138,6 +138,7 @@
     <script src="{{ asset('public/portal/js/jquery.min.js') }}"></script>
     <script src="{{ asset('public/portal/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/portal/js/plugins.min.js') }}"></script>
+    <script src="{{ asset('public/portal/js/nouislider.min.js') }}"></script>
 
     <!-- Main JS File -->
     <script src="{{ asset('public/portal/js/main.min.js') }}"></script>

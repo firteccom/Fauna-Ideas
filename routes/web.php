@@ -30,8 +30,9 @@ Route::get('about-us','Front\AboutController@showView')->name('front.about.page'
 Route::get('blog','Front\BlogController@showView')->name('front.blog.page');
 Route::get('blog/{id}','Front\BlogController@postDetail')->name('front.blog.detail/{id}');
 Route::post('send-comment','Front\BlogController@sendComment')->name('front.blog.sendcomment');
-
-
+//Categories
+Route::get('categories','Front\categoryController@showView');
+Route::get('category/{id}','Front\categoryController@categoryDetail');
 
 Route::post('getPostComments2', 'Admin\PostComment\PostCommentController@getPostComments')->name('admin.postcomment.getalltwo');
 
