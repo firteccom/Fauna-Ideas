@@ -81,7 +81,7 @@
                         <div class="col-6 col-md-4 col-lg-3">
                             <div class="product-default inner-quickview inner-icon">
                                 <figure>
-                                    <a href="product.html">
+                                    <a href="{{ asset('product') }}/{{ $product->nproductid }}">
                                         <img src="{{'../storage/app/'.$product->sfullimage}}">
                                     </a>
                                     <div class="label-group">
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                     <h2 class="product-title">
-                                        <a href="product.html">{{ $product->sname }}</a>
+                                        <a href="{{ asset('product') }}/{{ $product->nproductid }}">{{ $product->sname }}</a>
                                     </h2>
                                     <div class="ratings-container">
                                         <div class="product-ratings">
@@ -155,7 +155,7 @@
                                     <a href="category.html" class="product-category">category</a>
                                 </div>
                                 <h2 class="product-title">
-                                    <a href="product.html">{{ $product->sname }}</a>
+                                    <a href="{{ asset('product') }}/{{ $product->nproductid }}">{{ $product->sname }}</a>
                                 </h2>
                                 <div class="ratings-container">
                                     <div class="product-ratings">
@@ -202,15 +202,15 @@
 
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="true" aria-controls="widget-body-4">Tamaño</a>
+                            <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="true" aria-controls="widget-body-5">Marca</a>
                         </h3>
 
-                        <div class="collapse show" id="widget-body-4">
+                        <div class="collapse show" id="widget-body-5">
                             <div class="widget-body">
                                 <ul class="cat-list">
-                                    <li><a href="#">Pequeño</a></li>
-                                    <li><a href="#">Mediano</a></li>
-                                    <li><a href="#">Largo</a></li>
+                                    @foreach ($filterbrand as $k=>$brand)
+                                        <li><a href="#">{{ $brand->svalue }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div><!-- End .widget-body -->
                         </div><!-- End .collapse -->
@@ -218,41 +218,31 @@
 
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Rango de precios</a>
+                            <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="true" aria-controls="widget-body-4">Tamaño</a>
                         </h3>
 
-                        <div class="collapse show" id="widget-body-3">
+                        <div class="collapse show" id="widget-body-4">
                             <div class="widget-body">
-                                <form action="#">
-                                    <div class="price-slider-wrapper">
-                                        <div id="price-slider"></div><!-- End #price-slider -->
-                                    </div><!-- End .price-slider-wrapper -->
-
-                                    <div class="filter-price-action">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-
-                                        <div class="filter-price-text">
-                                            Precio:
-                                            <span id="filter-price-range"></span>
-                                        </div><!-- End .filter-price-text -->
-                                    </div><!-- End .filter-price-action -->
-                                </form>
+                                <ul class="cat-list">
+                                    @foreach ($filtersize as $k=>$size)
+                                        <li><a href="#">{{ $size->svalue }}</a></li>
+                                    @endforeach
+                                </ul>
                             </div><!-- End .widget-body -->
                         </div><!-- End .collapse -->
                     </div><!-- End .widget -->
 
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="true" aria-controls="widget-body-5">Marca</a>
+                            <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="true" aria-controls="widget-body-4">Año</a>
                         </h3>
 
-                        <div class="collapse show" id="widget-body-5">
+                        <div class="collapse show" id="widget-body-4">
                             <div class="widget-body">
                                 <ul class="cat-list">
-                                    <li><a href="#">Adidas</a></li>
-                                    <li><a href="#">Calvin Klein (26)</a></li>
-                                    <li><a href="#">Diesel (3)</a></li>
-                                    <li><a href="#">Lacoste (8)</a></li>
+                                    @foreach ($filteryear as $k=>$year)
+                                        <li><a href="#">{{ $year->svalue }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div><!-- End .widget-body -->
                         </div><!-- End .collapse -->
@@ -283,6 +273,31 @@
                                         <span>Green</span>
                                     </li>
                                 </ul>
+                            </div><!-- End .widget-body -->
+                        </div><!-- End .collapse -->
+                    </div><!-- End .widget -->
+
+                    <div class="widget">
+                        <h3 class="widget-title">
+                            <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Rango de precios</a>
+                        </h3>
+
+                        <div class="collapse show" id="widget-body-3">
+                            <div class="widget-body">
+                                <form action="#">
+                                    <div class="price-slider-wrapper">
+                                        <div id="price-slider"></div><!-- End #price-slider -->
+                                    </div><!-- End .price-slider-wrapper -->
+
+                                    <div class="filter-price-action">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+
+                                        <div class="filter-price-text">
+                                            Precio:
+                                            <span id="filter-price-range"></span>
+                                        </div><!-- End .filter-price-text -->
+                                    </div><!-- End .filter-price-action -->
+                                </form>
                             </div><!-- End .widget-body -->
                         </div><!-- End .collapse -->
                     </div><!-- End .widget -->

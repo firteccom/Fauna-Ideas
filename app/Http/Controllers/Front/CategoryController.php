@@ -26,6 +26,10 @@ class CategoryController extends Controller {
         $productattributes = $this->getProductAttributes($id)['attributes'];
         $aditionalimages = $this->getProductImages($id)['product'];
         $featuredproducts = $this->getFeaturedProducts($id)['products'];
+        $filterbrand = $this->getAttributeValues($id,1)['attributes'];
+        $filtersize = $this->getAttributeValues($id,2)['attributes'];
+        $filteryear = $this->getAttributeValues($id,3)['attributes'];
+        $filtercolor = $this->getAttributeValues($id,4)['attributes'];
 
         $data = [
             'product' => $product,
@@ -33,7 +37,11 @@ class CategoryController extends Controller {
             'categoryproducts' => $categoryproducts,
             'productattributes' => $productattributes,
             'aditionalimages' => $aditionalimages,
-            'featuredproducts' => $featuredproducts
+            'featuredproducts' => $featuredproducts,
+            'filterbrand'=>$filterbrand,
+            'filtersize'=>$filtersize,
+            'filteryear'=>$filteryear,
+            'filtercolor'=>$filtercolor
         ];
 
         //echo $product->nproductid;
@@ -231,6 +239,57 @@ class CategoryController extends Controller {
         //var_dump($data);
 
         return $resp;
+    }
+
+    private function getAttributeValues($id,$type){
+
+        $typefilter = '';
+
+        try {
+
+            $data = Product::from('products as prd')
+					->join('product_attribute as prdatt','prdatt.nproductid','=','prd.nproductid')
+					->join('categories as cat','cat.ncategoryid','=','prd.ncategoryid');
+            
+            $data = $data->where('cat.ncategoryid',$id);
+
+            switch ($type) {
+                case 1:
+                    $typefilter = 'Marca';
+                    break;
+                case 2:
+                    $typefilter = 'Tamaño';
+                    break;
+                case 3:
+                    $typefilter = 'Año';
+                    break;
+                case 3:
+                    $typefilter = 'Color';
+                    break;
+            }
+
+            $data = $data->where('cat.ncategoryid',$id);
+            $data = $data->where('prdatt.sname',$typefilter);
+    
+            $select[] = 'prdatt.svalue';
+                
+            $data = $data->select($select)->distinct()->get();
+
+            $resp['status'] = 'success';
+            $resp['msg'] = 'Se obtuvieron correctamente los atributos.';
+            $resp['attributes'] = $data;
+
+        } catch (\Exception $ex) {
+
+            $resp['status'] = 'error';
+            $resp['msg'] = 'No se obtuvieron los atributos '.$ex->getMessage();
+            $resp['attributes'] = '';
+        }
+
+        //var_dump($data);
+
+        return $resp;
+
     }
 
 }
