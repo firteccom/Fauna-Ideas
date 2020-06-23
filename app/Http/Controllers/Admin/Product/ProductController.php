@@ -146,6 +146,7 @@
 				$product->ssku = $request->productsku;
 				$product->sname = $request->productname;
 				$product->sdescription = $request->productdescription;
+				$product->slongdescription = $request->productlongdescription;
 				$product->sfullimage = $request->productfullimage;
 				$product->sthumbnail = $request->productthumbnail;
 				$product->nmasterprice = $request->productmasterprice;
@@ -181,6 +182,7 @@
 								  'ssku'=>$request->productsku,
 								  'sname'=>$request->productname,
 								  'sdescription'=>$request->productdescription,
+								  'slongdescription' => $request->productlongdescription,
 								  'sfullimage'=>$request->productfullimage,
 								  'sthumbnail'=>$request->productthumbnail,
 								  'nmasterprice'=>$request->productmasterprice,

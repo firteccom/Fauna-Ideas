@@ -15,7 +15,7 @@
     <meta name="description" content="Porto - Bootstrap eCommerce Template">
     <meta name="author" content="SW-THEMES">
         
-    @yield('css');
+    @yield('css')
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('public/portal/images/icons/favicon.ico') }}">
@@ -73,10 +73,10 @@
 
                     @if(isset($categorias))
                         <li>
-                            <a href="category.html">Categorías</a>
+                            <a href="#">Categorías</a>
                             <ul>
                                 @foreach ($categorias as $cat)
-                                    <li><a href="categorias/{{ $cat->sname }}">{{ $cat->sname }}</a></li>
+                                    <li><a href="{{ URL::to('/') }}/category/{{ $cat->ncategoryid }}">{{ $cat->sname }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -86,9 +86,8 @@
             </nav><!-- End .mobile-nav -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>
+                @if(isset($facebook))<a href="{{$facebook}}" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>@endif
+                @if(isset($twitter))<a href="{{$twitter}}" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>@endif
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->

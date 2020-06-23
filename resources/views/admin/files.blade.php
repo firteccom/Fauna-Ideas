@@ -436,9 +436,12 @@
                 fileid = id;
 
                 if (data.status == 'success') {
-                    
-                    $('#filetype').val(data.file.ntypeid);
-                    $('#filetype').select2().trigger('change');
+                                        
+                    setTimeout(function(){ 
+                        $('#filetype').val(data.file.ntypeid);
+                        $('#filetype').select2().trigger('change');
+                    }, 400);
+
                     $('#filename').val(data.file.sname);
                     $('#fileshortdescription').val(data.file.sshortdescription);
                     $('#filedescription').val(data.file.sdescription);

@@ -70,7 +70,7 @@
                 <div class="container-fluid">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Inicio</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Accessories</li>
+                        <li class="breadcrumb-item active" aria-current="page">Catálogos</li>
                     </ol>
                 </div><!-- End .container-fluid -->
             </nav>
