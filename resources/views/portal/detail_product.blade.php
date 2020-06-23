@@ -7,8 +7,7 @@
         <div class="container-fluid">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('front.home') }}"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Categoría</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $product->category }}</li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Productos</a></li>
             </ol>
         </div><!-- End .container-fluid -->
     </nav>

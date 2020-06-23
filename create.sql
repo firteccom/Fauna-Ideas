@@ -340,6 +340,7 @@ CREATE TABLE `posts` (
   `npostid` int(11) NOT NULL COMMENT 'PK of Post table.',
   `stitle` varchar(100) NOT NULL COMMENT 'Post title.',
   `nblogcategoryid` int(11) NOT NULL COMMENT 'FK of Blog Category table.',
+  `sdescription` varchar(300) NOT NULL DEFAULT 'Sin descripción' COMMENT 'Post description',
   `stags` varchar(400) DEFAULT NULL COMMENT 'Post tags.',
   `sauthor` varchar(200) DEFAULT NULL COMMENT 'Post author.',
   `scontent` text NOT NULL COMMENT 'Post content.',
@@ -350,8 +351,7 @@ CREATE TABLE `posts` (
   `dcreatedon` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Post create date.',
   `dmodifiedon` datetime DEFAULT NULL COMMENT 'Post modify date.',
   `ncreatedby` int(11) DEFAULT NULL COMMENT 'User who creates the post.',
-  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the post.',
-  `sdescription` varchar(300) NOT NULL DEFAULT 'Sin descripción' COMMENT 'Post description'
+  `nmodifiedby` int(11) DEFAULT NULL COMMENT 'User who modifies the post.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -371,7 +371,7 @@ INSERT INTO `posts` (`npostid`, `stitle`, `nblogcategoryid`, `stags`, `sauthor`,
 --
 
 CREATE TABLE faunaideas.post_comments (
-  nposcommenttid INT NOT NULL AUTO_INCREMENT COMMENT 'PK of Post Comments table.',
+  npostcommenttid INT NOT NULL AUTO_INCREMENT COMMENT 'PK of Post Comments table.',
   npostid INT NOT NULL COMMENT 'FK of Post table.',
   sname VARCHAR(100) NOT NULL COMMENT 'Name of person who commented.',
   semail VARCHAR(100) NULL COMMENT 'Email of person who commenteds.',
@@ -385,7 +385,7 @@ CREATE TABLE faunaideas.post_comments (
   dmodifiedon DATETIME NULL DEFAULT NULL COMMENT 'Post comment modify date.',
   ncreatedby INT(11) NULL DEFAULT NULL COMMENT 'User who creates the comment.',
   nmodifiedby INT(11) NULL DEFAULT NULL COMMENT 'User who modifies the comment.',
-  PRIMARY KEY (nposcommenttid));
+  PRIMARY KEY (npostcommenttid));
 
 
 
