@@ -32,14 +32,14 @@
 
             <div class="featured-products owl-carousel owl-theme owl-dots-top">
 
-                @foreach ($featuredproducts as $k=>$product)
+                @foreach ($featuredproducts as $prod)
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
-                        <a href="product.html">
-                            <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
+                        <a href="{{ URL::to('/') }}/product/{{$prod->nproductid}}">
+                            <img src="{{ URL::to('/') }}/{{'storage/app/'.$prod->sfullimage}}">
                         </a>
                         <div class="label-group">
-                            <span class="product-label label-cut">27% descuento</span>
+                            <!--<span class="product-label label-cut">27% descuento</span>-->
                         </div>
                         <!--
                         <div class="btn-icon-group">
@@ -50,15 +50,15 @@
                     <div class="product-details">
                         <div class="category-wrap">
                             <div class="category-list">
-                                <a href="category.html" class="product-category">{{ $product->category }}</a>
+                                <a href="{{ URL::to('/') }}/category/{{$prod->categoryid}}" class="product-category">{{$prod->category}}</a>
                             </div>
                         </div>
                         <h2 class="product-title">
-                            <a href="product.html">{{ $product->sname }}</a>
+                            <a href="{{ URL::to('/') }}/product/{{$prod->nproductid}}">{{$prod->sname}}</a>
                         </h2>
                         <div class="price-box">
-                            <span class="old-price">S/ {{ $product->nmasterprice }}</span>
-                            <span class="product-price">S/ {{ $product->nprice }}</span>
+                            <span class="old-price">S/ {{$prod->nmasterprice}}</span>
+                                    <span class="product-price">S/ {{$prod->nprice}}</span>
                         </div><!-- End .price-box -->
                     </div><!-- End .product-details -->
                 </div>

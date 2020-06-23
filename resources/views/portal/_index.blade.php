@@ -7,13 +7,20 @@
     <div class="home-slider owl-carousel owl-theme">
         @foreach ($slider as $sl)
         <div class="home-slide">
-            <div class="slide-bg owl-lazy"  data-src="{{'./storage/app/'.$sl->sfullimage}}"></div><!-- End .slide-bg -->
+            <div class="slide-bg owl-lazy"  data-src="{{ URL::to('/') }}{{'/storage/app/'.$sl->sfullimage}}"></div><!-- End .slide-bg -->
             <div class="home-slide-content">
                 <h2>{{$sl->smaintext}}</h2>
 
                 <span>{{$sl->ssecondarytext}}</span>
-
-                <a href="category.html" class="btn" role="button">{{$sl->sbuttontext}}</a>
+                
+                @if($sl->nobjecttype == 21)
+                    <a href="{{ URL::to('/') }}/product/{{$sl->nobjectid }}" class="btn" role="button">{{$sl->sbuttontext}}</a>    
+                @elseif($sl->nobjecttype == 22)
+                    <a href="{{ URL::to('/') }}/category/{{$sl->nobjectid }}" class="btn" role="button">{{$sl->sbuttontext}}</a>
+                @elseif($sl->nobjecttype == 23)
+                    <a href="{{ URL::to('/') }}/catalog/{{$sl->nobjectid }}" class="btn" role="button">{{$sl->sbuttontext}}</a>
+                @endif
+                
             </div><!-- End .home-slide-content -->
         </div><!-- End .home-slide -->
         @endforeach
@@ -32,11 +39,12 @@
 
         <div class="row row-sm mb-2">
             @foreach ($categorias as $cat)
+            
                 <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
                 <div class="product-category">
-                    <a href="categorias/{{$cat->sname}}">
+                    <a href="{{ URL::to('/') }}/category/{{$cat->ncategoryid}}">
                         <figure>
-                            <img src="{{'./storage/app/'.$cat->sfullimage}}">
+                            <img src="{{ URL::to('/') }}{{'/storage/app/'.$cat->sfullimage}}">
                         </figure>
                         <div class="category-content">
                             <h3>{{$cat->sname}}</h3>
@@ -59,11 +67,11 @@
                 @foreach ($catalogos as $cata)
                 <div class="col-6 col-lg-3">
                     <div class="home-banner">
-                        <img src="{{'./storage/app/'.$cata->sfullimage}}">
+                        <img src="{{ URL::to('/') }}{{'/storage/app/'.$cata->sfullimage}}">
                         <div class="home-banner-content content-left-bottom">
                             <h3>{{$cata->sname}}</h3>
                             <h4>{{$cata->sdecription}}</h4>
-                            <a href="catalog/{{$cata->ncatalogid}}" class="btn" role="button">Ver catálogo</a>
+                            <a href="{{ URL::to('/') }}/catalog/{{$cata->ncatalogid}}" class="btn" role="button">Ver catálogo</a>
                         </div>
                     </div>
                 </div>
@@ -87,8 +95,8 @@
             <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
-                        <a href="product/{{$pop->nproductid}}">
-                            <img src="{{'./storage/app/'.$pop->sfullimage}}">
+                        <a href="{{ URL::to('/') }}/product/{{$pop->nproductid}}">
+                            <img src="{{ URL::to('/') }}{{'/storage/app/'.$pop->sfullimage}}">
                         </a>
                         <div class="label-group">
                             <!--<span class="product-label label-cut">27% OFF</span>-->
@@ -98,11 +106,11 @@
                     <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="category/{{$pop->categoryid}}" class="product-category">{{$pop->category}}</a>
+                                        <a href="{{ URL::to('/') }}/category/{{$pop->categoryid}}" class="product-category">{{$pop->category}}</a>
                                     </div>
                                 </div>
                                 <h2 class="product-title">
-                                    <a href="product/{{$pop->nproductid}}">{{$pop->sname}}</a>
+                                    <a href="{{ URL::to('/') }}/product/{{$pop->nproductid}}">{{$pop->sname}}</a>
                                 </h2>
                                 <div class="price-box">
                                     <span class="old-price">S/ {{$pop->nmasterprice}}</span>

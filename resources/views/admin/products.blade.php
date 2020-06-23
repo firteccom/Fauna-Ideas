@@ -137,6 +137,16 @@
                                 <label for="productdescription">Descripción</label>
                                 <input type="text" class="form-control filter" id="productdescription" name="productdescription" placeholder="Ingrese una descripción">
                             </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="productlongdescription">Descripción larga</label>
+                                <div class="box-body pad">
+                                    <form>
+                                        <textarea class="form-control" id="productlongdescription" name="productlongdescription" rows="10" cols="80"></textarea>
+                                    </form>
+                                </div>
+                            </div>        
+
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <label for="productfullimage">Imagen principal</label>
                                 <input type="url" class="form-control filter" id="productfullimage" name="productfullimage" placeholder="URL de imagen principal">
@@ -484,8 +494,13 @@
                     $('#productsku').val(data.product.ssku);
                     $('#productname').val(data.product.sname);
                     $('#productdescription').val(data.product.sdescription);
-                    $('#productcategory').val(data.product.ncategoryid);
-                    $('#productcategory').select2().trigger('change');
+                    $('#productlongdescription').val(data.product.slongdescription);
+
+                    setTimeout(function(){ 
+                        $('#productcategory').val(data.product.ncategoryid);
+                        $('#productcategory').select2().trigger('change');
+                    }, 400);
+                    
                     $('#productfullimage').val(data.product.sfullimage);
                     $('#productthumbnail').val(data.product.sthumbnail);
                     $('#productmasterprice').val(data.product.nmasterprice);
@@ -615,6 +630,7 @@
             productsku = $('#productsku').val();
             productname = $('#productname').val();
             productdescription = $('#productdescription').val();
+            productlongdescription = $('#productlongdescription').val();
             productfullimage = $('#productfullimage').val();
             productthumbnail = $('#productthumbnail').val();
             productmasterprice = $('#productmasterprice').val();
@@ -629,7 +645,7 @@
                     url: '{{ route('admin.product.save') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productlongdescription:productlongdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 
@@ -668,6 +684,7 @@
             productsku = $('#productsku').val();
             productname = $('#productname').val();
             productdescription = $('#productdescription').val();
+            productlongdescription = $('#productlongdescription').val();
             productfullimage = $('#productfullimage').val();
             productthumbnail = $('#productthumbnail').val();
             productmasterprice = $('#productmasterprice').val();
@@ -681,7 +698,7 @@
                     url: '{{ route('admin.product.update') }}',
                     type: 'POST',
                     dataType: 'json',
-                    data: {productid:productid,productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
+                    data: {productid:productid,productcategory:productcategory,productcategoryname:productcategoryname,productsku:productsku,productname:productname,productdescription:productdescription,productlongdescription:productlongdescription,productfullimage:productfullimage,productthumbnail:productthumbnail,productmasterprice:productmasterprice,productprice:productprice, _token:'{{ csrf_token() }}'},
                 })
                 .done(function(data) {
 

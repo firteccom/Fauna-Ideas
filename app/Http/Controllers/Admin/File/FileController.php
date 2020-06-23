@@ -224,10 +224,9 @@
                         ->table('files')
                         ->where('nfileid',$request->fileid)
 						->update(['ntypeid'=>$request->filetype,
-								  'sname'=>$request->sname,
-								  'sshortdescription'=>$request->sshortdescription,
-								  'sdescription'=>$request->sdescription,
-								  'spath'=>$request->spath,
+								  'sname'=>$request->filename,
+								  'sshortdescription'=>$request->fileshortdescription,
+								  'sdescription'=>$request->filedescription,
                                   'dmodifiedon'=>@date('Y-m-d H:i:s'),
                                   'nmodifiedby'=>Auth::user()->nuserid]);
 								  

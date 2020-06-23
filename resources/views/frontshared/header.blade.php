@@ -19,13 +19,13 @@
        
                         @if(isset($categorias))
                             <li>
-                                <a href="category.html">Categorías</a>
+                                <a href="#">Categorías</a>
                                 <div class="megamenu">
                                     <div class="row row-sm">
                                         <div class="col-lg-8">
                                             <ul class="submenu">
                                                 @foreach ($categorias as $cat)
-                                                    <li><a href="categorias/{{ $cat->sname }}">{{ $cat->sname }}</a></li>
+                                                    <li><a href="{{ URL::to('/') }}/category/{{ $cat->ncategoryid }}">{{ $cat->sname }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>

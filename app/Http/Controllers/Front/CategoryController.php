@@ -38,15 +38,14 @@ class CategoryController extends Controller {
 
         //echo $product->nproductid;
 
-        if ($this->getProduct($id)['status'] == 'success' && $this->getProduct($id)['product'] != null)
+        if ($this->getCategory($id)['status'] == 'success' && $this->getCategory($id)['category'] != null)
         {
-            //echo $this->getProduct($id)['status'];
             
             return view('portal.category_detail', $this->_view_data($data));
 
         } else {
 
-            return view('portal.product_not_found', $this->_view_data($data));
+            return view('portal.category_not_found', $this->_view_data($data));
             
         }
 

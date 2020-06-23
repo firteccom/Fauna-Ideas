@@ -14,17 +14,17 @@ class CatalogController extends Controller {
         parent::__construct(); 
     }
 
-    public function index(){
-    	$this->showView(1);
-    }
-
     public function showView($id){
 
         $catalog = $this->getCatalog($id)['catalog'];
-
         $data = ['catalog'=>$catalog];
 
-        return view('portal.catalog', parent::_view_data($data));
+
+        if ($this->getCatalog($id)['status'] == 'success' && $this->getCatalog($id)['catalog'] != null){
+            return view('portal.catalog', parent::_view_data($data));
+        } else {
+            return view('portal.catalog_not_found', $this->_view_data($data));
+        }   
     }
 
 
