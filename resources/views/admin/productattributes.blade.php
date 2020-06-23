@@ -389,10 +389,17 @@
 
                 if (data.status == 'success') {
 
-                    $('#productattributeproduct').val(data.productattribute.nproductid);
-                    $('#productattributeproduct').select2().trigger('change');
-                    $('#productattributetype').val(data.productattribute.ntypeid);
-                    $('#productattributetype').select2().trigger('change');
+                    setTimeout(function(){ 
+                        $('#productattributeproduct').val(data.productattribute.nproductid);
+                        $('#productattributeproduct').select2().trigger('change');
+                    }, 400);
+
+                    setTimeout(function(){ 
+                        $('#productattributetype').val(data.productattribute.ntypeid);
+                        $('#productattributetype').select2().trigger('change');
+                    }, 400);
+
+                    
                     $('#productattributename').val(data.productattribute.sname);
                     $('#productattributevalue').val(data.productattribute.svalue);
 
