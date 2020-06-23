@@ -15,9 +15,9 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-md-4">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Men</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Accessories</li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Categoría</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $product->category }}</li>
             </ol>
         </div><!-- End .container-fluid -->
     </nav>
@@ -51,10 +51,10 @@
                         </div><!-- End .toolbox-item -->
 
                         <div class="layout-modes">
-                            <a href="#" class="layout-btn btn-grid active" id="viewgridproducts" name="viewgridproducts" title="Grid">
+                            <a href="#" class="layout-btn btn-grid active" id="viewgridproducts" name="viewgridproducts" title="Cuadricula">
                                 <i class="icon-mode-grid"></i>
                             </a>
-                            <a href="#" class="layout-btn btn-list" id="viewlistproducts" name="viewlistproducts" title="List">
+                            <a href="#" class="layout-btn btn-list" id="viewlistproducts" name="viewlistproducts" title="Lista">
                                 <i class="icon-mode-list"></i>
                             </a>
                         </div><!-- End .layout-modes -->
@@ -197,6 +197,7 @@
 
             </div><!-- End .col-lg-8 -->
 
+            <!-- Barra lateral de filtros -->
             <aside class="sidebar-shop col-lg-3 col-xl-2 order-lg-first">
                 <div class="sidebar-wrapper">
 
@@ -325,7 +326,6 @@
             $('#gridproducts').hide();
             $('#listproducts').show();
         }
-
 
         $(document).on('click', '#viewgridproducts', function(event) {
             $('#listproducts').hide();
