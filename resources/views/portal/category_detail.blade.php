@@ -90,7 +90,6 @@
                                     <div class="btn-icon-group">
                                         <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
                                     </div>
-                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a> 
                                 </figure>
                                 <div class="product-details">
                                     <div class="category-wrap">

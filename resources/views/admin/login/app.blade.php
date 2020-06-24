@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+
+<style>
+	body {
+		
+	}
+</style>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Catálogo en línea</title>
@@ -21,7 +27,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background:url('{{ URL::to('/') }}{{'/storage/app/images/wallpaper-background.jpg'}}')">
 	<div class="login-box">
 	  <div class="login-logo">
 	    <a href="../../index2.html"><b>Fauna</b> & Ideas</a>

@@ -13,7 +13,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="product-single-container product-single-default">
                     <div class="row">
                         <div class="col-lg-7 col-md-6 product-single-gallery">
@@ -21,7 +21,7 @@
                                 <div class="product-single-carousel owl-carousel owl-theme">
                                     <!-- Principal image -->
                                     <div class="product-item">
-                                        <img class="product-single-image" src="{{ asset('public/portal/images/products/zoom/product-1.jpg') }}" data-zoom-image="{{ asset('public/portal/images/products/zoom/product-1-big.jpg') }}"/>
+                                        <img class="product-single-image" src="{{ URL::to('/') }}{{'/storage/app/'.$product->sthumbnail}}" data-zoom-image="{{ URL::to('/') }}{{'/storage/app/'.$product->sfullimage}}"/>
                                     </div>
                                     <!-- End principal image -->
 
@@ -42,16 +42,16 @@
                             </div>
                             <div class="prod-thumbnail row owl-dots" id='carousel-custom-dots'>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('public/portal/images/products/zoom/product-1.jpg') }}"/>
+                                    <img src="{{ URL::to('/') }}{{'/storage/app/'.$product->sthumbnail}}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('public/portal/images/products/zoom/product-2.jpg') }}"/>
+                                    <img src="{{ URL::to('/') }}{{'/storage/app/'.$product->sthumbnail}}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('public/portal/images/products/zoom/product-3.jpg') }}"/>
+                                    <img src="{{ URL::to('/') }}{{'/storage/app/'.$product->sthumbnail}}"/>
                                 </div>
                                 <div class="col-3 owl-dot">
-                                    <img src="{{ asset('public/portal/images/products/zoom/product-4.jpg') }}"/>
+                                    <img src="{{ URL::to('/') }}{{'/storage/app/'.$product->sthumbnail}}"/>
                                 </div>
                             </div>
                         </div><!-- End .col-lg-7 -->
@@ -59,12 +59,20 @@
                         <div class="col-lg-5 col-md-6">
                             <div class="product-single-details">
                                 <h1 class="product-title">{{ $product->sname }}</h1>
+                                <div class="product-sku">SKU: {{ $product->ssku }}</div>                                
+                                <br>
+                                <div class="row">
+                                    <div class="product-price-desc master-price col-lg-4 col-md-4 col-sm-3">Precio Internet</div>
+                                    <div class="product-price-new master-price col-lg-8 col-md-8 col-sm-9">S/ {{ $product->nmasterprice }}</div>
+                                </div><!-- End .price-box -->
+                                <br>
+                                <div class="row">
+                                    <div class="product-price-desc offer-price col-lg-4 col-md-4 col-sm-3">Precio Oferta</div>
+                                    <div class="product-price-new offer-price col-lg-8 col-md-8 col-sm-9">S/ {{ $product->nprice }}</div>
+                                </div><!-- End .price-box -->
 
                                 <br>
-                                <div class="price-box">
-                                    <span class="old-price">S/ {{ $product->nmasterprice }}</span>
-                                    <span class="product-price">S/ {{ $product->nprice }}</span>
-                                </div><!-- End .price-box -->
+                                    
 
                                 <div class="product-desc">
                                     <p>{{ $product->sdescription }}</p>
@@ -116,185 +124,7 @@
                     </div><!-- End .tab-content -->
                 </div><!-- End .product-single-tabs -->
             </div><!-- End .col-lg-9 -->
-
-            <div class="sidebar-overlay"></div>
-            <div class="sidebar-toggle"><i class="icon-plus"></i></div>
-            <aside class="sidebar-product col-lg-3 padding-left-lg mobile-sidebar">
-                <div class="sidebar-wrapper">
-                    <div class="widget widget-brand">
-                        <a href="#">
-                            <!-- Logo Fauna & Ideas M -->
-                            <img src="{{ asset('public/portal/images/product-brand.png') }}" alt="brand name">
-                        </a>
-                    </div><!-- End .widget -->
-
-                    <div class="widget widget-info">
-                        <ul>
-                            <li>
-                                <i class="icon-shipping"></i>
-                                <h4>Envío<br>Rápido</h4>
-                            </li>
-                            <li>
-                                <i class="icon-us-dollar"></i>
-                                <h4>Garantía<br>del 100%</h4>
-                            </li>
-                            <li>
-                                <i class="icon-online-support"></i>
-                                <h4>Soporte<br>En línea 24/7</h4>
-                            </li>
-                        </ul>
-                    </div><!-- End .widget -->
-
-                    <div class="widget widget-banner">
-                        <div class="banner banner-image">
-                            <a href="#">
-                                <!-- Banner Publicidad Fauna & Ideas M -->
-                                <img src="{{ asset('public/portal/images/banners/banner-sidebar.jpg') }}" alt="Banner Desc">
-                            </a>
-                        </div><!-- End .banner -->
-                    </div><!-- End .widget -->
-
-                    <div class="widget widget-featured">
-                        <h3 class="widget-title">Featured Products</h3>
-                        
-                        <div class="widget-body">
-                            <div class="owl-carousel widget-featured-products">
-                                <div class="featured-col">
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-2.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-3.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                </div><!-- End .featured-col -->
-
-                                <div class="featured-col">
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-4.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-5.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="{{ asset('public/portal/images/products/product-6.jpg') }}">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2 class="product-title">
-                                                <a href="product.html">Product Short Name</a>
-                                            </h2>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div><!-- End .product-ratings -->
-                                            </div><!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div><!-- End .price-box -->
-                                        </div><!-- End .product-details -->
-                                    </div>
-                                </div><!-- End .featured-col -->
-                            </div><!-- End .widget-featured-slider -->
-                        </div><!-- End .widget-body -->
-                    </div><!-- End .widget -->
-                </div>
-            </aside><!-- End .col-md-3 -->
+            
         </div><!-- End .row -->
     </div><!-- End .container-fluid -->
 
@@ -308,8 +138,8 @@
                 @foreach ($featuredproducts as $k=>$product)
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
-                        <a href="product.html">
-                            <img src="{{ asset('public/portal/images/products/product-1.jpg') }}">
+                        <a href="{{ URL::to('/') }}/product/{{$product->nproductid}}">
+                            <img src="{{ URL::to('/') }}{{'/storage/app/'.$product->sfullimage}}">
                         </a>
                         <div class="label-group">
                             <span class="product-label label-cut">27% descuento</span>
