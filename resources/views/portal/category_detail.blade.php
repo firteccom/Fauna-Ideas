@@ -2,15 +2,60 @@
 
 @section('css')
 <style type="text/css">
+    .paginas > ul {
+      -ms-flex-align: center;
+      align-items: center;
+      margin-bottom: 0;
+      border-radius: 0;
+      font-family: $second-font-family;
+      font-weight: 700;
+      display: flex;
+      font-size: 1.2rem;
+    }
 
+    .paginas > ul {
+      margin-left: auto;
+    }
+
+    .paginas > ul > li  {
+        margin-left: -1px;
+        padding: 0 1rem;
+        border: 0;
+        background-color: transparent;
+        color: #939393;
+        line-height: 1.25;
+        display: list-item;
+    }
+
+    .paginas > ul > li.active {
+        border-color: transparent;
+        background-color: transparent;
+        color: #000;
+    }
+
+
+
+    .paginas > ul > li a.page-link.next,
+    .paginas > ul > li a.page-link.prev {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
 </style>
-<script type="module">
-  import Swal from 'sweetalert2/src/sweetalert2.js'
-</script>
 @endsection
 
-@section('frontcontent')
 
+@section('frontcontent')
 <main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-md-4">
         <div class="container-fluid">
@@ -38,9 +83,8 @@
                             <label>Ordenar por:</label>
 
                             <div class="select-custom">
-                                <select name="orderby" class="form-control">
-                                    <option value="menu_order" selected="selected">Por defecto</option>
-                                    <option value="popularity">Más populares</option>
+                                <select name="orderby" class="form-control order">
+                                    <option value="default" selected="selected">Por defecto</option>
                                     <option value="date">Lo nuevo</option>
                                     <option value="price">Precio ascendente</option>
                                     <option value="price-desc">Precio descendente</option>
@@ -64,18 +108,19 @@
                         <label>Mostrar:</label>
 
                         <div class="select-custom">
-                            <select name="count" class="form-control">
+                            <select name="count" class="form-control count">
+                                <option value="10">10</option>
                                 <option value="20">20</option>
-                                <option value="40">40</option>
-                                <option value="60">60</option>
+                                <option value="50">50</option>
                             </select>
                         </div><!-- End .select-custom -->
                     </div><!-- End .toolbox-item -->
                 </nav>
 
+
                 <!-- Vista de productos en grillas -->
                 <div id="gridproducts" name="gridproducts">
-                    <div class="row row-sm" >
+                    <div class="product-grid row row-sm" >
                         
                         @foreach ($categoryproducts as $k=>$product)
                         <div class="col-6 col-md-4 col-lg-3">
@@ -85,7 +130,7 @@
                                         <img src="{{'../storage/app/'.$product->sfullimage}}">
                                     </a>
                                     <div class="label-group">
-                                        <span class="product-label label-cut">27% OFF</span>
+                                        <span class="product-label label-cut">30% OFF</span>
                                     </div>
                                     <div class="btn-icon-group">
                                         <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-bag"></i></button>
@@ -116,82 +161,29 @@
                         </div>
                         @endforeach
 
-                        
-
                     </div>
 
-                    <nav class="toolbox toolbox-pagination">
-                        <ul class="pagination">
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><span class="page-link">...</span></li>
-                            <li class="page-item">
-                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                            </li>
-                        </ul>
+                    <nav class="paginas" class="toolbox toolbox-pagination">
                     </nav>
+                    
+                    <div class="resultados"></div>
+
                 </div>
                 <!-- Fin de vista de productos en grillas -->
+
+
                 
                 <!-- Vista de productos en lista -->
                 <div id="listproducts" name="listproducts">
 
-                    <div class="product-intro row row-sm">
+                    <div class="product-lista product-intro row row-sm">
                         
-                        @foreach ($categoryproducts as $k=>$product)
-                        <div class="col-6 col-sm-12 product-default left-details product-list mb-4">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="{{'../storage/app/'.$product->sfullimage}}">
-                                </a>
-                            </figure>
-                            <div class="product-details">
-                                <div class="category-list">
-                                    <a href="category.html" class="product-category">category</a>
-                                </div>
-                                <h2 class="product-title">
-                                    <a href="{{ asset('product') }}/{{ $product->nproductid }}">{{ $product->sname }}</a>
-                                </h2>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div><!-- End .product-ratings -->
-                                </div><!-- End .product-container -->
-                                <p class="product-description">{{ $product->sdescription }}</p>
-                                <div class="price-box">
-                                    <span class="old-price">S/ {{ $product->nmasterprice }}</span>
-                                    <span class="product-price">S/ {{ $product->nprice }}</span>
-                                </div><!-- End .price-box -->
-                                <div class="product-action">
-                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Vista rápida"><i class="fas fa-external-link-alt"></i></a> 
-                                </div>
-                            </div><!-- End .product-details -->
-                        </div>   
-                        @endforeach
-
                     </div>
 
-                    <nav class="toolbox toolbox-pagination">
-                        <ul class="pagination">
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><span class="page-link">...</span></li>
-                            <li class="page-item">
-                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                            </li>
-                        </ul>
+                    <nav class="paginas" class="toolbox toolbox-pagination">
                     </nav>
+                    
+                    <div class="resultados"></div>
                 </div>
                 <!-- Fin de vista de productos en lista -->
 
@@ -313,6 +305,132 @@
 @endsection
 
 @section('js')
+
+
+<script src="{{ asset('public/portal/js/jquery.simplePagination.js') }}"></script>
+
+<!-- Lista de productos y paginador -->
+<script>
+    var app = {
+        _token:null,
+        pagina:0,
+
+        params:{},
+
+        init:function(){
+            app.buscar();
+        },
+
+        buscar: function(){
+            //obtener parametros de búsqueda:
+            app.params._token = '{{csrf_token()}}';
+            app.params.items = $('.count').val();
+            app.params.order = $('.order').val(); 
+            /*
+            app.params.nombre = $('#txtNombre').val();
+            app.params.ubigeo = '0';
+            app.params.tipo_espacio = $('#cboTipoEspacio').val();*/
+
+            app.listarProductos(1);
+        },
+
+        listarProductos: function(pagina){   
+            app.params.pagina = pagina;
+
+            $('.product-grid').html('');
+            $('.product-lista').html('');
+
+            $.post("{{ route('front.product.listproducts') }}",app.params,function(resp){
+
+                $('.paginas').html('');
+
+                if(resp.data){
+                    $.each(resp.data, function(idx, obj){
+
+                        var html_body = `<figure>
+                                            <a href="{{ URL::to('/') }}/product/`+obj.nproductid+`">
+                                                <img src="{{ URL::to('/') }}/storage/app/`+obj.sfullimage+`">
+                                            </a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <div class="category-wrap">
+                                                <div class="category-list">
+                                                    <a href="{{ URL::to('/') }}/category/`+obj.categoryid+`" class="product-category">`+obj.category+`</a>
+                                                </div>
+                                            </div>
+                                            <h2 class="product-title">
+                                                <a href="{{ URL::to('/') }}/product/`+obj.nproductid+`">`+obj.sname+`</a>
+                                            </h2>
+                                            <div class="ratings-container">
+                                                
+                                            </div><!-- End .product-container -->
+                                            <div class="price-box">
+                                                <span class="old-price">S/ `+obj.nmasterprice+`</span>
+                                                <span class="product-price">S/ `+obj.nprice+`</span>
+                                            </div><!-- End .price-box -->
+                                        </div>`;
+
+                        //Estructura para grid
+                        var html_grid = `<div class="col-6 col-md-4 col-lg-3 col-xl-2 product-default inner-quickview inner-icon">`+html_body+`</div>`;
+
+                        //Estructura para lista
+                        var html_list = `<div class="col-6 col-sm-12 product-default left-details product-list mb-4">`+html_body+`</div>`;
+
+
+                        $('.product-grid').append(html_grid);
+                        $('.product-lista').append(html_list);
+                    });
+                }
+
+                if(resp.paginas && parseInt(resp.paginas) > 0){
+                    $('.paginas').pagination({
+                        dataSource: null,
+                        items: resp.total,
+                        itemsOnPage: resp.limite,
+                        onPageClick: function(pageNumber, event){
+                            app.listarProductos(pageNumber);
+                        },
+                        currentPage: resp.pagina,
+                        prevText: '<',
+                        nextText: '>',
+                        displayedPages:3
+                    });
+
+                    $('.paginas a').click(function(ev){
+                        ev.preventDefault();
+                    });
+
+                    //$('#resultados').text('Resultados: '+resp.total+' productos');
+                    $('html, body').animate({scrollTop:0}, '300');
+                }else{
+                    //$('#resultados').text('No se encontraron productos');
+                }
+
+            }, 'json').fail(function(err){
+                $('.resultados').text('');
+            });
+        }
+    }
+
+    app.init();
+
+
+    $(document).on('change', '.count', function(event) {
+        app.params.items = $(this).val();
+        app.listarProductos(1);
+    });
+
+
+    $(document).on('change', '.order', function(event) {
+        app.params.order = $(this).val();
+        app.listarProductos(1);
+    });
+
+    
+
+</script>
+
+<!-- Cambio de vista -->
 <script>
 
     var typeview = 1;
@@ -339,9 +457,12 @@
             $('#viewgridproducts').removeClass("active");
             $('#viewlistproducts').addClass("active");
             $('#listproducts').show();
-        });        
+        });    
     
     });
+
+    
+
 </script>
 
 @endsection

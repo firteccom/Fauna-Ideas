@@ -69,7 +69,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav below-banner">
                 <div class="container-fluid">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('front.home') }}"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active" aria-current="page">Catálogos</li>
                     </ol>
                 </div><!-- End .container-fluid -->
@@ -130,97 +130,95 @@
 <script src="{{ asset('public/portal/js/jquery.simplePagination.js') }}"></script>
 <script>
 
-    	var app = {
-		    _token:null,
-		    pagina:0,
+	var app = {
+	    _token:null,
+	    pagina:0,
 
-		    params:{},
+	    params:{},
 
-		    init:function(){
-		        app.buscar();
-		    },
+	    init:function(){
+	        app.buscar();
+	    },
 
-		    buscar: function(){
-		    	//obtener parametros de búsqueda:
-		    	app.params._token='{{csrf_token()}}';
-		        /*
-		        app.params.nombre = $('#txtNombre').val();
-		        app.params.ubigeo = '0';
-		        app.params.tipo_espacio = $('#cboTipoEspacio').val();*/
+	    buscar: function(){
+	    	//obtener parametros de búsqueda:
+	    	app.params._token='{{csrf_token()}}';
+	        /*
+	        app.params.nombre = $('#txtNombre').val();
+	        app.params.ubigeo = '0';
+	        app.params.tipo_espacio = $('#cboTipoEspacio').val();*/
 
-		        app.listarProductos(1);
-		    },
+	        app.listarProductos(1);
+	    },
 
-		    listarProductos: function(pagina){   
-		        app.params.pagina = pagina;
+	    listarProductos: function(pagina){   
+	        app.params.pagina = pagina;
 
-		        $('.product-intro').html('');
+	        $('.product-intro').html('');
 
-		        $.post("{{ route('front.catalog.listproducts') }}",app.params,function(resp){
-		            $('#product-wrapper').html('');
-		            $('#toolbox-pagination').html('');
+	        $.post("{{ route('front.product.listproducts') }}",app.params,function(resp){
+	            $('#toolbox-pagination').html('');
 
-		            if(resp.data){
-		                $.each(resp.data, function(idx, obj){
-		                	var html = `<div class="col-6 col-md-4 col-lg-3 col-xl-2 product-default inner-quickview inner-icon pr-4 pl-4">
-				                            <figure>
-				                                <a href="product.html">
-				                                    <img src="{{ URL::to('/') }}/storage/app/`+obj.sfullimage+`">
-				                                </a>
-				                            </figure>
-				                            <div class="product-details">
-				                                <div class="category-wrap">
-				                                    <div class="category-list">
-				                                        <a href="{{ URL::to('/') }}/category/`+obj.categoryid+`" class="product-category">`+obj.category+`</a>
-				                                    </div>
-				                                </div>
-				                                <h2 class="product-title">
-				                                    <a href="product.html">`+obj.sname+`</a>
-				                                </h2>
-				                                <div class="ratings-container">
-				                                    
-				                                </div><!-- End .product-container -->
-				                                <div class="price-box">
-				                                    <span class="old-price">S/ `+obj.nmasterprice+`</span>
-				                                    <span class="product-price">S/ `+obj.nprice+`</span>
-				                                </div><!-- End .price-box -->
-				                            </div>
-				                        </div>`;
-		                    $('.product-intro').append(html);
-		                });
-		            }
+	            if(resp.data){
+	                $.each(resp.data, function(idx, obj){
+	                	var html = `<div class="col-6 col-md-4 col-lg-3 col-xl-2 product-default inner-quickview inner-icon pr-4 pl-4">
+			                            <figure>
+			                                <a href="product.html">
+			                                    <img src="{{ URL::to('/') }}/storage/app/`+obj.sfullimage+`">
+			                                </a>
+			                            </figure>
+			                            <div class="product-details">
+			                                <div class="category-wrap">
+			                                    <div class="category-list">
+			                                        <a href="{{ URL::to('/') }}/category/`+obj.categoryid+`" class="product-category">`+obj.category+`</a>
+			                                    </div>
+			                                </div>
+			                                <h2 class="product-title">
+			                                    <a href="product.html">`+obj.sname+`</a>
+			                                </h2>
+			                                <div class="ratings-container">
+			                                    
+			                                </div><!-- End .product-container -->
+			                                <div class="price-box">
+			                                    <span class="old-price">S/ `+obj.nmasterprice+`</span>
+			                                    <span class="product-price">S/ `+obj.nprice+`</span>
+			                                </div><!-- End .price-box -->
+			                            </div>
+			                        </div>`;
+	                    $('.product-intro').append(html);
+	                });
+	            }
 
-		            if(resp.paginas && parseInt(resp.paginas) > 0){
-		                $('#paginas').pagination({
-		                	dataSource: null,
-		                    items: resp.total,
-		                    itemsOnPage: resp.limite,
-		                    onPageClick: function(pageNumber, event){
-		                        app.listarProductos(pageNumber);
-		                    },
-		                    currentPage: resp.pagina,
-		                    prevText: '<',
-		                    nextText: '>',
-		                    displayedPages:3
-		                });
+	            if(resp.paginas && parseInt(resp.paginas) > 0){
+	                $('#paginas').pagination({
+	                	dataSource: null,
+	                    items: resp.total,
+	                    itemsOnPage: resp.limite,
+	                    onPageClick: function(pageNumber, event){
+	                        app.listarProductos(pageNumber);
+	                    },
+	                    currentPage: resp.pagina,
+	                    prevText: '<',
+	                    nextText: '>',
+	                    displayedPages:3
+	                });
 
-		                $('#paginas a').click(function(ev){
-		                    ev.preventDefault();
-		                });
+	                $('#paginas a').click(function(ev){
+	                    ev.preventDefault();
+	                });
 
-		                //$('#resultados').text('Resultados: '+resp.total+' productos');
-		                $('html, body').animate({scrollTop:0}, '300');
-		            }else{
-		                //$('#resultados').text('No se encontraron productos');
-		            }
+	                //$('#resultados').text('Resultados: '+resp.total+' productos');
+	                $('html, body').animate({scrollTop:0}, '300');
+	            }else{
+	                //$('#resultados').text('No se encontraron productos');
+	            }
 
-		        }, 'json').fail(function(err){
-		            $('#resultados').text('');
-		        });
-		    }
-		}
-    
+	        }, 'json').fail(function(err){
+	            $('#resultados').text('');
+	        });
+	    }
+	}
+
     app.init();
 </script>
-
 @endsection

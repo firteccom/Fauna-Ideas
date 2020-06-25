@@ -17,10 +17,10 @@ Route::get('/', 'Front\HomeController@_index')->name('front.home'); //http://loc
 //Products
 Route::get('products','Front\ProductController@showView');
 Route::get('product/{id}','Front\ProductController@productDetail');
+Route::post('product/listProducts','Front\ProductController@listProducts')->name('front.product.listproducts');
 //Catalog
 Route::get('catalog','Front\CatalogController@index');
 Route::get('catalog/{id}','Front\CatalogController@showView');
-Route::post('catalog/listProducts','Front\CatalogController@listProducts')->name('front.catalog.listproducts');
 //Contact Us
 Route::get('contact-us','Front\ContactController@showView')->name('front.contact.page');
 Route::post('send-email','Front\ContactController@sendEmail')->name('front.contact.sendemail');
