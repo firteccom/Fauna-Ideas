@@ -21,7 +21,7 @@ class CatalogController extends Controller {
 
 
         if ($this->getCatalog($id)['status'] == 'success' && $this->getCatalog($id)['catalog'] != null){
-            return view('portal.catalog', parent::_view_data($data));
+            return view('portal.catalog_detail', parent::_view_data($data));
         } else {
             return view('portal.catalog_not_found', $this->_view_data($data));
         }   
@@ -52,71 +52,6 @@ class CatalogController extends Controller {
         }
 
         return $resp;
-
-    }
-
-
-    public function listProducts(Request $request){
-    	$limite = 1;
-    	$result = [];
-    	$result['limite'] = $limite;
-
-    	//$result['total'] = $this->_lista($request->ubigeo, $request->nombre, $request->tipo_espacio,0, 0, true);
-    	$result['total'] = $this->_lista(0, 0, true);
-
-    	$actual = (int)$request->pagina;
-    	if($actual<=0){
-    		$actual = 1;
-    	}
-    	$inicio = ($actual-1) * $limite; 
-
-
-
-    	//$result['data'] = $this->_lista($request->ubigeo,$request->nombre, $request->tipo_espacio, $limite, $inicio, false);
-    	
-
-    	$result['data'] = $this->_lista($limite, $inicio, false);
-
-    	$result['paginas'] = ceil($result['total']/$result['limite']);
-    	$result['pagina'] = $actual;
-    	$result['inicio'] = $inicio;
-
-    	return response()->json($result);
-
-
-    }
-
-
-    private function _lista($limite, $inicio, $contar = false){
-
-      	$data = Product::from('products as prd')->where('prd.sstatus', 'A')->join('categories as cat','cat.ncategoryid','=','prd.ncategoryid')->where('prd.shighlighted','Y');
-
-
-	   /* if((int)$tipo_espacio > 0){
-	        $data = $data->where('E.ncodtipoespacio', $tipo_espacio);
-	    }
-
-        if(isset($nombre) && trim($nombre)!=''){
-            $nombre = trim($nombre);
-            $data = $data->where(function($query) use($nombre){
-            	$query->where(DB::raw('UPPER(E.snombre)'), 'like', '%'.mb_strtoupper(trim($nombre)).'%');
-            });
-        }*/
-
-    	if(!$contar){
-
-    		$select = [];
-    		$select[] = 'prd.*';
-    		$select[] = DB::raw('cat.ncategoryid as categoryid');
-    		$select[] = DB::raw('cat.sname as category');
-    		$data = $data->select($select)
-                  ->offset($inicio)->limit($limite)
-                  ->orderByRaw('2 ASC, 1 ASC')->get();
-    	}else{
-    		$data = $data->count();
-    	}
-
-    	return $data;
 
     }
 

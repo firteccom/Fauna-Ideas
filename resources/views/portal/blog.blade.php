@@ -15,7 +15,7 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container-fluid">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('front.home') }}"><i class="icon-home"></i></a></li>
                 <li class="breadcrumb-item active" aria-current="page">Blog</li>
             </ol>
         </div><!-- End .container-fluid -->
@@ -32,7 +32,6 @@
             <div class="col-lg-9">
 
                 @foreach ($posts as $k=>$post)
-
                     <article class="entry">
                         <div class="entry-media">
                             <a href="{{ asset('blog') }}/{{ $post->npostid }}" target="_blank">
@@ -174,7 +173,6 @@
 
     <div class="mb-6"></div><!-- margin -->
 </main><!-- End .main -->
-
 @endsection
 
 @section('js')

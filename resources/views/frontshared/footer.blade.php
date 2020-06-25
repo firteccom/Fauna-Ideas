@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="footer-left widget-newsletter">
                 <div class="widget-newsletter-info">
-                    <a href="#" class="widget-newsletter-title">Visita nuestro Blog</a>
+                    <a href="{{ route('front.blog.page') }}" class="widget-newsletter-title">Visita nuestro Blog</a>
                     <p class="widget-newsletter-content">Recibe toda la información sobre nuevos productos y ofertas.</p>
                 </div>
                 <form action="#">
@@ -69,12 +69,9 @@
                         <h4 class="widget-title">My Account</h4>
                         <ul class="links link-parts">
                             <div class="link-part">
-                                <li><a href="about.html">Sobre nosotros</a></li>
-                                <li><a href="contact.html">Contáctanos</a></li>
-                            </div>
-                            <div class="link-part">
-                                <li><a href="#">Orders History</a></li>
-                                <li><a href="#">Advanced Search</a></li>
+                                <li><a href="{{ route('front.about.page') }}">Nosotros</a></li>
+                                <li><a href="{{ route('front.contact.page') }}">Contacto</a></li>
+                                <li><a href="{{ route('front.blog.page') }}">Blog</a></li>
                             </div>
                         </ul>
                     </div><!-- End .widget -->
