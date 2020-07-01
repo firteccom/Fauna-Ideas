@@ -8,6 +8,8 @@
 	use App\Model\User;
 	use App\Model\Category;
 
+    use App\Imports\CategoryImport;
+    use Maatwebsite\Excel\Facades\Excel;
 
 	class CategoryController extends Controller {
 
@@ -27,6 +29,11 @@
             
             return view('admin.categories', parent::_view_data($data));
 		}
+
+        public function import(){
+            Excel::import(new CategoryImport,request()->file('file'));
+            return back();
+        }
 		
 		public function getCategory(Request $request){
 
@@ -119,7 +126,6 @@
 			}
 	
 			return $data;
-	
         }
         
         public function getListCategories(Request $request){
