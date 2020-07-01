@@ -68,6 +68,7 @@
 
                             <div class="box-footer">
                                 <button type="button" class="btn btn-success btn-new-category pull-left" data-toggle="modal" data-target="#modalCategory">Nuevo</button>
+                                <button type="button" class="btn btn-success btn-new-import pull-left" data-toggle="modal" data-target="#modalImport">Importar</button>
                                 <button type="submit" id="btnSearchCategories" name="btnSearchCategories" class="btn btn-primary pull-right">Buscar</button>
                             </div>  
 
@@ -141,6 +142,24 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <div class="modal fade" id="modalImport">
+            <div class="container">
+                <div class="card bg-light mt-3">
+                    <div class="card-header">
+                        Importar Categorías
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.category.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="file" class="form-control">
+                            <br>
+                            <button class="btn btn-success">Importar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal modal-danger fade" id="modalDesactivate">
           <div class="modal-dialog">

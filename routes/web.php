@@ -77,6 +77,8 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 			Route::post('updateCategory', 'CategoryController@updateCategory')->name('admin.category.update');
 			Route::post('desactivateCategory', 'CategoryController@desactivateCategory')->name('admin.category.desactivate');
 			Route::post('activateCategory', 'CategoryController@activateCategory')->name('admin.category.activate');
+
+			Route::post('importCategory', 'CategoryController@import')->name('admin.category.import');
 		});
 
 		//Catalog

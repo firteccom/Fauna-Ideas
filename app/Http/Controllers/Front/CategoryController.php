@@ -82,8 +82,6 @@ class CategoryController extends Controller {
             $resp['category'] = '';
         }
 
-        //var_dump($data);
-
         return $resp;
 
     }
@@ -113,8 +111,6 @@ class CategoryController extends Controller {
             $resp['msg'] = 'No se obtuvo el producto '.$ex->getMessage();
             $resp['product'] = '';
         }
-
-        //var_dump($data);
 
         return $resp;
 
